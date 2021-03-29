@@ -1,0 +1,75 @@
+[[main]]
+  name = "Home"
+  url = ""
+  weight = -110
+
+[[main]]
+  name = "Java"
+  url = "java"
+  weight = -109
+
+[[main]]
+  name = "K8S"
+  url = "k8s"
+  weight = -108
+
+[[main]]
+  name = "Docker"
+  url = "docker"
+  weight = -107
+
+[[main]]
+  name = "Kotlin"
+  url = "kotlin"
+  weight = -106
+
+# Submenus are done this way: parent -> identifier
+[[main]]
+  name = "Java Learning Series"
+  identifier = "Links"
+  weight = -105
+[[main]]
+  parent = "Links"
+  name = "Java ss"
+  url = "java"
+[[main]]
+  parent = "Links"
+  name = "Kotlin"
+  url = "kotlin"
+
+[[main]]
+  name = "About"
+  url = "about/"
+  weight = -104
+
+# social menu links
+
+[[social]]
+  name = "github"
+  type = "social"
+  weight = 1
+  url = "https://github.com/#"
+[[social]]
+  name = "twitter"
+  weight = 2
+  url = "https://twitter.com/#"
+[[social]]
+  name = "linkedin"
+  weight = 3
+  url = "https://www.linkedin.com/in/#"
+[[social]]
+  name = "rss"
+  weight = 4
+  url = "index.xml"
+
+# other supported social links
+# name = "youtube"
+# url = "https://www.youtube.com/#"
+# name = "facebook"
+# url = "https://facebook.com/#"
+# name = "instagram"
+# url = "https://instagram.com/#"
+# name = "stackoverflow"
+# url = "https://stackoverflow.com/#"
+# name = "gitlab"
+# url = "https://gitlab.com/#"
