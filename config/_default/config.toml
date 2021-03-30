@@ -1,9 +1,9 @@
 # set `baseurl` to your root domain
 # if you set it to "/" share icons won't work properly on production
 baseurl = "https://programming4ninja.github.io/"  # Include trailing slash
-title = "Clarity"
-author = "Jane Doe"
-copyright = "Copyright © 2008–2018, Steve Francia and the Hugo Authors; all rights reserved."
+title = "Programming 4 Ninja"
+author = "Anil Sable"
+copyright = "Copyright © 2008–2018, Programming 4 Ninja; all rights reserved."
 # canonifyurls = true
 paginate = 10
 theme = "hugo-clarity"
@@ -11,8 +11,3 @@ theme = "hugo-clarity"
 disqusShortname = ""
 
 DefaultContentLanguage = "en"
-# [languages]
-# config/_default/languages.toml
-
-# [menus]
-# config/_default/menus/menu.xx.toml
