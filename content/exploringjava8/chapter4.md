@@ -1,8 +1,8 @@
 ---
-title: "{{ replace .Name "-" " " | title }}"
-date: {{ .Date }}
+title: "Chapter4"
+date: 2021-04-01T00:06:36+05:30
 draft: true
-weight: 2
+weight: 4
 tags : ["Exploring Java 8"]
 ---
 
