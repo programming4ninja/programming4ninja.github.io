@@ -1,1 +1,268 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>ExploringJava8 on Programming 4 Ninja</title><link>https://programming4ninja.github.io/exploringjava8/</link><description>Recent content in ExploringJava8 on Programming 4 Ninja</description><generator>Hugo -- gohugo.io</generator><copyright>Copyright © 2008–2018, Programming 4 Ninja; all rights reserved.</copyright><lastBuildDate>Wed, 31 Mar 2021 00:54:12 +0530</lastBuildDate><atom:link href="https://programming4ninja.github.io/exploringjava8/index.xml" rel="self" type="application/rss+xml"/></channel></rss>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>ExploringJava8 on Programming 4 Ninja</title><link>https://programming4ninja.github.io/exploringjava8/</link><description>Recent content in ExploringJava8 on Programming 4 Ninja</description><generator>Hugo -- gohugo.io</generator><copyright>Copyright © 2008–2018, Programming 4 Ninja; all rights reserved.</copyright><lastBuildDate>Wed, 31 Mar 2021 00:54:12 +0530</lastBuildDate><atom:link href="https://programming4ninja.github.io/exploringjava8/index.xml" rel="self" type="application/rss+xml"/><item><title>Chapter 1 : What's New in Java 8</title><link>https://programming4ninja.github.io/exploringjava8/chapter1/</link><pubDate>Wed, 31 Mar 2021 00:53:43 +0530</pubDate><guid>https://programming4ninja.github.io/exploringjava8/chapter1/</guid><description>
+&lt;p>Hello there techie ninjas, I hope you are doing well. We have started the new Series &amp;quot;Exploring Java 8&amp;quot;, Here we would be learning all the things which are making a buzz in the programming world.
+Since Java 8, java is moving in the direction towards the declarative programming approach from the imperative programming approach.
+If you are not aware of what is imperative programming and what is declarative programming.
+It is the way you write code.&lt;/p>
+&lt;h3 id="so-what-you-are-going-to-learn-in-this-series-">So what you are going to learn in this series ?&lt;/h3>
+&lt;ul>
+&lt;li>&lt;a href="https://programming4ninja.github.io/exploringjava8/chapter2/">Lambda in Java&lt;/a>&lt;/li>
+&lt;li>Functional Interfaces&lt;/li>
+&lt;li>Method and Constructor Reference&lt;/li>
+&lt;li>Streams API&lt;/li>
+&lt;li>Optionals&lt;/li>
+&lt;li>New Date/Time API&lt;/li>
+&lt;/ul>
+&lt;h3 id="few-words-about-imperative-vs-declarative-programming">Few words about Imperative vs Declarative Programming&lt;/h3>
+&lt;ul>
+&lt;li>&lt;a href="https://en.wikipedia.org/wiki/Declarative_programming">Declarative Programming&lt;/a> is a style of building the structure and elements of computer programming that express a computation's logic without describing its flow.&lt;/li>
+&lt;li>Many languages that apply this style attempt to minimize or eliminate side effects by describing what the program must accomplish in terms of the problem domain, rather than describe how to accomplish it as a sequence of the programming language primitives.&lt;/li>
+&lt;li>functional programming is sub-paradigm of declarative programming&lt;/li>
+&lt;li>&lt;a href="https://en.wikipedia.org/wiki/Imperative_programming">Imperative programming&lt;/a> is a programming paradigm that uses statements that change a program's state. Imperative programming focuses on describing how a program operates.&lt;/li>
+&lt;li>Procedural programming is a type of imperative programming in which the program is built from one or more procedures (also termed subroutines or functions)&lt;/li>
+&lt;/ul>
+&lt;p>That's all for the theory, Lets get our hand dirty with the code. See you all in next lessons.&lt;/p>
+&lt;p>&lt;a href="https://programming4ninja.github.io/exploringjava8/chapter2/">Chapter 2 : Lambda In Java &amp;gt;&amp;gt;&lt;/a>&lt;/p></description></item><item><title>Chapter 2 : Lambda In Java</title><link>https://programming4ninja.github.io/exploringjava8/chapter2/</link><pubDate>Wed, 31 Mar 2021 00:53:47 +0530</pubDate><guid>https://programming4ninja.github.io/exploringjava8/chapter2/</guid><description>
+&lt;p>Hello there techie ninjas, Hope you are doing well. Today in this blog we would be learning about Lambda,
+Functional interfaces, and we are going to see a lot of examples about Lambda which can tell us with the invention of Lambda how much code has become readable.
+Lambda is the coolest feature of Java 8.&lt;/p>
+&lt;h3 id="what-are-so-cool-things-about-lambda">What are so cool things about Lambda?&lt;/h3>
+&lt;ul>
+&lt;li>Till now, you have seen passing objects, primitives to the method as a parameter, with lambda coming in the picture, you can pass a function as a parameters&lt;/li>
+&lt;li>functions are treated as the first-class citizen now&lt;/li>
+&lt;li>Your code will become so easy to read, and a lot of boilerplate would get removed&lt;/li>
+&lt;li>Lambda is nothing, but a shorter way of implementing the functional interface&lt;/li>
+&lt;li>Java 8 bundled with a bunch of handful functional interfaces which is very helpful for building blocks&lt;/li>
+&lt;/ul>
+&lt;p>&lt;em>Let's start exploring Lambda, But before that have look at below classical example&lt;/em>&lt;/p>
+&lt;div class="highlight">&lt;pre class="chroma">&lt;code class="language-java" data-lang="java">&lt;span class="ln"> 1&lt;/span>&lt;span class="kd">class&lt;/span> &lt;span class="nc">MyThread&lt;/span> &lt;span class="kd">implements&lt;/span> &lt;span class="n">Runnable&lt;/span> &lt;span class="o">{&lt;/span>
+&lt;span class="ln"> 2&lt;/span> &lt;span class="nd">@Override&lt;/span>
+&lt;span class="ln"> 3&lt;/span> &lt;span class="kd">public&lt;/span> &lt;span class="kt">void&lt;/span> &lt;span class="nf">run&lt;/span>&lt;span class="o">()&lt;/span> &lt;span class="o">{&lt;/span>
+&lt;span class="ln"> 4&lt;/span> &lt;span class="n">System&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="na">out&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="na">println&lt;/span>&lt;span class="o">(&lt;/span>&lt;span class="s">&amp;#34;Hello From Thread !&amp;#34;&lt;/span>&lt;span class="o">);&lt;/span>
+&lt;span class="ln"> 5&lt;/span> &lt;span class="o">}&lt;/span>
+&lt;span class="ln"> 6&lt;/span>&lt;span class="o">}&lt;/span>
+&lt;span class="ln"> 7&lt;/span>
+&lt;span class="ln"> 8&lt;/span>&lt;span class="kd">public&lt;/span> &lt;span class="kd">class&lt;/span> &lt;span class="nc">LambdaExampleOldWay&lt;/span> &lt;span class="o">{&lt;/span>
+&lt;span class="ln"> 9&lt;/span> &lt;span class="kd">public&lt;/span> &lt;span class="kd">static&lt;/span> &lt;span class="kt">void&lt;/span> &lt;span class="nf">main&lt;/span>&lt;span class="o">(&lt;/span>&lt;span class="n">String&lt;/span> &lt;span class="n">args&lt;/span>&lt;span class="o">[])&lt;/span> &lt;span class="o">{&lt;/span>
+&lt;span class="ln">10&lt;/span> &lt;span class="n">Thread&lt;/span> &lt;span class="n">t1&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="k">new&lt;/span> &lt;span class="n">Thread&lt;/span>&lt;span class="o">(&lt;/span>&lt;span class="k">new&lt;/span> &lt;span class="n">MyThread&lt;/span>&lt;span class="o">());&lt;/span>
+&lt;span class="ln">11&lt;/span> &lt;span class="n">t1&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="na">start&lt;/span>&lt;span class="o">();&lt;/span>
+&lt;span class="ln">12&lt;/span> &lt;span class="o">}&lt;/span>
+&lt;span class="ln">13&lt;/span>&lt;span class="o">}&lt;/span>
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>In the above example, there is a lot of boilerplate code exists.
+if we are not maintaining a state, we shouldn't be needed to create a class just to declare a function.
+Now let's have a look at a new way of writing the same code in Lambda.&lt;/p>
+&lt;p>&lt;em>Solving a problem using Lambda way&lt;/em>&lt;/p>
+&lt;div class="highlight">&lt;pre class="chroma">&lt;code class="language-java" data-lang="java">&lt;span class="ln">1&lt;/span>&lt;span class="kd">public&lt;/span> &lt;span class="kd">class&lt;/span> &lt;span class="nc">LambdaExampleOldWay&lt;/span> &lt;span class="o">{&lt;/span>
+&lt;span class="ln">2&lt;/span> &lt;span class="kd">public&lt;/span> &lt;span class="kd">static&lt;/span> &lt;span class="kt">void&lt;/span> &lt;span class="nf">main&lt;/span>&lt;span class="o">(&lt;/span>&lt;span class="n">String&lt;/span> &lt;span class="n">args&lt;/span>&lt;span class="o">[])&lt;/span> &lt;span class="o">{&lt;/span>
+&lt;span class="ln">3&lt;/span> &lt;span class="n">Thread&lt;/span> &lt;span class="n">t1&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="k">new&lt;/span> &lt;span class="n">Thread&lt;/span>&lt;span class="o">(()&lt;/span> &lt;span class="o">-&amp;gt;&lt;/span> &lt;span class="o">{&lt;/span>
+&lt;span class="ln">4&lt;/span> &lt;span class="n">System&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="na">out&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="na">println&lt;/span>&lt;span class="o">(&lt;/span>&lt;span class="s">&amp;#34;Hello from Lambda Thread !!&amp;#34;&lt;/span>&lt;span class="o">);&lt;/span>
+&lt;span class="ln">5&lt;/span> &lt;span class="o">});&lt;/span>
+&lt;span class="ln">6&lt;/span> &lt;span class="n">t1&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="na">start&lt;/span>&lt;span class="o">();&lt;/span>
+&lt;span class="ln">7&lt;/span> &lt;span class="o">}&lt;/span>
+&lt;span class="ln">8&lt;/span>&lt;span class="o">}&lt;/span>
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>Simple, Clean, and Straight forward.
+Easy to understand.
+No Need for declaring class.&lt;/p>
+&lt;p>you must have understood the syntax for the declaring lambda. Here are the syntax and points about lambda&lt;/p>
+&lt;div class="highlight">&lt;pre class="chroma">&lt;code class="language-java" data-lang="java">&lt;span class="ln">1&lt;/span> &lt;span class="o">(&lt;/span>&lt;span class="n">parameter1&lt;/span>&lt;span class="o">,&lt;/span> &lt;span class="n">parameter2&lt;/span>&lt;span class="o">,&lt;/span> &lt;span class="o">.&lt;/span> &lt;span class="o">.&lt;/span> &lt;span class="o">.&lt;/span> &lt;span class="o">.)&lt;/span> &lt;span class="o">-&amp;gt;&lt;/span> &lt;span class="o">{&lt;/span>
+&lt;span class="ln">2&lt;/span> &lt;span class="n">body&lt;/span> &lt;span class="n">of&lt;/span> &lt;span class="n">lambda&lt;/span> &lt;span class="n">function&lt;/span>
+&lt;span class="ln">3&lt;/span> &lt;span class="o">}&lt;/span>
+&lt;/code>&lt;/pre>&lt;/div>&lt;ul>
+&lt;li>We declare lambda by arrow function -&amp;gt; symbol&lt;/li>
+&lt;li>Before arrow function, we have to specify parameters to the lambda functions&lt;/li>
+&lt;li>Followed by opening and closing curly braces with body specified within it&lt;/li>
+&lt;li>Specifying the data type for parameters is optional&lt;/li>
+&lt;li>Specifying the curly braces and return statement is optional if your lambda is a one-liner statement&lt;/li>
+&lt;/ul>
+&lt;h3 id="lets-have-another-example-of-lambda-for-sorting-elements-in-the-list">Let's have another example of Lambda for sorting elements in the list&lt;/h3>
+&lt;div class="highlight">&lt;pre class="chroma">&lt;code class="language-java" data-lang="java">&lt;span class="ln">1&lt;/span>&lt;span class="kd">public&lt;/span> &lt;span class="kd">class&lt;/span> &lt;span class="nc">LambdaExample&lt;/span> &lt;span class="o">{&lt;/span>
+&lt;span class="ln">2&lt;/span> &lt;span class="kd">public&lt;/span> &lt;span class="kd">static&lt;/span> &lt;span class="kt">void&lt;/span> &lt;span class="nf">main&lt;/span>&lt;span class="o">(&lt;/span>&lt;span class="n">String&lt;/span> &lt;span class="n">args&lt;/span>&lt;span class="o">[])&lt;/span> &lt;span class="o">{&lt;/span>
+&lt;span class="ln">3&lt;/span> &lt;span class="n">List&lt;/span>&lt;span class="o">&amp;lt;&lt;/span>&lt;span class="n">Integer&lt;/span>&lt;span class="o">&amp;gt;&lt;/span> &lt;span class="n">listOfNumbers&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">Arrays&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="na">asList&lt;/span>&lt;span class="o">(&lt;/span>&lt;span class="n">10&lt;/span>&lt;span class="o">,&lt;/span> &lt;span class="n">15&lt;/span>&lt;span class="o">,&lt;/span> &lt;span class="n">30&lt;/span>&lt;span class="o">,&lt;/span> &lt;span class="n">35&lt;/span>&lt;span class="o">,&lt;/span> &lt;span class="n">22&lt;/span>&lt;span class="o">,&lt;/span> &lt;span class="n">12&lt;/span>&lt;span class="o">,&lt;/span> &lt;span class="n">9&lt;/span>&lt;span class="o">);&lt;/span>
+&lt;span class="ln">4&lt;/span> &lt;span class="n">listOfNumbers&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="na">sort&lt;/span>&lt;span class="o">((&lt;/span>&lt;span class="n">num1&lt;/span>&lt;span class="o">,&lt;/span> &lt;span class="n">num2&lt;/span>&lt;span class="o">)&lt;/span> &lt;span class="o">-&amp;gt;&lt;/span> &lt;span class="n">num1&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="na">compareTo&lt;/span>&lt;span class="o">(&lt;/span>&lt;span class="n">num2&lt;/span>&lt;span class="o">));&lt;/span>
+&lt;span class="ln">5&lt;/span> &lt;span class="n">System&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="na">out&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="na">println&lt;/span>&lt;span class="o">(&lt;/span>&lt;span class="n">listOfNumbers&lt;/span>&lt;span class="o">);&lt;/span>
+&lt;span class="ln">6&lt;/span> &lt;span class="o">}&lt;/span>
+&lt;span class="ln">7&lt;/span>&lt;span class="o">}&lt;/span>
+&lt;/code>&lt;/pre>&lt;/div>&lt;ul>
+&lt;li>In the above example, sort accepts an object of the Comparator&lt;T> interface.&lt;/li>
+&lt;li>We have implemented the compareTo method of Comparator&lt;T> using lambda.&lt;/li>
+&lt;li>So behind the scene, Lambda is nothing but an anonymous implementation of the function in the interface.&lt;/li>
+&lt;/ul>
+&lt;h3 id="parameter-and-return-type-identification-in-lambda-function">Parameter and return type identification in Lambda function&lt;/h3>
+&lt;p>Now, the question is how will the lambda come to know the type of parameter,
+since parameter type declaration is optional and return type are not needed?&lt;/p>
+&lt;p>Basically, lambda is nothing but the anonymous method implementation of the interface.
+In this case of the sort, the method expects that the passed object should be implementing
+the Comparator&amp;lt;? super Integer&amp;gt; interface.Our lambda is implementing the same thing.
+Our lambda is satisfying the only method in the comparator.&lt;/p>
+&lt;div class="highlight">&lt;pre class="chroma">&lt;code class="language-java" data-lang="java">&lt;span class="ln">1&lt;/span>&lt;span class="nd">@java.lang.FunctionalInterface&lt;/span>
+&lt;span class="ln">2&lt;/span>&lt;span class="kd">public&lt;/span> &lt;span class="kd">interface&lt;/span> &lt;span class="nc">Comparator&lt;/span> &lt;span class="o">&amp;lt;&lt;/span>&lt;span class="n">T&lt;/span>&lt;span class="o">&amp;gt;&lt;/span> &lt;span class="o">{&lt;/span>
+&lt;span class="ln">3&lt;/span> &lt;span class="kt">int&lt;/span> &lt;span class="nf">compare&lt;/span>&lt;span class="o">(&lt;/span>&lt;span class="n">T&lt;/span> &lt;span class="n">t&lt;/span>&lt;span class="o">,&lt;/span> &lt;span class="n">T&lt;/span> &lt;span class="n">t1&lt;/span>&lt;span class="o">);&lt;/span>
+&lt;span class="ln">4&lt;/span>&lt;span class="o">}&lt;/span>
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>if you compare our lambda format, the number of parameters it accepts,
+the return type of the function is matching with our lambda.
+Our lambda is creating anonymous objects behind the scene only.&lt;/p>
+&lt;p>Now the One more question arises. The interface can have multiple abstract methods.
+Then which one our lambda will pick for matching its arguments?&lt;/p>
+&lt;p>The answer is that We can create a lambda function only for those interfaces which have only one abstract, unimplemented method in them.
+Java 8 Call them a &lt;strong>Functional Interface&lt;/strong>. An interface that supports the Functional Style of programming.
+We would be going to learn more about the functional interface in the next lesson.&lt;/p>
+&lt;p>Till then stay tuned, and See you all in the Next Lesson&lt;/p>
+&lt;p>&lt;a href="https://programming4ninja.github.io/exploringjava8/chapter1/">&amp;lt;&amp;lt; Chapter 1 : What's New in Java 8&lt;/a> | &lt;a href="https://programming4ninja.github.io/exploringjava8/chapter3/">Chapter 3 : Functional Interfaces &amp;gt;&amp;gt; &lt;/a>&lt;/p></description></item><item><title>Chapter 3 : Functional Interface</title><link>https://programming4ninja.github.io/exploringjava8/chapter3/</link><pubDate>Thu, 01 Apr 2021 00:06:33 +0530</pubDate><guid>https://programming4ninja.github.io/exploringjava8/chapter3/</guid><description>
+&lt;p>Hello there techie ninjas, I hope you are doing well.&lt;/p>
+&lt;p>Today in this blog we would be exploring Functional interfaces that were introduced in Java 8.
+Although we talked about functional interfaces a little bit, this blog would be completely hands-on on functional interfaces.
+We would be covering the Why, What, and How for the functional interfaces.
+If you haven't check out my previous blog &amp;quot;Lambda in java&amp;quot; please do checkout.
+That would set the stage for this blog. Let's get started then.&lt;/p>
+&lt;h3 id="what-is-functional-interface">What is Functional Interface?&lt;/h3>
+&lt;p>As we have seen in the previous blog, Functional Interface in Java 8 is an Interface in java with only a single abstract method.
+All Functional Interfaces are annotated with @FunctionalInterface annotation.&lt;/p>
+&lt;h3 id="why-there-is-a-need-for-a-functional-interface-or-an-interface-with-only-one-abstract-method">Why there is a need for a Functional Interface, or An Interface with only one abstract method?&lt;/h3>
+&lt;p>With Java 8, Java is set the stage for supporting the functional programming style paradigm.
+Functional Programming says that you should treat the function as a first-class citizen, Object-oriented programming emphasis mutating the state of objects, while Functional programming says that you should never mutate the state of the object,
+instead your function should create immutable objects; and name of the function should clearly specify the final state of objects.
+For each such function, we can have a functional interface.
+Such a functional interface can be implemented very well using Lambda, and it would be easily readable and clean code.
+Although you would rarely need to create one since java 8 has a whole bunch of functional interfaces for n number of operations.
+You might see this information not so clear, but when you start programming in a functional style, you will come to know the advantage of it.&lt;/p>
+&lt;h3 id="how-to-declare-your-own-functional-interface">How to Declare your own functional interface?&lt;/h3>
+&lt;p>It would be very easy, you can create a normal interface in java.
+To make your interface a functional interface, make sure it has only a single abstract un-implemented method.
+That all it required.
+Annotating your interface with @FunctionalInterface will tell the compiler that this interface would be used as a functional one, don't allow anyone in the future to add more methods.
+if so give compile error about that.
+However, it is optional, but a good safety net to work in a collaborative team.&lt;/p>
+&lt;p>&lt;em>Let's have look at below basic example of declaring a functional interface&lt;/em>&lt;/p>
+&lt;div class="highlight">&lt;pre class="chroma">&lt;code class="language-java" data-lang="java">&lt;span class="ln">1&lt;/span>&lt;span class="nd">@FunctionalInterface&lt;/span>
+&lt;span class="ln">2&lt;/span>&lt;span class="kd">interface&lt;/span> &lt;span class="nc">MyInterface&lt;/span> &lt;span class="o">{&lt;/span>
+&lt;span class="ln">3&lt;/span> &lt;span class="kd">public&lt;/span> &lt;span class="kt">void&lt;/span> &lt;span class="nf">doSomething&lt;/span>&lt;span class="o">();&lt;/span>
+&lt;span class="ln">4&lt;/span>&lt;span class="o">}&lt;/span>
+&lt;/code>&lt;/pre>&lt;/div>&lt;h3 id="basic-functional-interfaces-available-in-java-8">Basic Functional Interfaces available in Java 8&lt;/h3>
+&lt;p>Java 8 comes with a bunch of functional interfaces which are getting used in many of the Java 8 features like streams.
+There are some common functional interfaces that you will definitely face while doing functional programming.
+We would be exploring those. Once you are familiar with those, I am pretty sure that you will learn which one to use in which scenario.
+So let's get started with it.&lt;/p>
+&lt;h5 id="consumer-functional-interface">&lt;em>Consumer Functional Interface&lt;/em>&lt;/h5>
+&lt;p>As the name tell this functional interface act as a consumer.
+Let's first understand what do you mean by a consumer.
+A consumer is something, which accepts input and processes it.&lt;br>
+It won't give feedback to the caller. That means, it did not return anything.
+So while programming, if you come across such a scenario, you can use the consumer interface.
+A typical example would be printing something, write something to the database, send something to another client.&lt;/p>
+&lt;p>This is how the functional Interface look like for the Consumer&lt;/p>
+&lt;div class="highlight">&lt;pre class="chroma">&lt;code class="language-java" data-lang="java">&lt;span class="ln">1&lt;/span>&lt;span class="nd">@FunctionalInterface&lt;/span>
+&lt;span class="ln">2&lt;/span>&lt;span class="kd">public&lt;/span> &lt;span class="kd">interface&lt;/span> &lt;span class="nc">Consumer&lt;/span>&lt;span class="o">&amp;lt;&lt;/span>&lt;span class="n">T&lt;/span>&lt;span class="o">&amp;gt;&lt;/span> &lt;span class="o">{&lt;/span>
+&lt;span class="ln">3&lt;/span> &lt;span class="kt">void&lt;/span> &lt;span class="nf">accept&lt;/span>&lt;span class="o">(&lt;/span>&lt;span class="n">T&lt;/span> &lt;span class="n">t&lt;/span>&lt;span class="o">);&lt;/span>
+&lt;span class="ln">4&lt;/span>&lt;span class="o">}&lt;/span>
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>Below is an example of a consumer example that consumes string and prints it on the console.&lt;/p>
+&lt;div class="highlight">&lt;pre class="chroma">&lt;code class="language-java" data-lang="java">&lt;span class="ln"> 1&lt;/span>&lt;span class="kn">import&lt;/span> &lt;span class="nn">java.util.Arrays&lt;/span>&lt;span class="o">;&lt;/span>
+&lt;span class="ln"> 2&lt;/span>&lt;span class="kn">import&lt;/span> &lt;span class="nn">java.util.List&lt;/span>&lt;span class="o">;&lt;/span>
+&lt;span class="ln"> 3&lt;/span>&lt;span class="kn">import&lt;/span> &lt;span class="nn">java.util.function.Consumer&lt;/span>&lt;span class="o">;&lt;/span>
+&lt;span class="ln"> 4&lt;/span>
+&lt;span class="ln"> 5&lt;/span>&lt;span class="kd">public&lt;/span> &lt;span class="kd">class&lt;/span> &lt;span class="nc">ConsumerExample&lt;/span> &lt;span class="o">{&lt;/span>
+&lt;span class="ln"> 6&lt;/span> &lt;span class="kd">public&lt;/span> &lt;span class="kd">static&lt;/span> &lt;span class="kt">void&lt;/span> &lt;span class="nf">main&lt;/span>&lt;span class="o">(&lt;/span>&lt;span class="n">String&lt;/span> &lt;span class="n">args&lt;/span>&lt;span class="o">[])&lt;/span> &lt;span class="o">{&lt;/span>
+&lt;span class="ln"> 7&lt;/span> &lt;span class="n">List&lt;/span>&lt;span class="o">&amp;lt;&lt;/span>&lt;span class="n">String&lt;/span>&lt;span class="o">&amp;gt;&lt;/span> &lt;span class="n">listOfStrings&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">Arrays&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="na">asList&lt;/span>&lt;span class="o">(&lt;/span>&lt;span class="s">&amp;#34;Apple&amp;#34;&lt;/span>&lt;span class="o">,&lt;/span> &lt;span class="s">&amp;#34;Ball&amp;#34;&lt;/span>&lt;span class="o">,&lt;/span> &lt;span class="s">&amp;#34;Cat&amp;#34;&lt;/span>&lt;span class="o">,&lt;/span> &lt;span class="s">&amp;#34;Dog&amp;#34;&lt;/span>&lt;span class="o">,&lt;/span> &lt;span class="s">&amp;#34;Egg&amp;#34;&lt;/span>&lt;span class="o">,&lt;/span> &lt;span class="s">&amp;#34;Fish&amp;#34;&lt;/span>&lt;span class="o">);&lt;/span>
+&lt;span class="ln"> 8&lt;/span>
+&lt;span class="ln"> 9&lt;/span> &lt;span class="cm">/* Easy way for beginners */&lt;/span>
+&lt;span class="ln">10&lt;/span> &lt;span class="n">Consumer&lt;/span>&lt;span class="o">&amp;lt;&lt;/span>&lt;span class="n">String&lt;/span>&lt;span class="o">&amp;gt;&lt;/span> &lt;span class="n">printConsumer&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="o">(&lt;/span>&lt;span class="n">input&lt;/span>&lt;span class="o">)&lt;/span> &lt;span class="o">-&amp;gt;&lt;/span> &lt;span class="n">System&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="na">out&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="na">println&lt;/span>&lt;span class="o">(&lt;/span>&lt;span class="n">input&lt;/span>&lt;span class="o">);&lt;/span>
+&lt;span class="ln">11&lt;/span> &lt;span class="n">listOfStrings&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="na">forEach&lt;/span>&lt;span class="o">(&lt;/span>&lt;span class="n">printConsumer&lt;/span>&lt;span class="o">);&lt;/span>
+&lt;span class="ln">12&lt;/span>
+&lt;span class="ln">13&lt;/span> &lt;span class="cm">/* Cleaner and shorter way */&lt;/span>
+&lt;span class="ln">14&lt;/span> &lt;span class="n">listOfStrings&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="na">forEach&lt;/span>&lt;span class="o">((&lt;/span>&lt;span class="n">input&lt;/span>&lt;span class="o">)&lt;/span> &lt;span class="o">-&amp;gt;&lt;/span> &lt;span class="n">System&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="na">out&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="na">println&lt;/span>&lt;span class="o">(&lt;/span>&lt;span class="n">input&lt;/span>&lt;span class="o">));&lt;/span>
+&lt;span class="ln">15&lt;/span> &lt;span class="o">}&lt;/span>
+&lt;span class="ln">16&lt;/span>&lt;span class="o">}&lt;/span>
+&lt;/code>&lt;/pre>&lt;/div>&lt;h4 id="predicate-functional-interface">&lt;em>Predicate Functional Interface&lt;/em>&lt;/h4>
+&lt;p>As the name suggests, this interface has a method, named test.
+it will act as a predicate for the input. You can pass input to it.
+function body will have a code that can determine whether the pass input is valid for some condition, and it will return boolean.
+Let's have a look at the predicate functional interface available in java 8.&lt;/p>
+&lt;div class="highlight">&lt;pre class="chroma">&lt;code class="language-java" data-lang="java">&lt;span class="ln">1&lt;/span>&lt;span class="nd">@FunctionalInterface&lt;/span>
+&lt;span class="ln">2&lt;/span>&lt;span class="kd">public&lt;/span> &lt;span class="kd">interface&lt;/span> &lt;span class="nc">Predicate&lt;/span>&lt;span class="o">&amp;lt;&lt;/span>&lt;span class="n">T&lt;/span>&lt;span class="o">&amp;gt;&lt;/span> &lt;span class="o">{&lt;/span>
+&lt;span class="ln">3&lt;/span> &lt;span class="kt">boolean&lt;/span> &lt;span class="nf">test&lt;/span>&lt;span class="o">(&lt;/span>&lt;span class="n">T&lt;/span> &lt;span class="n">t&lt;/span>&lt;span class="o">);&lt;/span>
+&lt;span class="ln">4&lt;/span>&lt;span class="o">}&lt;/span>
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>let's have a look at the below example, which demonstrates the usage of the predicate interface. In the below example, we have used the Streams API, which was introduced in java8. You might not be familiar with that, but as of now, you can think it is like an iterator on the lists. We would be going to learn about Streams API in-depth going ahead in this blog.&lt;/p>
+&lt;div class="highlight">&lt;pre class="chroma">&lt;code class="language-java" data-lang="java">&lt;span class="ln"> 1&lt;/span>&lt;span class="kn">import&lt;/span> &lt;span class="nn">java.util.Arrays&lt;/span>&lt;span class="o">;&lt;/span>
+&lt;span class="ln"> 2&lt;/span>&lt;span class="kn">import&lt;/span> &lt;span class="nn">java.util.List&lt;/span>&lt;span class="o">;&lt;/span>
+&lt;span class="ln"> 3&lt;/span>&lt;span class="kn">import&lt;/span> &lt;span class="nn">java.util.function.Predicate&lt;/span>&lt;span class="o">;&lt;/span>
+&lt;span class="ln"> 4&lt;/span>&lt;span class="kn">import&lt;/span> &lt;span class="nn">java.util.stream.Collectors&lt;/span>&lt;span class="o">;&lt;/span>
+&lt;span class="ln"> 5&lt;/span>
+&lt;span class="ln"> 6&lt;/span>&lt;span class="kd">public&lt;/span> &lt;span class="kd">class&lt;/span> &lt;span class="nc">PredicateExample&lt;/span> &lt;span class="o">{&lt;/span>
+&lt;span class="ln"> 7&lt;/span> &lt;span class="kd">public&lt;/span> &lt;span class="kd">static&lt;/span> &lt;span class="kt">void&lt;/span> &lt;span class="nf">main&lt;/span>&lt;span class="o">(&lt;/span>&lt;span class="n">String&lt;/span> &lt;span class="n">args&lt;/span>&lt;span class="o">[])&lt;/span> &lt;span class="o">{&lt;/span>
+&lt;span class="ln"> 8&lt;/span> &lt;span class="n">List&lt;/span>&lt;span class="o">&amp;lt;&lt;/span>&lt;span class="n">String&lt;/span>&lt;span class="o">&amp;gt;&lt;/span> &lt;span class="n">listOfStrings&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">Arrays&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="na">asList&lt;/span>&lt;span class="o">(&lt;/span>&lt;span class="s">&amp;#34;Apple&amp;#34;&lt;/span>&lt;span class="o">,&lt;/span> &lt;span class="s">&amp;#34;Ball&amp;#34;&lt;/span>&lt;span class="o">,&lt;/span> &lt;span class="s">&amp;#34;Cat&amp;#34;&lt;/span>&lt;span class="o">,&lt;/span>
+&lt;span class="ln"> 9&lt;/span> &lt;span class="s">&amp;#34;Dog&amp;#34;&lt;/span>&lt;span class="o">,&lt;/span> &lt;span class="s">&amp;#34;Egg&amp;#34;&lt;/span>&lt;span class="o">,&lt;/span> &lt;span class="s">&amp;#34;Fish&amp;#34;&lt;/span>&lt;span class="o">,&lt;/span> &lt;span class="s">&amp;#34;Ground&amp;#34;&lt;/span>&lt;span class="o">,&lt;/span>
+&lt;span class="ln">10&lt;/span> &lt;span class="s">&amp;#34;Horse&amp;#34;&lt;/span>&lt;span class="o">,&lt;/span> &lt;span class="s">&amp;#34;Ice-Cream&amp;#34;&lt;/span>&lt;span class="o">,&lt;/span> &lt;span class="s">&amp;#34;Juice&amp;#34;&lt;/span>&lt;span class="o">,&lt;/span>
+&lt;span class="ln">11&lt;/span> &lt;span class="s">&amp;#34;Kite&amp;#34;&lt;/span>&lt;span class="o">,&lt;/span> &lt;span class="s">&amp;#34;Lemon&amp;#34;&lt;/span>&lt;span class="o">,&lt;/span> &lt;span class="s">&amp;#34;Mango&amp;#34;&lt;/span>&lt;span class="o">,&lt;/span> &lt;span class="s">&amp;#34;Nest&amp;#34;&lt;/span>&lt;span class="o">,&lt;/span>
+&lt;span class="ln">12&lt;/span> &lt;span class="s">&amp;#34;Orange&amp;#34;&lt;/span>&lt;span class="o">,&lt;/span> &lt;span class="s">&amp;#34;Pears&amp;#34;&lt;/span>&lt;span class="o">,&lt;/span> &lt;span class="s">&amp;#34;Queen&amp;#34;&lt;/span>&lt;span class="o">,&lt;/span> &lt;span class="s">&amp;#34;Rat&amp;#34;&lt;/span>&lt;span class="o">,&lt;/span>
+&lt;span class="ln">13&lt;/span> &lt;span class="s">&amp;#34;Sun&amp;#34;&lt;/span>&lt;span class="o">,&lt;/span> &lt;span class="s">&amp;#34;Tv&amp;#34;&lt;/span>&lt;span class="o">,&lt;/span> &lt;span class="s">&amp;#34;Umbrella&amp;#34;&lt;/span>&lt;span class="o">,&lt;/span> &lt;span class="s">&amp;#34;Volvo&amp;#34;&lt;/span>&lt;span class="o">,&lt;/span> &lt;span class="s">&amp;#34;Watch&amp;#34;&lt;/span>&lt;span class="o">,&lt;/span> &lt;span class="s">&amp;#34;Xray&amp;#34;&lt;/span>&lt;span class="o">,&lt;/span> &lt;span class="s">&amp;#34;Zebra&amp;#34;&lt;/span>&lt;span class="o">);&lt;/span>
+&lt;span class="ln">14&lt;/span>
+&lt;span class="ln">15&lt;/span> &lt;span class="c1">// Predicate which accept string, check its length and if it is 3 or less
+&lt;/span>&lt;span class="ln">16&lt;/span>&lt;span class="c1">&lt;/span> &lt;span class="c1">// then return true otherwise it will return false
+&lt;/span>&lt;span class="ln">17&lt;/span>&lt;span class="c1">&lt;/span> &lt;span class="n">Predicate&lt;/span>&lt;span class="o">&amp;lt;&lt;/span>&lt;span class="n">String&lt;/span>&lt;span class="o">&amp;gt;&lt;/span> &lt;span class="n">predicate&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="o">(&lt;/span>&lt;span class="n">input&lt;/span>&lt;span class="o">)&lt;/span> &lt;span class="o">-&amp;gt;&lt;/span> &lt;span class="n">input&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="na">length&lt;/span>&lt;span class="o">()&lt;/span> &lt;span class="o">&amp;lt;=&lt;/span> &lt;span class="n">3&lt;/span>&lt;span class="o">;&lt;/span>
+&lt;span class="ln">18&lt;/span>
+&lt;span class="ln">19&lt;/span> &lt;span class="n">List&lt;/span>&lt;span class="o">&amp;lt;&lt;/span>&lt;span class="n">String&lt;/span>&lt;span class="o">&amp;gt;&lt;/span> &lt;span class="n">listWithOnly4letter&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">listOfStrings&lt;/span>
+&lt;span class="ln">20&lt;/span> &lt;span class="c1">// consider this as elements are iterating one by one
+&lt;/span>&lt;span class="ln">21&lt;/span>&lt;span class="c1">&lt;/span> &lt;span class="o">.&lt;/span>&lt;span class="na">stream&lt;/span>&lt;span class="o">()&lt;/span>
+&lt;span class="ln">22&lt;/span> &lt;span class="c1">// Applying our predicate, filter function which only
+&lt;/span>&lt;span class="ln">23&lt;/span>&lt;span class="c1">&lt;/span> &lt;span class="c1">// send those value to next level for which predicate return true
+&lt;/span>&lt;span class="ln">24&lt;/span>&lt;span class="c1">&lt;/span> &lt;span class="o">.&lt;/span>&lt;span class="na">filter&lt;/span>&lt;span class="o">(&lt;/span>&lt;span class="n">predicate&lt;/span>&lt;span class="o">)&lt;/span>
+&lt;span class="ln">25&lt;/span> &lt;span class="c1">// collect all element who pass ed filter test
+&lt;/span>&lt;span class="ln">26&lt;/span>&lt;span class="c1">&lt;/span> &lt;span class="o">.&lt;/span>&lt;span class="na">collect&lt;/span>&lt;span class="o">(&lt;/span>&lt;span class="n">Collectors&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="na">toList&lt;/span>&lt;span class="o">());&lt;/span>
+&lt;span class="ln">27&lt;/span>
+&lt;span class="ln">28&lt;/span> &lt;span class="n">System&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="na">out&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="na">println&lt;/span>&lt;span class="o">(&lt;/span>&lt;span class="n">listWithOnly4letter&lt;/span>&lt;span class="o">);&lt;/span>
+&lt;span class="ln">29&lt;/span> &lt;span class="o">}&lt;/span>
+&lt;span class="ln">30&lt;/span>&lt;span class="o">}&lt;/span>
+&lt;/code>&lt;/pre>&lt;/div>&lt;h4 id="supplier-functional-interface">&lt;em>Supplier Functional Interface&lt;/em>&lt;/h4>
+&lt;p>As the name suggests, the Supplier functional interface deals only with supplying values without any input.
+this is how the supplier interface looks like.&lt;/p>
+&lt;div class="highlight">&lt;pre class="chroma">&lt;code class="language-java" data-lang="java">&lt;span class="ln">1&lt;/span>&lt;span class="nd">@FunctionalInterface&lt;/span>
+&lt;span class="ln">2&lt;/span>&lt;span class="kd">public&lt;/span> &lt;span class="kd">interface&lt;/span> &lt;span class="nc">Supplier&lt;/span>&lt;span class="o">&amp;lt;&lt;/span>&lt;span class="n">T&lt;/span>&lt;span class="o">&amp;gt;&lt;/span> &lt;span class="o">{&lt;/span>
+&lt;span class="ln">3&lt;/span> &lt;span class="n">T&lt;/span> &lt;span class="nf">get&lt;/span>&lt;span class="o">();&lt;/span>
+&lt;span class="ln">4&lt;/span>&lt;span class="o">}&lt;/span>
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>Let's have a look at the below example, where we have created a double supplier of random values. one can simply invoke the get method of it and they will get a random value.&lt;/p>
+&lt;div class="highlight">&lt;pre class="chroma">&lt;code class="language-java" data-lang="java">&lt;span class="ln">1&lt;/span>&lt;span class="kn">import&lt;/span> &lt;span class="nn">java.util.function.Supplier&lt;/span>&lt;span class="o">;&lt;/span>
+&lt;span class="ln">2&lt;/span>
+&lt;span class="ln">3&lt;/span>&lt;span class="kd">public&lt;/span> &lt;span class="kd">class&lt;/span> &lt;span class="nc">SupplierExample&lt;/span> &lt;span class="o">{&lt;/span>
+&lt;span class="ln">4&lt;/span> &lt;span class="kd">public&lt;/span> &lt;span class="kd">static&lt;/span> &lt;span class="kt">void&lt;/span> &lt;span class="nf">main&lt;/span>&lt;span class="o">(&lt;/span>&lt;span class="n">String&lt;/span> &lt;span class="n">args&lt;/span>&lt;span class="o">[])&lt;/span> &lt;span class="o">{&lt;/span>
+&lt;span class="ln">5&lt;/span> &lt;span class="n">Supplier&lt;/span>&lt;span class="o">&amp;lt;&lt;/span>&lt;span class="n">Double&lt;/span>&lt;span class="o">&amp;gt;&lt;/span> &lt;span class="n">doubleSupplier&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="o">()&lt;/span> &lt;span class="o">-&amp;gt;&lt;/span> &lt;span class="n">Math&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="na">random&lt;/span>&lt;span class="o">();&lt;/span>
+&lt;span class="ln">6&lt;/span> &lt;span class="n">System&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="na">out&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="na">println&lt;/span>&lt;span class="o">(&lt;/span>&lt;span class="n">doubleSupplier&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="na">get&lt;/span>&lt;span class="o">());&lt;/span>
+&lt;span class="ln">7&lt;/span> &lt;span class="o">}&lt;/span>
+&lt;span class="ln">8&lt;/span>&lt;span class="o">}&lt;/span>
+&lt;/code>&lt;/pre>&lt;/div>&lt;h4 id="function-functional-interface">&lt;em>Function Functional Interface&lt;/em>&lt;/h4>
+&lt;p>A function interface acts as a converter sort of thing.
+it accepts one parameter of type X and can return the value of type X or Y.
+whenever you have a use case of converting or transforming something into another form.
+you can use this interface. below is the signature of the functional interface&lt;/p>
+&lt;div class="highlight">&lt;pre class="chroma">&lt;code class="language-java" data-lang="java">&lt;span class="ln">1&lt;/span>&lt;span class="nd">@FunctionalInterface&lt;/span>
+&lt;span class="ln">2&lt;/span>&lt;span class="kd">public&lt;/span> &lt;span class="kd">interface&lt;/span> &lt;span class="nc">Function&lt;/span>&lt;span class="o">&amp;lt;&lt;/span>&lt;span class="n">T&lt;/span>&lt;span class="o">,&lt;/span> &lt;span class="n">R&lt;/span>&lt;span class="o">&amp;gt;&lt;/span> &lt;span class="o">{&lt;/span>
+&lt;span class="ln">3&lt;/span> &lt;span class="n">R&lt;/span> &lt;span class="nf">apply&lt;/span>&lt;span class="o">(&lt;/span>&lt;span class="n">T&lt;/span> &lt;span class="n">t&lt;/span>&lt;span class="o">);&lt;/span>
+&lt;span class="ln">4&lt;/span>&lt;span class="o">}&lt;/span>
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>Let's have a look at the below example, Again this example would be related to streams.
+think this example similar to the predicate example.&lt;/p>
+&lt;div class="highlight">&lt;pre class="chroma">&lt;code class="language-java" data-lang="java">&lt;span class="ln"> 1&lt;/span>&lt;span class="kn">import&lt;/span> &lt;span class="nn">java.util.Arrays&lt;/span>&lt;span class="o">;&lt;/span>
+&lt;span class="ln"> 2&lt;/span>&lt;span class="kn">import&lt;/span> &lt;span class="nn">java.util.List&lt;/span>&lt;span class="o">;&lt;/span>
+&lt;span class="ln"> 3&lt;/span>&lt;span class="kn">import&lt;/span> &lt;span class="nn">java.util.function.Function&lt;/span>&lt;span class="o">;&lt;/span>
+&lt;span class="ln"> 4&lt;/span>&lt;span class="kn">import&lt;/span> &lt;span class="nn">java.util.stream.Collectors&lt;/span>&lt;span class="o">;&lt;/span>
+&lt;span class="ln"> 5&lt;/span>
+&lt;span class="ln"> 6&lt;/span>&lt;span class="kd">public&lt;/span> &lt;span class="kd">class&lt;/span> &lt;span class="nc">FunctionalInterfaceExample&lt;/span> &lt;span class="o">{&lt;/span>
+&lt;span class="ln"> 7&lt;/span>&lt;span class="kd">public&lt;/span> &lt;span class="kd">static&lt;/span> &lt;span class="kt">void&lt;/span> &lt;span class="nf">main&lt;/span>&lt;span class="o">(&lt;/span>&lt;span class="n">String&lt;/span> &lt;span class="n">args&lt;/span>&lt;span class="o">[])&lt;/span> &lt;span class="o">{&lt;/span>
+&lt;span class="ln"> 8&lt;/span>
+&lt;span class="ln"> 9&lt;/span> &lt;span class="n">List&lt;/span>&lt;span class="o">&amp;lt;&lt;/span>&lt;span class="n">String&lt;/span>&lt;span class="o">&amp;gt;&lt;/span> &lt;span class="n">listOfStrings&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">Arrays&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="na">asList&lt;/span>&lt;span class="o">(&lt;/span>&lt;span class="s">&amp;#34;one&amp;#34;&lt;/span>&lt;span class="o">,&lt;/span> &lt;span class="s">&amp;#34;two&amp;#34;&lt;/span>&lt;span class="o">,&lt;/span> &lt;span class="s">&amp;#34;three&amp;#34;&lt;/span>&lt;span class="o">);&lt;/span>
+&lt;span class="ln">10&lt;/span>
+&lt;span class="ln">11&lt;/span> &lt;span class="n">Function&lt;/span>&lt;span class="o">&amp;lt;&lt;/span>&lt;span class="n">String&lt;/span>&lt;span class="o">,&lt;/span> &lt;span class="n">String&lt;/span>&lt;span class="o">&amp;gt;&lt;/span> &lt;span class="n">transformer&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="o">(&lt;/span>&lt;span class="n">str&lt;/span>&lt;span class="o">)&lt;/span> &lt;span class="o">-&amp;gt;&lt;/span> &lt;span class="n">str&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="na">toUpperCase&lt;/span>&lt;span class="o">();&lt;/span>
+&lt;span class="ln">12&lt;/span>
+&lt;span class="ln">13&lt;/span> &lt;span class="n">String&lt;/span> &lt;span class="n">normalString&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="s">&amp;#34;abc&amp;#34;&lt;/span>&lt;span class="o">;&lt;/span>
+&lt;span class="ln">14&lt;/span> &lt;span class="n">String&lt;/span> &lt;span class="n">upperCaseString&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">transformer&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="na">apply&lt;/span>&lt;span class="o">(&lt;/span>&lt;span class="n">normalString&lt;/span>&lt;span class="o">);&lt;/span>
+&lt;span class="ln">15&lt;/span> &lt;span class="n">System&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="na">out&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="na">println&lt;/span>&lt;span class="o">(&lt;/span>&lt;span class="n">upperCaseString&lt;/span>&lt;span class="o">);&lt;/span>
+&lt;span class="ln">16&lt;/span>
+&lt;span class="ln">17&lt;/span>
+&lt;span class="ln">18&lt;/span> &lt;span class="n">List&lt;/span>&lt;span class="o">&amp;lt;&lt;/span>&lt;span class="n">String&lt;/span>&lt;span class="o">&amp;gt;&lt;/span> &lt;span class="n">upperCaseStringList&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">listOfStrings&lt;/span>
+&lt;span class="ln">19&lt;/span> &lt;span class="o">.&lt;/span>&lt;span class="na">stream&lt;/span>&lt;span class="o">()&lt;/span>
+&lt;span class="ln">20&lt;/span> &lt;span class="o">.&lt;/span>&lt;span class="na">map&lt;/span>&lt;span class="o">(&lt;/span>&lt;span class="n">transformer&lt;/span>&lt;span class="o">)&lt;/span>
+&lt;span class="ln">21&lt;/span> &lt;span class="o">.&lt;/span>&lt;span class="na">collect&lt;/span>&lt;span class="o">(&lt;/span>&lt;span class="n">Collectors&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="na">toList&lt;/span>&lt;span class="o">());&lt;/span>
+&lt;span class="ln">22&lt;/span>
+&lt;span class="ln">23&lt;/span> &lt;span class="n">System&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="na">out&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="na">println&lt;/span>&lt;span class="o">(&lt;/span>&lt;span class="n">upperCaseStringList&lt;/span>&lt;span class="o">);&lt;/span>
+&lt;span class="ln">24&lt;/span> &lt;span class="o">}&lt;/span>
+&lt;span class="ln">25&lt;/span>&lt;span class="o">}&lt;/span>
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>There are lots of other functional interfaces available in java 8.
+explore other functional Interfaces added as part of Java 8 in the package &amp;quot;java.util.function&amp;quot;&lt;/p>
+&lt;p>That's all for this tutorial friends. stay tune on Java4Ninja. See you in the next Blog.&lt;/p>
+&lt;p>&lt;a href="https://programming4ninja.github.io/exploringjava8/chapter2/">&amp;lt;&amp;lt; Chapter 2 : Lambda In Java&lt;/a> | &lt;a href="https://programming4ninja.github.io/exploringjava8/chapter4/">Chapter 4 : Java Method Reference and Constructor Reference &amp;gt;&amp;gt; &lt;/a>&lt;/p></description></item></channel></rss>
