@@ -2,6 +2,7 @@
 title: "Chapter 2 : Lambda In Java"
 date: 2021-03-31T00:53:47+05:30
 weight: 2
+description: "Lambda function tutorial in java 8 with example"
 tags : ["Exploring Java 8"]
 ---
 

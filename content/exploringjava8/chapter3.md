@@ -1,5 +1,6 @@
 ---
 title: "Chapter 3 : Functional Interface"
+description: "functional interface in java 8; need for a functional interface; declaring our own functional interface; usage of consumer, predicate, supplier and function a functional interface in java 8 with example"
 date: 2021-04-01T00:06:33+05:30
 weight: 3
 tags : ["Exploring Java 8"]
@@ -226,4 +227,4 @@ explore other functional Interfaces added as part of Java 8 in the package "java
 
 That's all for this tutorial friends. stay tune on Java4Ninja. See you in the next Blog.
 
-[<< Chapter 2 : Lambda In Java](/exploringjava8/chapter2/) | [Chapter 4 : Java Method Reference and Constructor Reference >> ](/exploringjava8/chapter4/)
+[<< Chapter 2 : Lambda In Java](/exploringjava8/chapter2/) | [Chapter 4 : Method & Constructor Reference in Java 8 >> ](/exploringjava8/chapter4/)
