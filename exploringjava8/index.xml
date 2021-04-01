@@ -265,4 +265,259 @@ think this example similar to the predicate example.&lt;/p>
 &lt;/code>&lt;/pre>&lt;/div>&lt;p>There are lots of other functional interfaces available in java 8.
 explore other functional Interfaces added as part of Java 8 in the package &amp;quot;java.util.function&amp;quot;&lt;/p>
 &lt;p>That's all for this tutorial friends. stay tune on Java4Ninja. See you in the next Blog.&lt;/p>
-&lt;p>&lt;a href="https://programming4ninja.github.io/exploringjava8/chapter2/">&amp;lt;&amp;lt; Chapter 2 : Lambda In Java&lt;/a> | &lt;a href="https://programming4ninja.github.io/exploringjava8/chapter4/">Chapter 4 : Java Method Reference and Constructor Reference &amp;gt;&amp;gt; &lt;/a>&lt;/p></description></item></channel></rss>
+&lt;p>&lt;a href="https://programming4ninja.github.io/exploringjava8/chapter2/">&amp;lt;&amp;lt; Chapter 2 : Lambda In Java&lt;/a> | &lt;a href="https://programming4ninja.github.io/exploringjava8/chapter4/">Chapter 4 : Method &amp;amp; Constructor Reference in Java 8 &amp;gt;&amp;gt; &lt;/a>&lt;/p></description></item><item><title>Chapter 4 : Method &amp; Constructor Reference in Java 8</title><link>https://programming4ninja.github.io/exploringjava8/chapter4/</link><pubDate>Thu, 01 Apr 2021 00:06:36 +0530</pubDate><guid>https://programming4ninja.github.io/exploringjava8/chapter4/</guid><description>
+&lt;p>Hello there techie ninjas, I hope you are doing well.
+Welcome to Programming 4 Ninja and another blog on Method Reference &amp;amp; Constructor Reference in the Exploring Java 8 Series.
+Let's get started with the content then.&lt;/p>
+&lt;h3 id="what-is-the-method-reference-in-java-8">What is the Method Reference in Java 8?&lt;/h3>
+&lt;p>Method Reference is another way of writing concise lambda of one line, in case your lambda is just calling a
+function on an object, or a static function on class.&lt;/p>
+&lt;p>&lt;em>let's take the example of the below lambda&lt;/em>&lt;/p>
+&lt;div class="highlight">&lt;pre class="chroma">&lt;code class="language-java" data-lang="java">&lt;span class="ln"> 1&lt;/span>&lt;span class="kn">import&lt;/span> &lt;span class="nn">java.util.function.Consumer&lt;/span>&lt;span class="o">;&lt;/span>
+&lt;span class="ln"> 2&lt;/span>
+&lt;span class="ln"> 3&lt;/span>&lt;span class="kd">public&lt;/span> &lt;span class="kd">class&lt;/span> &lt;span class="nc">Example&lt;/span> &lt;span class="o">{&lt;/span>
+&lt;span class="ln"> 4&lt;/span>
+&lt;span class="ln"> 5&lt;/span> &lt;span class="kd">public&lt;/span> &lt;span class="kt">void&lt;/span> &lt;span class="nf">printStringInUpperCase&lt;/span>&lt;span class="o">(&lt;/span>&lt;span class="n">String&lt;/span> &lt;span class="n">str&lt;/span>&lt;span class="o">)&lt;/span> &lt;span class="o">{&lt;/span>
+&lt;span class="ln"> 6&lt;/span> &lt;span class="n">System&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="na">out&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="na">println&lt;/span>&lt;span class="o">(&lt;/span>&lt;span class="n">str&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="na">toUpperCase&lt;/span>&lt;span class="o">());&lt;/span>
+&lt;span class="ln"> 7&lt;/span> &lt;span class="o">}&lt;/span>
+&lt;span class="ln"> 8&lt;/span>
+&lt;span class="ln"> 9&lt;/span> &lt;span class="kd">public&lt;/span> &lt;span class="kd">static&lt;/span> &lt;span class="kt">void&lt;/span> &lt;span class="nf">main&lt;/span>&lt;span class="o">(&lt;/span>&lt;span class="n">String&lt;/span> &lt;span class="n">args&lt;/span>&lt;span class="o">[])&lt;/span> &lt;span class="o">{&lt;/span>
+&lt;span class="ln">10&lt;/span> &lt;span class="n">Example&lt;/span> &lt;span class="n">example&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="k">new&lt;/span> &lt;span class="n">Example&lt;/span>&lt;span class="o">();&lt;/span>
+&lt;span class="ln">11&lt;/span> &lt;span class="n">Consumer&lt;/span>&lt;span class="o">&amp;lt;&lt;/span>&lt;span class="n">String&lt;/span>&lt;span class="o">&amp;gt;&lt;/span> &lt;span class="n">uppercaseConverterAndPrinter&lt;/span> &lt;span class="o">=&lt;/span>
+&lt;span class="ln">12&lt;/span> &lt;span class="o">(&lt;/span>&lt;span class="n">str&lt;/span>&lt;span class="o">)&lt;/span> &lt;span class="o">-&amp;gt;&lt;/span> &lt;span class="n">example&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="na">printStringInUpperCase&lt;/span>&lt;span class="o">(&lt;/span>&lt;span class="n">str&lt;/span>&lt;span class="o">);&lt;/span>
+&lt;span class="ln">13&lt;/span> &lt;span class="n">uppercaseConverterAndPrinter&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="na">accept&lt;/span>&lt;span class="o">(&lt;/span>&lt;span class="s">&amp;#34;hello world !&amp;#34;&lt;/span>&lt;span class="o">);&lt;/span>
+&lt;span class="ln">14&lt;/span> &lt;span class="o">}&lt;/span>
+&lt;span class="ln">15&lt;/span>&lt;span class="o">}&lt;/span>
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>In the above code block, the line number 11,12 can be written more concisely like below,&lt;/p>
+&lt;div class="highlight">&lt;pre class="chroma">&lt;code class="language-java" data-lang="java">&lt;span class="ln">1&lt;/span>&lt;span class="n">Consumer&lt;/span>&lt;span class="o">&amp;lt;&lt;/span>&lt;span class="n">String&lt;/span>&lt;span class="o">&amp;gt;&lt;/span> &lt;span class="n">uppercaseConverterAndPrinter&lt;/span> &lt;span class="o">=&lt;/span>
+&lt;span class="ln">2&lt;/span> &lt;span class="n">example&lt;/span>&lt;span class="o">::&lt;/span>&lt;span class="n">printStringInUpperCase&lt;/span>&lt;span class="o">;&lt;/span>
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>This type of declaration is called a method reference. Syntax of method reference is&lt;/p>
+&lt;div class="highlight">&lt;pre class="chroma">&lt;code class="language-java" data-lang="java">&lt;span class="ln">1&lt;/span>&lt;span class="nl">objeOfClass:&lt;/span>&lt;span class="o">:&lt;/span>&lt;span class="n">methodWhichCanSatisfyInterfaceContract&lt;/span>&lt;span class="o">;&lt;/span>
+&lt;span class="ln">2&lt;/span>&lt;span class="nl">className:&lt;/span>&lt;span class="o">:&lt;/span>&lt;span class="n">staticMethodWhichCanSatisfyInterface&lt;/span>&lt;span class="o">;&lt;/span>
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>So In the above example, we have used the Consumer interface, And you might be aware from the learning of the previous Blog,&lt;br>
+Exploring Java 8: Functional Interface that the consumer interface accepts a parameter of type T and won't return anything.
+Here in the above example, it satisfies the contract, then function for which we have created a method reference &amp;quot;printStringInUpperCase&amp;quot;,
+it accepts a parameter of type String and does not return anything.&lt;/p>
+&lt;p>&lt;em>Some more example around the Method Reference &amp;amp; Static Method Reference&lt;/em>&lt;/p>
+&lt;div class="highlight">&lt;pre class="chroma">&lt;code class="language-java" data-lang="java">&lt;span class="ln"> 1&lt;/span>&lt;span class="kn">import&lt;/span> &lt;span class="nn">java.util.Arrays&lt;/span>&lt;span class="o">;&lt;/span>
+&lt;span class="ln"> 2&lt;/span>&lt;span class="kn">import&lt;/span> &lt;span class="nn">java.util.List&lt;/span>&lt;span class="o">;&lt;/span>
+&lt;span class="ln"> 3&lt;/span>&lt;span class="kn">import&lt;/span> &lt;span class="nn">java.util.function.Consumer&lt;/span>&lt;span class="o">;&lt;/span>
+&lt;span class="ln"> 4&lt;/span>
+&lt;span class="ln"> 5&lt;/span>&lt;span class="kd">public&lt;/span> &lt;span class="kd">class&lt;/span> &lt;span class="nc">ConsumerMethodReferenceExample&lt;/span> &lt;span class="o">{&lt;/span>
+&lt;span class="ln"> 6&lt;/span>
+&lt;span class="ln"> 7&lt;/span> &lt;span class="kd">public&lt;/span> &lt;span class="kd">static&lt;/span> &lt;span class="kt">void&lt;/span> &lt;span class="nf">stringConsumerStaticMethod&lt;/span>&lt;span class="o">(&lt;/span>&lt;span class="n">String&lt;/span> &lt;span class="n">str&lt;/span>&lt;span class="o">)&lt;/span> &lt;span class="o">{&lt;/span>
+&lt;span class="ln"> 8&lt;/span> &lt;span class="n">System&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="na">out&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="na">println&lt;/span>&lt;span class="o">(&lt;/span>&lt;span class="n">str&lt;/span>&lt;span class="o">);&lt;/span>
+&lt;span class="ln"> 9&lt;/span> &lt;span class="o">}&lt;/span>
+&lt;span class="ln">10&lt;/span>
+&lt;span class="ln">11&lt;/span> &lt;span class="kd">public&lt;/span> &lt;span class="kt">void&lt;/span> &lt;span class="nf">stringConsumerInstanceMethod&lt;/span>&lt;span class="o">(&lt;/span>&lt;span class="n">String&lt;/span> &lt;span class="n">str&lt;/span>&lt;span class="o">)&lt;/span> &lt;span class="o">{&lt;/span>
+&lt;span class="ln">12&lt;/span> &lt;span class="n">System&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="na">out&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="na">println&lt;/span>&lt;span class="o">(&lt;/span>&lt;span class="n">str&lt;/span>&lt;span class="o">);&lt;/span>
+&lt;span class="ln">13&lt;/span> &lt;span class="o">}&lt;/span>
+&lt;span class="ln">14&lt;/span>
+&lt;span class="ln">15&lt;/span> &lt;span class="kd">public&lt;/span> &lt;span class="kd">static&lt;/span> &lt;span class="kt">void&lt;/span> &lt;span class="nf">main&lt;/span>&lt;span class="o">(&lt;/span>&lt;span class="n">String&lt;/span>&lt;span class="o">[]&lt;/span> &lt;span class="n">args&lt;/span>&lt;span class="o">)&lt;/span> &lt;span class="o">{&lt;/span>
+&lt;span class="ln">16&lt;/span>
+&lt;span class="ln">17&lt;/span> &lt;span class="n">ConsumerMethodReferenceExample&lt;/span> &lt;span class="n">instance&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="k">new&lt;/span> &lt;span class="n">ConsumerMethodReferenceExample&lt;/span>&lt;span class="o">();&lt;/span>
+&lt;span class="ln">18&lt;/span> &lt;span class="n">Consumer&lt;/span>&lt;span class="o">&amp;lt;&lt;/span>&lt;span class="n">String&lt;/span>&lt;span class="o">&amp;gt;&lt;/span> &lt;span class="n">stringConsumerLambda&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="o">(&lt;/span>&lt;span class="n">str&lt;/span>&lt;span class="o">)&lt;/span> &lt;span class="o">-&amp;gt;&lt;/span> &lt;span class="n">ConsumerMethodReferenceExample&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="na">stringConsumerStaticMethod&lt;/span>&lt;span class="o">(&lt;/span>&lt;span class="n">str&lt;/span>&lt;span class="o">);&lt;/span>
+&lt;span class="ln">19&lt;/span> &lt;span class="n">Consumer&lt;/span>&lt;span class="o">&amp;lt;&lt;/span>&lt;span class="n">String&lt;/span>&lt;span class="o">&amp;gt;&lt;/span> &lt;span class="n">stringConsumerMethodReference&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">ConsumerMethodReferenceExample&lt;/span>&lt;span class="o">::&lt;/span>&lt;span class="n">stringConsumerStaticMethod&lt;/span>&lt;span class="o">;&lt;/span>
+&lt;span class="ln">20&lt;/span> &lt;span class="n">Consumer&lt;/span>&lt;span class="o">&amp;lt;&lt;/span>&lt;span class="n">String&lt;/span>&lt;span class="o">&amp;gt;&lt;/span> &lt;span class="n">stringConsumerMethodReferenceWithObject&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">instance&lt;/span>&lt;span class="o">::&lt;/span>&lt;span class="n">stringConsumerInstanceMethod&lt;/span>&lt;span class="o">;&lt;/span>
+&lt;span class="ln">21&lt;/span> &lt;span class="n">Consumer&lt;/span>&lt;span class="o">&amp;lt;&lt;/span>&lt;span class="n">String&lt;/span>&lt;span class="o">&amp;gt;&lt;/span> &lt;span class="n">stringConsumerMethodReferenceWithCleanerCode&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">System&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="na">out&lt;/span>&lt;span class="o">::&lt;/span>&lt;span class="n">println&lt;/span>&lt;span class="o">;&lt;/span>
+&lt;span class="ln">22&lt;/span>
+&lt;span class="ln">23&lt;/span> &lt;span class="n">stringConsumerLambda&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="na">accept&lt;/span>&lt;span class="o">(&lt;/span>&lt;span class="s">&amp;#34;ABC&amp;#34;&lt;/span>&lt;span class="o">);&lt;/span>
+&lt;span class="ln">24&lt;/span> &lt;span class="n">stringConsumerMethodReference&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="na">accept&lt;/span>&lt;span class="o">(&lt;/span>&lt;span class="s">&amp;#34;ABC&amp;#34;&lt;/span>&lt;span class="o">);&lt;/span>
+&lt;span class="ln">25&lt;/span> &lt;span class="n">stringConsumerMethodReferenceWithObject&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="na">accept&lt;/span>&lt;span class="o">(&lt;/span>&lt;span class="s">&amp;#34;ABC&amp;#34;&lt;/span>&lt;span class="o">);&lt;/span>
+&lt;span class="ln">26&lt;/span> &lt;span class="n">stringConsumerMethodReferenceWithCleanerCode&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="na">accept&lt;/span>&lt;span class="o">(&lt;/span>&lt;span class="s">&amp;#34;ABC&amp;#34;&lt;/span>&lt;span class="o">);&lt;/span>
+&lt;span class="ln">27&lt;/span>
+&lt;span class="ln">28&lt;/span> &lt;span class="n">List&lt;/span>&lt;span class="o">&amp;lt;&lt;/span>&lt;span class="n">String&lt;/span>&lt;span class="o">&amp;gt;&lt;/span> &lt;span class="n">listOfString&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">Arrays&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="na">asList&lt;/span>&lt;span class="o">(&lt;/span>&lt;span class="s">&amp;#34;Apple&amp;#34;&lt;/span>&lt;span class="o">,&lt;/span> &lt;span class="s">&amp;#34;Banana&amp;#34;&lt;/span>&lt;span class="o">,&lt;/span> &lt;span class="s">&amp;#34;Cat&amp;#34;&lt;/span>&lt;span class="o">,&lt;/span> &lt;span class="s">&amp;#34;Dog&amp;#34;&lt;/span>&lt;span class="o">);&lt;/span>
+&lt;span class="ln">29&lt;/span> &lt;span class="n">System&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="na">out&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="na">println&lt;/span>&lt;span class="o">(&lt;/span>&lt;span class="s">&amp;#34;Lambda Way&amp;#34;&lt;/span>&lt;span class="o">);&lt;/span>
+&lt;span class="ln">30&lt;/span> &lt;span class="n">listOfString&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="na">forEach&lt;/span>&lt;span class="o">((&lt;/span>&lt;span class="n">str&lt;/span>&lt;span class="o">)&lt;/span> &lt;span class="o">-&amp;gt;&lt;/span> &lt;span class="n">ConsumerMethodReferenceExample&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="na">stringConsumerStaticMethod&lt;/span>&lt;span class="o">(&lt;/span>&lt;span class="n">str&lt;/span>&lt;span class="o">));&lt;/span>
+&lt;span class="ln">31&lt;/span>
+&lt;span class="ln">32&lt;/span> &lt;span class="n">System&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="na">out&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="na">println&lt;/span>&lt;span class="o">(&lt;/span>&lt;span class="s">&amp;#34;Method Reference Way&amp;#34;&lt;/span>&lt;span class="o">);&lt;/span>
+&lt;span class="ln">33&lt;/span> &lt;span class="n">listOfString&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="na">forEach&lt;/span>&lt;span class="o">(&lt;/span>&lt;span class="n">ConsumerMethodReferenceExample&lt;/span>&lt;span class="o">::&lt;/span>&lt;span class="n">stringConsumerStaticMethod&lt;/span>&lt;span class="o">);&lt;/span>
+&lt;span class="ln">34&lt;/span> &lt;span class="n">listOfString&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="na">forEach&lt;/span>&lt;span class="o">(&lt;/span>&lt;span class="n">instance&lt;/span>&lt;span class="o">::&lt;/span>&lt;span class="n">stringConsumerInstanceMethod&lt;/span>&lt;span class="o">);&lt;/span>
+&lt;span class="ln">35&lt;/span>
+&lt;span class="ln">36&lt;/span> &lt;span class="n">System&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="na">out&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="na">println&lt;/span>&lt;span class="o">(&lt;/span>&lt;span class="s">&amp;#34;Method Reference Way more cleaner&amp;#34;&lt;/span>&lt;span class="o">);&lt;/span>
+&lt;span class="ln">37&lt;/span> &lt;span class="n">listOfString&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="na">forEach&lt;/span>&lt;span class="o">(&lt;/span>&lt;span class="n">System&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="na">out&lt;/span>&lt;span class="o">::&lt;/span>&lt;span class="n">println&lt;/span>&lt;span class="o">);&lt;/span>
+&lt;span class="ln">38&lt;/span> &lt;span class="o">}&lt;/span>
+&lt;span class="ln">39&lt;/span>&lt;span class="o">}&lt;/span>
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>In the example we have seen method reference for static and non static function for consumer functional interfaces,
+Lets have a look at method reference for other type of functional interfaces.&lt;/p>
+&lt;div class="highlight">&lt;pre class="chroma">&lt;code class="language-java" data-lang="java">&lt;span class="ln"> 1&lt;/span>&lt;span class="kn">import&lt;/span> &lt;span class="nn">java.util.Arrays&lt;/span>&lt;span class="o">;&lt;/span>
+&lt;span class="ln"> 2&lt;/span>&lt;span class="kn">import&lt;/span> &lt;span class="nn">java.util.List&lt;/span>&lt;span class="o">;&lt;/span>
+&lt;span class="ln"> 3&lt;/span>&lt;span class="kn">import&lt;/span> &lt;span class="nn">java.util.function.Consumer&lt;/span>&lt;span class="o">;&lt;/span>
+&lt;span class="ln"> 4&lt;/span>&lt;span class="kn">import&lt;/span> &lt;span class="nn">java.util.function.Function&lt;/span>&lt;span class="o">;&lt;/span>
+&lt;span class="ln"> 5&lt;/span>&lt;span class="kn">import&lt;/span> &lt;span class="nn">java.util.function.Predicate&lt;/span>&lt;span class="o">;&lt;/span>
+&lt;span class="ln"> 6&lt;/span>&lt;span class="kn">import&lt;/span> &lt;span class="nn">java.util.function.Supplier&lt;/span>&lt;span class="o">;&lt;/span>
+&lt;span class="ln"> 7&lt;/span>&lt;span class="kn">import&lt;/span> &lt;span class="nn">java.util.stream.Collectors&lt;/span>&lt;span class="o">;&lt;/span>
+&lt;span class="ln"> 8&lt;/span>
+&lt;span class="ln"> 9&lt;/span>&lt;span class="kd">public&lt;/span> &lt;span class="kd">class&lt;/span> &lt;span class="nc">MethodReferenceWithFunctionalInterfaces&lt;/span> &lt;span class="o">{&lt;/span>
+&lt;span class="ln">10&lt;/span> &lt;span class="kd">public&lt;/span> &lt;span class="kd">static&lt;/span> &lt;span class="kt">void&lt;/span> &lt;span class="nf">main&lt;/span>&lt;span class="o">(&lt;/span>&lt;span class="n">String&lt;/span> &lt;span class="n">args&lt;/span>&lt;span class="o">[])&lt;/span> &lt;span class="o">{&lt;/span>
+&lt;span class="ln">11&lt;/span> &lt;span class="n">MethodReferenceWithFunctionalInterfaces&lt;/span> &lt;span class="n">object&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="k">new&lt;/span> &lt;span class="n">MethodReferenceWithFunctionalInterfaces&lt;/span>&lt;span class="o">();&lt;/span>
+&lt;span class="ln">12&lt;/span>
+&lt;span class="ln">13&lt;/span> &lt;span class="n">Consumer&lt;/span>&lt;span class="o">&amp;lt;&lt;/span>&lt;span class="n">String&lt;/span>&lt;span class="o">&amp;gt;&lt;/span> &lt;span class="n">someConsumer&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">object&lt;/span>&lt;span class="o">::&lt;/span>&lt;span class="n">consumerKindOfMethod&lt;/span>&lt;span class="o">;&lt;/span>
+&lt;span class="ln">14&lt;/span> &lt;span class="n">someConsumer&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="na">accept&lt;/span>&lt;span class="o">(&lt;/span>&lt;span class="s">&amp;#34;xyz&amp;#34;&lt;/span>&lt;span class="o">);&lt;/span>
+&lt;span class="ln">15&lt;/span>
+&lt;span class="ln">16&lt;/span> &lt;span class="n">Supplier&lt;/span>&lt;span class="o">&amp;lt;&lt;/span>&lt;span class="n">Double&lt;/span>&lt;span class="o">&amp;gt;&lt;/span> &lt;span class="n">someSupplier&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">object&lt;/span>&lt;span class="o">::&lt;/span>&lt;span class="n">supplierKindOfMethod&lt;/span>&lt;span class="o">;&lt;/span>
+&lt;span class="ln">17&lt;/span> &lt;span class="n">System&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="na">out&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="na">println&lt;/span>&lt;span class="o">(&lt;/span>&lt;span class="n">someSupplier&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="na">get&lt;/span>&lt;span class="o">());&lt;/span>
+&lt;span class="ln">18&lt;/span>
+&lt;span class="ln">19&lt;/span> &lt;span class="n">Predicate&lt;/span>&lt;span class="o">&amp;lt;&lt;/span>&lt;span class="n">Integer&lt;/span>&lt;span class="o">&amp;gt;&lt;/span> &lt;span class="n">somePredicate&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">object&lt;/span>&lt;span class="o">::&lt;/span>&lt;span class="n">isEvenNumber&lt;/span>&lt;span class="o">;&lt;/span>
+&lt;span class="ln">20&lt;/span> &lt;span class="n">System&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="na">out&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="na">println&lt;/span>&lt;span class="o">(&lt;/span>&lt;span class="n">somePredicate&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="na">test&lt;/span>&lt;span class="o">(&lt;/span>&lt;span class="n">126&lt;/span>&lt;span class="o">)&lt;/span> &lt;span class="o">?&lt;/span> &lt;span class="s">&amp;#34;Even&amp;#34;&lt;/span> &lt;span class="o">:&lt;/span> &lt;span class="s">&amp;#34;Odd&amp;#34;&lt;/span>&lt;span class="o">);&lt;/span>
+&lt;span class="ln">21&lt;/span>
+&lt;span class="ln">22&lt;/span> &lt;span class="n">Function&lt;/span>&lt;span class="o">&amp;lt;&lt;/span>&lt;span class="n">List&lt;/span>&lt;span class="o">&amp;lt;&lt;/span>&lt;span class="n">String&lt;/span>&lt;span class="o">&amp;gt;,&lt;/span> &lt;span class="n">String&lt;/span>&lt;span class="o">&amp;gt;&lt;/span> &lt;span class="n">concatString&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">object&lt;/span>&lt;span class="o">::&lt;/span>&lt;span class="n">join&lt;/span>&lt;span class="o">;&lt;/span>
+&lt;span class="ln">23&lt;/span> &lt;span class="n">System&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="na">out&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="na">println&lt;/span>&lt;span class="o">(&lt;/span>&lt;span class="n">concatString&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="na">apply&lt;/span>&lt;span class="o">(&lt;/span>&lt;span class="n">Arrays&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="na">asList&lt;/span>&lt;span class="o">(&lt;/span>&lt;span class="s">&amp;#34;I&amp;#34;&lt;/span>&lt;span class="o">,&lt;/span> &lt;span class="s">&amp;#34;Am&amp;#34;&lt;/span>&lt;span class="o">,&lt;/span> &lt;span class="s">&amp;#34;Java&amp;#34;&lt;/span>&lt;span class="o">,&lt;/span> &lt;span class="s">&amp;#34;Ninja&amp;#34;&lt;/span>&lt;span class="o">)));&lt;/span>
+&lt;span class="ln">24&lt;/span> &lt;span class="o">}&lt;/span>
+&lt;span class="ln">25&lt;/span>
+&lt;span class="ln">26&lt;/span> &lt;span class="c1">// consumer sort of functional interfaces
+&lt;/span>&lt;span class="ln">27&lt;/span>&lt;span class="c1">&lt;/span> &lt;span class="kd">public&lt;/span> &lt;span class="kt">void&lt;/span> &lt;span class="nf">consumerKindOfMethod&lt;/span>&lt;span class="o">(&lt;/span>&lt;span class="n">String&lt;/span> &lt;span class="n">str&lt;/span>&lt;span class="o">)&lt;/span> &lt;span class="o">{&lt;/span>
+&lt;span class="ln">28&lt;/span> &lt;span class="n">System&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="na">out&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="na">println&lt;/span>&lt;span class="o">(&lt;/span>&lt;span class="n">str&lt;/span>&lt;span class="o">);&lt;/span>
+&lt;span class="ln">29&lt;/span> &lt;span class="o">}&lt;/span>
+&lt;span class="ln">30&lt;/span>
+&lt;span class="ln">31&lt;/span> &lt;span class="c1">// supplier sort of functional interface
+&lt;/span>&lt;span class="ln">32&lt;/span>&lt;span class="c1">&lt;/span> &lt;span class="kd">public&lt;/span> &lt;span class="n">Double&lt;/span> &lt;span class="nf">supplierKindOfMethod&lt;/span>&lt;span class="o">()&lt;/span> &lt;span class="o">{&lt;/span>
+&lt;span class="ln">33&lt;/span> &lt;span class="k">return&lt;/span> &lt;span class="n">Math&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="na">random&lt;/span>&lt;span class="o">();&lt;/span>
+&lt;span class="ln">34&lt;/span> &lt;span class="o">}&lt;/span>
+&lt;span class="ln">35&lt;/span>
+&lt;span class="ln">36&lt;/span> &lt;span class="c1">// you can use predicate interfaces for this
+&lt;/span>&lt;span class="ln">37&lt;/span>&lt;span class="c1">&lt;/span> &lt;span class="kd">public&lt;/span> &lt;span class="kt">boolean&lt;/span> &lt;span class="nf">isEvenNumber&lt;/span>&lt;span class="o">(&lt;/span>&lt;span class="n">Integer&lt;/span> &lt;span class="n">number&lt;/span>&lt;span class="o">)&lt;/span> &lt;span class="o">{&lt;/span>
+&lt;span class="ln">38&lt;/span> &lt;span class="k">return&lt;/span> &lt;span class="n">number&lt;/span> &lt;span class="o">%&lt;/span> &lt;span class="n">2&lt;/span> &lt;span class="o">==&lt;/span> &lt;span class="n">0&lt;/span>&lt;span class="o">;&lt;/span>
+&lt;span class="ln">39&lt;/span> &lt;span class="o">}&lt;/span>
+&lt;span class="ln">40&lt;/span>
+&lt;span class="ln">41&lt;/span> &lt;span class="c1">//you cabn function functional interface for this
+&lt;/span>&lt;span class="ln">42&lt;/span>&lt;span class="c1">&lt;/span> &lt;span class="kd">public&lt;/span> &lt;span class="n">String&lt;/span> &lt;span class="nf">join&lt;/span>&lt;span class="o">(&lt;/span>&lt;span class="n">List&lt;/span>&lt;span class="o">&amp;lt;&lt;/span>&lt;span class="n">String&lt;/span>&lt;span class="o">&amp;gt;&lt;/span> &lt;span class="n">list&lt;/span>&lt;span class="o">)&lt;/span> &lt;span class="o">{&lt;/span>
+&lt;span class="ln">43&lt;/span> &lt;span class="k">return&lt;/span> &lt;span class="n">list&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="na">stream&lt;/span>&lt;span class="o">().&lt;/span>&lt;span class="na">collect&lt;/span>&lt;span class="o">(&lt;/span>&lt;span class="n">Collectors&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="na">joining&lt;/span>&lt;span class="o">(&lt;/span>&lt;span class="s">&amp;#34; &amp;#34;&lt;/span>&lt;span class="o">));&lt;/span>
+&lt;span class="ln">44&lt;/span> &lt;span class="o">}&lt;/span>
+&lt;span class="ln">45&lt;/span>&lt;span class="o">}&lt;/span>
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>I hope you have learned the method reference in java 8. In short, it is just concise ways of implementation of functional interfaces.
+Lambda would be little longer way of writing it. but with method reference it is more concise, more readable and more short.&lt;/p>
+&lt;h3 id="lets-start-with-constructor-reference-now">Let's Start with Constructor Reference Now&lt;/h3>
+&lt;p>Constructor reference is also similar to the method reference we have seen earlier.
+There is one difference, constructor reference will always be of type Function Functional interface.
+it would accept a parameter to pass in the constructor and will always return the object of a class.
+Java has a Functional and BiFunction functional interface available in java.lang.function package.
+Function for single parameter input, BiFunction is for two input parameter for a constructor.&lt;/p>
+&lt;p>&lt;em>Let's look at the below example which shows how you can code for Constructor reference&lt;/em>&lt;/p>
+&lt;div class="highlight">&lt;pre class="chroma">&lt;code class="language-java" data-lang="java">&lt;span class="ln"> 1&lt;/span>&lt;span class="kn">import&lt;/span> &lt;span class="nn">java.util.Arrays&lt;/span>&lt;span class="o">;&lt;/span>
+&lt;span class="ln"> 2&lt;/span>&lt;span class="kn">import&lt;/span> &lt;span class="nn">java.util.List&lt;/span>&lt;span class="o">;&lt;/span>
+&lt;span class="ln"> 3&lt;/span>&lt;span class="kn">import&lt;/span> &lt;span class="nn">java.util.function.Function&lt;/span>&lt;span class="o">;&lt;/span>
+&lt;span class="ln"> 4&lt;/span>&lt;span class="kn">import&lt;/span> &lt;span class="nn">java.util.stream.Collectors&lt;/span>&lt;span class="o">;&lt;/span>
+&lt;span class="ln"> 5&lt;/span>
+&lt;span class="ln"> 6&lt;/span>&lt;span class="kd">class&lt;/span> &lt;span class="nc">Things&lt;/span> &lt;span class="o">{&lt;/span>
+&lt;span class="ln"> 7&lt;/span> &lt;span class="kd">private&lt;/span> &lt;span class="n">String&lt;/span> &lt;span class="n">name&lt;/span>&lt;span class="o">;&lt;/span>
+&lt;span class="ln"> 8&lt;/span>
+&lt;span class="ln"> 9&lt;/span> &lt;span class="kd">public&lt;/span> &lt;span class="nf">Things&lt;/span>&lt;span class="o">(&lt;/span>&lt;span class="n">String&lt;/span> &lt;span class="n">name&lt;/span>&lt;span class="o">)&lt;/span> &lt;span class="o">{&lt;/span>
+&lt;span class="ln">10&lt;/span> &lt;span class="k">this&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="na">name&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">name&lt;/span>&lt;span class="o">;&lt;/span>
+&lt;span class="ln">11&lt;/span> &lt;span class="o">}&lt;/span>
+&lt;span class="ln">12&lt;/span>&lt;span class="o">}&lt;/span>
+&lt;span class="ln">13&lt;/span>
+&lt;span class="ln">14&lt;/span>&lt;span class="kd">public&lt;/span> &lt;span class="kd">class&lt;/span> &lt;span class="nc">ConstructorReferenceExample&lt;/span> &lt;span class="o">{&lt;/span>
+&lt;span class="ln">15&lt;/span> &lt;span class="kd">public&lt;/span> &lt;span class="kd">static&lt;/span> &lt;span class="kt">void&lt;/span> &lt;span class="nf">main&lt;/span>&lt;span class="o">(&lt;/span>&lt;span class="n">String&lt;/span> &lt;span class="n">args&lt;/span>&lt;span class="o">[])&lt;/span> &lt;span class="o">{&lt;/span>
+&lt;span class="ln">16&lt;/span> &lt;span class="n">Function&lt;/span>&lt;span class="o">&amp;lt;&lt;/span>&lt;span class="n">String&lt;/span>&lt;span class="o">,&lt;/span> &lt;span class="n">Things&lt;/span>&lt;span class="o">&amp;gt;&lt;/span> &lt;span class="n">function&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">Things&lt;/span>&lt;span class="o">::&lt;/span>&lt;span class="k">new&lt;/span>&lt;span class="o">;&lt;/span>
+&lt;span class="ln">17&lt;/span> &lt;span class="n">Things&lt;/span> &lt;span class="n">apple&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">function&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="na">apply&lt;/span>&lt;span class="o">(&lt;/span>&lt;span class="s">&amp;#34;Apple&amp;#34;&lt;/span>&lt;span class="o">);&lt;/span>
+&lt;span class="ln">18&lt;/span>
+&lt;span class="ln">19&lt;/span> &lt;span class="cm">/* Some real industry example about the constructor reference*/&lt;/span>
+&lt;span class="ln">20&lt;/span> &lt;span class="n">List&lt;/span>&lt;span class="o">&amp;lt;&lt;/span>&lt;span class="n">String&lt;/span>&lt;span class="o">&amp;gt;&lt;/span> &lt;span class="n">thingsString&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">Arrays&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="na">asList&lt;/span>&lt;span class="o">(&lt;/span>&lt;span class="s">&amp;#34;Apple&amp;#34;&lt;/span>&lt;span class="o">,&lt;/span> &lt;span class="s">&amp;#34;Ball&amp;#34;&lt;/span>&lt;span class="o">,&lt;/span> &lt;span class="s">&amp;#34;Cat&amp;#34;&lt;/span>&lt;span class="o">,&lt;/span> &lt;span class="s">&amp;#34;Dog&amp;#34;&lt;/span>&lt;span class="o">,&lt;/span> &lt;span class="s">&amp;#34;Egg&amp;#34;&lt;/span>&lt;span class="o">);&lt;/span>
+&lt;span class="ln">21&lt;/span>
+&lt;span class="ln">22&lt;/span> &lt;span class="n">List&lt;/span>&lt;span class="o">&amp;lt;&lt;/span>&lt;span class="n">Things&lt;/span>&lt;span class="o">&amp;gt;&lt;/span> &lt;span class="n">listOfThings&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">thingsString&lt;/span>
+&lt;span class="ln">23&lt;/span> &lt;span class="o">.&lt;/span>&lt;span class="na">stream&lt;/span>&lt;span class="o">()&lt;/span>
+&lt;span class="ln">24&lt;/span> &lt;span class="o">.&lt;/span>&lt;span class="na">map&lt;/span>&lt;span class="o">(&lt;/span>&lt;span class="n">Things&lt;/span>&lt;span class="o">::&lt;/span>&lt;span class="k">new&lt;/span>&lt;span class="o">)&lt;/span> &lt;span class="c1">// accept a string and return object of class Things
+&lt;/span>&lt;span class="ln">25&lt;/span>&lt;span class="c1">&lt;/span> &lt;span class="o">.&lt;/span>&lt;span class="na">collect&lt;/span>&lt;span class="o">(&lt;/span>&lt;span class="n">Collectors&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="na">toList&lt;/span>&lt;span class="o">());&lt;/span>
+&lt;span class="ln">26&lt;/span> &lt;span class="o">}&lt;/span>
+&lt;span class="ln">27&lt;/span>&lt;span class="o">}&lt;/span>
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>I hope you have understood the concept behind method reference and constructor reference introduced in java 8.
+The basic intention behind the method reference is to make your code concise,
+readable and allows you to pass a function as a parameter that can be invoked later point in time based on your logic.
+it will allow you to build a code in a callback fashion, where you will declare your function,
+but it would be invoked far below in the call stack.&lt;/p>
+&lt;p>That's all for this blog ninjas. Let me know if you have any question, feedback, suggestion.
+I will always try to improve my blogs and will be happy to help you.&lt;/p>
+&lt;p>Till then Goodbye, Happy Coding !!!&lt;/p>
+&lt;p>&lt;a href="https://programming4ninja.github.io/exploringjava8/chapter3/">&amp;lt;&amp;lt; Chapter 3 : Functional Interfaces &lt;/a> | &lt;a href="https://programming4ninja.github.io/exploringjava8/chapter5/">Chapter 5 : Introduction to Streams API &amp;gt;&amp;gt; &lt;/a>&lt;/p></description></item><item><title>Chapter 5 : Introduction to Streams API</title><link>https://programming4ninja.github.io/exploringjava8/chapter5/</link><pubDate>Thu, 01 Apr 2021 00:06:39 +0530</pubDate><guid>https://programming4ninja.github.io/exploringjava8/chapter5/</guid><description>
+&lt;p>Hello there techie ninjas, I hope you are doing well. Today we would be learning one of the most amazing features
+released in Java 8. it provided a lot of benefit for parallel processing of collections and writing code in functional
+ways. I would say this is one of the most important chapters of the Java 8 Series, so I would be creating this blog in
+such a fashion that every one of us would understand this functionality.&lt;/p>
+&lt;h3 id="before-we-start-lets-discuss-what-is-steam-in-general">Before we start, let's discuss what is Steam in general?&lt;/h3>
+&lt;p>I would say the stream is something that is in motion.
+or something is flowing in unidirectional. It could be Air, Gas or Water.
+You all must have seen a stream of water, it is a continuous flow of water.
+The same is applicable to Data also, if there is data in motion we call it a data stream.
+Innovator of Java 8, saw great potential in this concept. Till java 8, Most of us were using the collection for storing the Data.
+But in most cases, this stored data will eventually be needed to flow between various components of the software.
+There was a lot of common patterns around the collection processing. Innovators of java 8, analyse those and created a Streaming API framework,
+where one could be able to declare flowing data in programming, process the streams, and At the end collect and convert it back to stationary data.&lt;/p>
+&lt;p>&lt;img src="https://programming4ninja.github.io/blog-images/stationary-vs-stream-data.png" />&lt;/p>
+&lt;p>With the above diagram, I hope you can conceptually able to visualise streams in java.
+the left-hand side denotes the stationary data stored on the memory, like your collections - list, map, sets and one
+on the right-hand side are nothing, but the java streams.&lt;/p>
+&lt;p>Let's see one example to know how you can get a stream in java&lt;/p>
+&lt;div class="highlight">&lt;pre class="chroma">&lt;code class="language-java" data-lang="java">&lt;span class="ln"> 1&lt;/span>&lt;span class="kn">package&lt;/span> &lt;span class="nn">org.java4ninja.exploringjava8.streams&lt;/span>&lt;span class="o">;&lt;/span>
+&lt;span class="ln"> 2&lt;/span>
+&lt;span class="ln"> 3&lt;/span>&lt;span class="kn">import&lt;/span> &lt;span class="nn">java.util.Arrays&lt;/span>&lt;span class="o">;&lt;/span>
+&lt;span class="ln"> 4&lt;/span>&lt;span class="kn">import&lt;/span> &lt;span class="nn">java.util.List&lt;/span>&lt;span class="o">;&lt;/span>
+&lt;span class="ln"> 5&lt;/span>&lt;span class="kn">import&lt;/span> &lt;span class="nn">java.util.stream.IntStream&lt;/span>&lt;span class="o">;&lt;/span>
+&lt;span class="ln"> 6&lt;/span>&lt;span class="kn">import&lt;/span> &lt;span class="nn">java.util.stream.Stream&lt;/span>&lt;span class="o">;&lt;/span>
+&lt;span class="ln"> 7&lt;/span>
+&lt;span class="ln"> 8&lt;/span>&lt;span class="kd">public&lt;/span> &lt;span class="kd">class&lt;/span> &lt;span class="nc">HelloStreams&lt;/span> &lt;span class="o">{&lt;/span>
+&lt;span class="ln"> 9&lt;/span> &lt;span class="kd">public&lt;/span> &lt;span class="kd">static&lt;/span> &lt;span class="kt">void&lt;/span> &lt;span class="nf">main&lt;/span>&lt;span class="o">(&lt;/span>&lt;span class="n">String&lt;/span> &lt;span class="n">args&lt;/span>&lt;span class="o">[])&lt;/span> &lt;span class="o">{&lt;/span>
+&lt;span class="ln">10&lt;/span> &lt;span class="c1">// Stationary Data
+&lt;/span>&lt;span class="ln">11&lt;/span>&lt;span class="c1">&lt;/span> &lt;span class="n">List&lt;/span>&lt;span class="o">&amp;lt;&lt;/span>&lt;span class="n">String&lt;/span>&lt;span class="o">&amp;gt;&lt;/span> &lt;span class="n">listOfString&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">Arrays&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="na">asList&lt;/span>&lt;span class="o">(&lt;/span>&lt;span class="s">&amp;#34;Apple&amp;#34;&lt;/span>&lt;span class="o">,&lt;/span>
+&lt;span class="ln">12&lt;/span> &lt;span class="s">&amp;#34;Banana&amp;#34;&lt;/span>&lt;span class="o">,&lt;/span> &lt;span class="s">&amp;#34;Orange&amp;#34;&lt;/span>&lt;span class="o">,&lt;/span> &lt;span class="s">&amp;#34;Mango&amp;#34;&lt;/span>&lt;span class="o">,&lt;/span> &lt;span class="s">&amp;#34;Pineapple&amp;#34;&lt;/span>&lt;span class="o">,&lt;/span> &lt;span class="s">&amp;#34;Grapes&amp;#34;&lt;/span>&lt;span class="o">);&lt;/span>
+&lt;span class="ln">13&lt;/span>
+&lt;span class="ln">14&lt;/span> &lt;span class="c1">// Stream made out of Stationary data
+&lt;/span>&lt;span class="ln">15&lt;/span>&lt;span class="c1">&lt;/span> &lt;span class="n">Stream&lt;/span>&lt;span class="o">&amp;lt;&lt;/span>&lt;span class="n">String&lt;/span>&lt;span class="o">&amp;gt;&lt;/span> &lt;span class="n">stream&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">listOfString&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="na">stream&lt;/span>&lt;span class="o">();&lt;/span>
+&lt;span class="ln">16&lt;/span>
+&lt;span class="ln">17&lt;/span> &lt;span class="c1">// Streams of integer from 1 to 100
+&lt;/span>&lt;span class="ln">18&lt;/span>&lt;span class="c1">&lt;/span> &lt;span class="n">IntStream&lt;/span> &lt;span class="n">intStreams&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">IntStream&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="na">rangeClosed&lt;/span>&lt;span class="o">(&lt;/span>&lt;span class="n">1&lt;/span>&lt;span class="o">,&lt;/span> &lt;span class="n">100&lt;/span>&lt;span class="o">);&lt;/span>
+&lt;span class="ln">19&lt;/span>
+&lt;span class="ln">20&lt;/span> &lt;span class="c1">// Streams of different languages
+&lt;/span>&lt;span class="ln">21&lt;/span>&lt;span class="c1">&lt;/span> &lt;span class="n">Stream&lt;/span>&lt;span class="o">&amp;lt;&lt;/span>&lt;span class="n">String&lt;/span>&lt;span class="o">&amp;gt;&lt;/span> &lt;span class="n">someRandomStreams&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">Stream&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="na">of&lt;/span>&lt;span class="o">(&lt;/span>&lt;span class="s">&amp;#34;java&amp;#34;&lt;/span>&lt;span class="o">,&lt;/span> &lt;span class="s">&amp;#34;node&amp;#34;&lt;/span>&lt;span class="o">,&lt;/span> &lt;span class="s">&amp;#34;scala&amp;#34;&lt;/span>&lt;span class="o">,&lt;/span> &lt;span class="s">&amp;#34;bash&amp;#34;&lt;/span>&lt;span class="o">,&lt;/span> &lt;span class="s">&amp;#34;python&amp;#34;&lt;/span>&lt;span class="o">);&lt;/span>
+&lt;span class="ln">22&lt;/span> &lt;span class="o">}&lt;/span>
+&lt;span class="ln">23&lt;/span>&lt;span class="o">}&lt;/span>
+&lt;/code>&lt;/pre>&lt;/div>&lt;h3 id="different-stages-of-streams">Different Stages of Streams&lt;/h3>
+&lt;p>Each and every stream has to pass through different stages of operation given below. We have categorised those in 3 different stages&lt;/p>
+&lt;p>&lt;strong>Initialisation Phase -&amp;gt; Intermediate Operations -&amp;gt; Terminal Operation&lt;/strong>&lt;/p>
+&lt;ul>
+&lt;li>The initialisation phase is nothing but creating streams from any collection, any source of data or just starting with a range of integers from 1 to N. In order to use streaming API, you will need the Stream. We will see different ways of initialising streams in the next blog.&lt;/li>
+&lt;li>Intermediate Operations are the operations performed on the flowing data. The streams on which this data flow, we call it as a pipeline. We can apply a different intermediate operation on this pipeline, such as filtering elements, converting elements, re-arranging them, skipping element, limiting elements etc.&lt;/li>
+&lt;li>We would be having a separate blog on the intermediate operation. The basic intention behind the intermediate operation is to transform the source of data into another useful format.&lt;/li>
+&lt;li>We can chain these intermediate operation in order to archive desired output.&lt;/li>
+&lt;li>Once we have set up the pipeline, to process data, at the end you need to collect the data in the format you want to project. it can be storing data back in another collection, performing reduce operation, find out count, checking if any element exists in streams.&lt;/li>
+&lt;li>The terminal operation will be the endpoint for the stream journey. The stream would be closed and data would be stored back in stationary format. Data will stop flowing on calling terminal operation.&lt;/li>
+&lt;/ul>
+&lt;p>Let's take a simple example to understand these different stages, although we would be exploring each of these stages in a lot of greater details in the next blogs.&lt;/p>
+&lt;div class="highlight">&lt;pre class="chroma">&lt;code class="language-java" data-lang="java">&lt;span class="ln"> 1&lt;/span>&lt;span class="kn">package&lt;/span> &lt;span class="nn">org.java4ninja.exploringjava8.streams&lt;/span>&lt;span class="o">;&lt;/span>
+&lt;span class="ln"> 2&lt;/span>
+&lt;span class="ln"> 3&lt;/span>&lt;span class="kn">import&lt;/span> &lt;span class="nn">java.util.Arrays&lt;/span>&lt;span class="o">;&lt;/span>
+&lt;span class="ln"> 4&lt;/span>&lt;span class="kn">import&lt;/span> &lt;span class="nn">java.util.List&lt;/span>&lt;span class="o">;&lt;/span>
+&lt;span class="ln"> 5&lt;/span>&lt;span class="kn">import&lt;/span> &lt;span class="nn">java.util.stream.Collectors&lt;/span>&lt;span class="o">;&lt;/span>
+&lt;span class="ln"> 6&lt;/span>&lt;span class="kn">import&lt;/span> &lt;span class="nn">java.util.stream.Stream&lt;/span>&lt;span class="o">;&lt;/span>
+&lt;span class="ln"> 7&lt;/span>
+&lt;span class="ln"> 8&lt;/span>&lt;span class="kd">public&lt;/span> &lt;span class="kd">class&lt;/span> &lt;span class="nc">HelloStreams&lt;/span> &lt;span class="o">{&lt;/span>
+&lt;span class="ln"> 9&lt;/span> &lt;span class="kd">public&lt;/span> &lt;span class="kd">static&lt;/span> &lt;span class="kt">void&lt;/span> &lt;span class="nf">main&lt;/span>&lt;span class="o">(&lt;/span>&lt;span class="n">String&lt;/span> &lt;span class="n">args&lt;/span>&lt;span class="o">[])&lt;/span> &lt;span class="o">{&lt;/span>
+&lt;span class="ln">10&lt;/span> &lt;span class="c1">// Stationary Data
+&lt;/span>&lt;span class="ln">11&lt;/span>&lt;span class="c1">&lt;/span> &lt;span class="n">List&lt;/span>&lt;span class="o">&amp;lt;&lt;/span>&lt;span class="n">String&lt;/span>&lt;span class="o">&amp;gt;&lt;/span> &lt;span class="n">listOfString&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">Arrays&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="na">asList&lt;/span>&lt;span class="o">(&lt;/span>&lt;span class="s">&amp;#34;Apple&amp;#34;&lt;/span>&lt;span class="o">,&lt;/span> &lt;span class="s">&amp;#34;Banana&amp;#34;&lt;/span>&lt;span class="o">,&lt;/span> &lt;span class="s">&amp;#34;Cat&amp;#34;&lt;/span>&lt;span class="o">,&lt;/span>
+&lt;span class="ln">12&lt;/span> &lt;span class="s">&amp;#34;Dog&amp;#34;&lt;/span>&lt;span class="o">,&lt;/span> &lt;span class="s">&amp;#34;Elephant&amp;#34;&lt;/span>&lt;span class="o">,&lt;/span> &lt;span class="s">&amp;#34;Fish&amp;#34;&lt;/span>&lt;span class="o">,&lt;/span> &lt;span class="s">&amp;#34;Grapes&amp;#34;&lt;/span>&lt;span class="o">,&lt;/span> &lt;span class="s">&amp;#34;Hat&amp;#34;&lt;/span>&lt;span class="o">,&lt;/span> &lt;span class="s">&amp;#34;Ice&amp;#34;&lt;/span>&lt;span class="o">,&lt;/span> &lt;span class="s">&amp;#34;Jacket&amp;#34;&lt;/span>&lt;span class="o">,&lt;/span>
+&lt;span class="ln">13&lt;/span> &lt;span class="s">&amp;#34;Kite&amp;#34;&lt;/span>&lt;span class="o">,&lt;/span> &lt;span class="s">&amp;#34;Lemon&amp;#34;&lt;/span>&lt;span class="o">,&lt;/span> &lt;span class="s">&amp;#34;Mango&amp;#34;&lt;/span>&lt;span class="o">,&lt;/span> &lt;span class="s">&amp;#34;Newspaper&amp;#34;&lt;/span>&lt;span class="o">,&lt;/span> &lt;span class="s">&amp;#34;Orange&amp;#34;&lt;/span>&lt;span class="o">,&lt;/span> &lt;span class="s">&amp;#34;Parrot&amp;#34;&lt;/span>&lt;span class="o">,&lt;/span>
+&lt;span class="ln">14&lt;/span> &lt;span class="s">&amp;#34;Queen&amp;#34;&lt;/span>&lt;span class="o">,&lt;/span> &lt;span class="s">&amp;#34;Rat&amp;#34;&lt;/span>&lt;span class="o">,&lt;/span> &lt;span class="s">&amp;#34;Sun&amp;#34;&lt;/span>&lt;span class="o">,&lt;/span> &lt;span class="s">&amp;#34;Tv&amp;#34;&lt;/span>&lt;span class="o">,&lt;/span> &lt;span class="s">&amp;#34;Umbrella&amp;#34;&lt;/span>&lt;span class="o">,&lt;/span> &lt;span class="s">&amp;#34;Van&amp;#34;&lt;/span>&lt;span class="o">,&lt;/span> &lt;span class="s">&amp;#34;Watch&amp;#34;&lt;/span>&lt;span class="o">,&lt;/span>
+&lt;span class="ln">15&lt;/span> &lt;span class="s">&amp;#34;Xmas&amp;#34;&lt;/span>&lt;span class="o">,&lt;/span> &lt;span class="s">&amp;#34;Zebra&amp;#34;&lt;/span>&lt;span class="o">);&lt;/span>
+&lt;span class="ln">16&lt;/span>
+&lt;span class="ln">17&lt;/span> &lt;span class="c1">// Initialisation stage
+&lt;/span>&lt;span class="ln">18&lt;/span>&lt;span class="c1">&lt;/span> &lt;span class="n">Stream&lt;/span>&lt;span class="o">&amp;lt;&lt;/span>&lt;span class="n">String&lt;/span>&lt;span class="o">&amp;gt;&lt;/span> &lt;span class="n">streamsOfString&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">listOfString&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="na">stream&lt;/span>&lt;span class="o">();&lt;/span>
+&lt;span class="ln">19&lt;/span>
+&lt;span class="ln">20&lt;/span> &lt;span class="c1">// intermediate stages
+&lt;/span>&lt;span class="ln">21&lt;/span>&lt;span class="c1">&lt;/span> &lt;span class="n">Stream&lt;/span>&lt;span class="o">&amp;lt;&lt;/span>&lt;span class="n">String&lt;/span>&lt;span class="o">&amp;gt;&lt;/span> &lt;span class="n">intermediateStringStream&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">streamsOfString&lt;/span>
+&lt;span class="ln">22&lt;/span> &lt;span class="c1">// intermediate stage of filtering elements
+&lt;/span>&lt;span class="ln">23&lt;/span>&lt;span class="c1">&lt;/span> &lt;span class="o">.&lt;/span>&lt;span class="na">filter&lt;/span>&lt;span class="o">(&lt;/span>&lt;span class="n">s&lt;/span> &lt;span class="o">-&amp;gt;&lt;/span> &lt;span class="n">s&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="na">length&lt;/span>&lt;span class="o">()&lt;/span> &lt;span class="o">&amp;gt;&lt;/span> &lt;span class="n">3&lt;/span>&lt;span class="o">)&lt;/span>
+&lt;span class="ln">24&lt;/span> &lt;span class="c1">// intermediate stage of convert each element to upper case
+&lt;/span>&lt;span class="ln">25&lt;/span>&lt;span class="c1">&lt;/span> &lt;span class="o">.&lt;/span>&lt;span class="na">map&lt;/span>&lt;span class="o">(&lt;/span>&lt;span class="n">s&lt;/span> &lt;span class="o">-&amp;gt;&lt;/span> &lt;span class="n">s&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="na">toUpperCase&lt;/span>&lt;span class="o">())&lt;/span>
+&lt;span class="ln">26&lt;/span> &lt;span class="c1">// intermediate stage of re-ordering elements
+&lt;/span>&lt;span class="ln">27&lt;/span>&lt;span class="c1">&lt;/span> &lt;span class="o">.&lt;/span>&lt;span class="na">sorted&lt;/span>&lt;span class="o">(&lt;/span>&lt;span class="n">String&lt;/span>&lt;span class="o">::&lt;/span>&lt;span class="n">compareTo&lt;/span>&lt;span class="o">);&lt;/span>
+&lt;span class="ln">28&lt;/span>
+&lt;span class="ln">29&lt;/span> &lt;span class="c1">// Terminating streams and collecting all the elements from the stream to list collection
+&lt;/span>&lt;span class="ln">30&lt;/span>&lt;span class="c1">&lt;/span> &lt;span class="n">List&lt;/span>&lt;span class="o">&amp;lt;&lt;/span>&lt;span class="n">String&lt;/span>&lt;span class="o">&amp;gt;&lt;/span> &lt;span class="n">finalListOfString&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">intermediateStringStream&lt;/span>
+&lt;span class="ln">31&lt;/span> &lt;span class="o">.&lt;/span>&lt;span class="na">collect&lt;/span>&lt;span class="o">(&lt;/span>&lt;span class="n">Collectors&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="na">toList&lt;/span>&lt;span class="o">());&lt;/span>
+&lt;span class="ln">32&lt;/span>
+&lt;span class="ln">33&lt;/span> &lt;span class="n">System&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="na">out&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="na">println&lt;/span>&lt;span class="o">(&lt;/span>&lt;span class="n">finalListOfString&lt;/span>&lt;span class="o">);&lt;/span>
+&lt;span class="ln">34&lt;/span> &lt;span class="o">}&lt;/span>
+&lt;span class="ln">35&lt;/span>&lt;span class="o">}&lt;/span>
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>I hope you have got a basic idea behind the Streaming API introduced in java 8. We would be going to talk a lot about the initialisation, intermediate stages and terminal stages in upcoming blogs.&lt;/p>
+&lt;p>Till then Happy Coding, See you in the next blog.&lt;/p>
+&lt;p>&lt;a href="https://programming4ninja.github.io/exploringjava8/chapter4/">&amp;lt;&amp;lt; Chapter 4 : Method &amp;amp; Constructor Reference in Java 8 &lt;/a> | &lt;a href="https://programming4ninja.github.io/exploringjava8/chapter6/">Chapter 6 : Intermediate Streams Operations &amp;gt;&amp;gt; &lt;/a>&lt;/p></description></item></channel></rss>
