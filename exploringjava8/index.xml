@@ -520,4 +520,487 @@ on the right-hand side are nothing, but the java streams.&lt;/p>
 &lt;span class="ln">35&lt;/span>&lt;span class="o">}&lt;/span>
 &lt;/code>&lt;/pre>&lt;/div>&lt;p>I hope you have got a basic idea behind the Streaming API introduced in java 8. We would be going to talk a lot about the initialisation, intermediate stages and terminal stages in upcoming blogs.&lt;/p>
 &lt;p>Till then Happy Coding, See you in the next blog.&lt;/p>
-&lt;p>&lt;a href="https://programming4ninja.github.io/exploringjava8/chapter4/">&amp;lt;&amp;lt; Chapter 4 : Method &amp;amp; Constructor Reference in Java 8 &lt;/a> | &lt;a href="https://programming4ninja.github.io/exploringjava8/chapter6/">Chapter 6 : Intermediate Streams Operations &amp;gt;&amp;gt; &lt;/a>&lt;/p></description></item></channel></rss>
+&lt;p>&lt;a href="https://programming4ninja.github.io/exploringjava8/chapter4/">&amp;lt;&amp;lt; Chapter 4 : Method &amp;amp; Constructor Reference in Java 8 &lt;/a> | &lt;a href="https://programming4ninja.github.io/exploringjava8/chapter6/">Chapter 6 : Intermediate Streams Operations &amp;gt;&amp;gt; &lt;/a>&lt;/p></description></item><item><title>Chapter 6 : Intermediate Streams Operations</title><link>https://programming4ninja.github.io/exploringjava8/chapter6/</link><pubDate>Thu, 01 Apr 2021 00:06:41 +0530</pubDate><guid>https://programming4ninja.github.io/exploringjava8/chapter6/</guid><description>
+&lt;p>Hello there techie Ninja, Hope you are doing good. Welcome to the Blog.
+Today in this blog we would be exploring some intermediate operations that can be performed on streams.
+I hope you went through my last blog &amp;quot;Introduction to Streams API&amp;quot;. If you are a beginner to java streams I would recommend you to read the previous blog,
+which would clear the basics about streams.&lt;/p>
+&lt;h2 id="following-are-the-intermediate-operations-available-on-streams">Following are the Intermediate operations available on Streams&lt;/h2>
+&lt;ul>
+&lt;li>map&lt;/li>
+&lt;li>filter&lt;/li>
+&lt;li>flatMap&lt;/li>
+&lt;li>distinct&lt;/li>
+&lt;li>sorted&lt;/li>
+&lt;li>peek&lt;/li>
+&lt;li>limit&lt;/li>
+&lt;li>skip&lt;/li>
+&lt;/ul>
+&lt;p>Before we dig into those operations, I would like to tell you that, each of those methods returns a new Stream
+reference. Each of the intermediate operations creates a new streams object, that's why you can take advantage of
+method chaining and can write concise and easy-to-read code.&lt;/p>
+&lt;h3 id="map-operation">map() operation&lt;/h3>
+&lt;p>map() operation accepts a function Functional Interface Lamdba and it perform transform operation. use case of map() operation would be whenever you wanted to transform any data from one data type to another data type you can use the map operation.&lt;/p>
+&lt;p>Syntax :&lt;/p>
+&lt;div class="highlight">&lt;pre class="chroma">&lt;code class="language-java" data-lang="java">&lt;span class="ln">1&lt;/span>&lt;span class="n">Stream&lt;/span>&lt;span class="o">&amp;lt;&lt;/span>&lt;span class="n">R&lt;/span>&lt;span class="o">&amp;gt;&lt;/span> &lt;span class="nf">map&lt;/span>&lt;span class="o">(&lt;/span>&lt;span class="n">Function&lt;/span>&lt;span class="o">&amp;lt;?&lt;/span> &lt;span class="kd">super&lt;/span> &lt;span class="n">T&lt;/span>&lt;span class="o">,&lt;/span> &lt;span class="o">?&lt;/span> &lt;span class="kd">extends&lt;/span> &lt;span class="n">R&lt;/span>&lt;span class="o">&amp;gt;&lt;/span> &lt;span class="n">mapper&lt;/span>&lt;span class="o">)&lt;/span>
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>Example :&lt;/p>
+&lt;div class="highlight">&lt;pre class="chroma">&lt;code class="language-java" data-lang="java">&lt;span class="ln"> 1&lt;/span>&lt;span class="kn">package&lt;/span> &lt;span class="nn">org.java4ninja.exploringjava8.streams&lt;/span>&lt;span class="o">;&lt;/span>
+&lt;span class="ln"> 2&lt;/span>
+&lt;span class="ln"> 3&lt;/span>&lt;span class="kn">import&lt;/span> &lt;span class="nn">java.util.Arrays&lt;/span>&lt;span class="o">;&lt;/span>
+&lt;span class="ln"> 4&lt;/span>&lt;span class="kn">import&lt;/span> &lt;span class="nn">java.util.List&lt;/span>&lt;span class="o">;&lt;/span>
+&lt;span class="ln"> 5&lt;/span>&lt;span class="kn">import&lt;/span> &lt;span class="nn">java.util.function.Function&lt;/span>&lt;span class="o">;&lt;/span>
+&lt;span class="ln"> 6&lt;/span>&lt;span class="kn">import&lt;/span> &lt;span class="nn">java.util.stream.Collectors&lt;/span>&lt;span class="o">;&lt;/span>
+&lt;span class="ln"> 7&lt;/span>
+&lt;span class="ln"> 8&lt;/span>&lt;span class="kd">class&lt;/span> &lt;span class="nc">Employee&lt;/span> &lt;span class="o">{&lt;/span>
+&lt;span class="ln"> 9&lt;/span> &lt;span class="kd">private&lt;/span> &lt;span class="n">String&lt;/span> &lt;span class="n">firstName&lt;/span>&lt;span class="o">;&lt;/span>
+&lt;span class="ln">10&lt;/span> &lt;span class="kd">private&lt;/span> &lt;span class="n">String&lt;/span> &lt;span class="n">lastName&lt;/span>&lt;span class="o">;&lt;/span>
+&lt;span class="ln">11&lt;/span>
+&lt;span class="ln">12&lt;/span> &lt;span class="kd">public&lt;/span> &lt;span class="nf">Employee&lt;/span>&lt;span class="o">(&lt;/span>&lt;span class="n">String&lt;/span> &lt;span class="n">firstName&lt;/span>&lt;span class="o">,&lt;/span> &lt;span class="n">String&lt;/span> &lt;span class="n">lastName&lt;/span>&lt;span class="o">)&lt;/span> &lt;span class="o">{&lt;/span>
+&lt;span class="ln">13&lt;/span> &lt;span class="k">this&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="na">firstName&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">firstName&lt;/span>&lt;span class="o">;&lt;/span>
+&lt;span class="ln">14&lt;/span> &lt;span class="k">this&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="na">lastName&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">lastName&lt;/span>&lt;span class="o">;&lt;/span>
+&lt;span class="ln">15&lt;/span> &lt;span class="o">}&lt;/span>
+&lt;span class="ln">16&lt;/span>
+&lt;span class="ln">17&lt;/span> &lt;span class="nd">@Override&lt;/span> &lt;span class="kd">public&lt;/span> &lt;span class="n">String&lt;/span> &lt;span class="nf">toString&lt;/span>&lt;span class="o">()&lt;/span> &lt;span class="o">{&lt;/span>
+&lt;span class="ln">18&lt;/span> &lt;span class="k">return&lt;/span> &lt;span class="s">&amp;#34;Employee{firstName=&amp;#39;&amp;#34;&lt;/span> &lt;span class="o">+&lt;/span> &lt;span class="n">firstName&lt;/span> &lt;span class="o">+&lt;/span> &lt;span class="s">&amp;#34;\&amp;#39; lastName=&amp;#39;&amp;#34;&lt;/span> &lt;span class="o">+&lt;/span> &lt;span class="n">lastName&lt;/span> &lt;span class="o">+&lt;/span> &lt;span class="s">&amp;#34;\&amp;#39;}&amp;#34;&lt;/span>&lt;span class="o">;&lt;/span>
+&lt;span class="ln">19&lt;/span> &lt;span class="o">}&lt;/span>
+&lt;span class="ln">20&lt;/span>&lt;span class="o">}&lt;/span>
+&lt;span class="ln">21&lt;/span>
+&lt;span class="ln">22&lt;/span>&lt;span class="kd">public&lt;/span> &lt;span class="kd">class&lt;/span> &lt;span class="nc">StreamsIntermediateExample&lt;/span> &lt;span class="o">{&lt;/span>
+&lt;span class="ln">23&lt;/span> &lt;span class="kd">public&lt;/span> &lt;span class="kd">static&lt;/span> &lt;span class="kt">void&lt;/span> &lt;span class="nf">main&lt;/span>&lt;span class="o">(&lt;/span>&lt;span class="n">String&lt;/span> &lt;span class="n">args&lt;/span>&lt;span class="o">[])&lt;/span> &lt;span class="o">{&lt;/span>
+&lt;span class="ln">24&lt;/span> &lt;span class="n">List&lt;/span>&lt;span class="o">&amp;lt;&lt;/span>&lt;span class="n">String&lt;/span>&lt;span class="o">&amp;gt;&lt;/span> &lt;span class="n">listOfEmployeeNames&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">Arrays&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="na">asList&lt;/span>&lt;span class="o">(&lt;/span>&lt;span class="s">&amp;#34;Will Smith&amp;#34;&lt;/span>&lt;span class="o">,&lt;/span> &lt;span class="s">&amp;#34;Smith Jones&amp;#34;&lt;/span>&lt;span class="o">,&lt;/span>
+&lt;span class="ln">25&lt;/span> &lt;span class="s">&amp;#34;Cierra Vega&amp;#34;&lt;/span>&lt;span class="o">,&lt;/span> &lt;span class="s">&amp;#34;Alden Cantrell&amp;#34;&lt;/span>&lt;span class="o">,&lt;/span> &lt;span class="s">&amp;#34;Thomas Crane&amp;#34;&lt;/span>&lt;span class="o">);&lt;/span>
+&lt;span class="ln">26&lt;/span>
+&lt;span class="ln">27&lt;/span> &lt;span class="c1">// function which input the string and convert the string to the object of Employee
+&lt;/span>&lt;span class="ln">28&lt;/span>&lt;span class="c1">&lt;/span> &lt;span class="n">Function&lt;/span>&lt;span class="o">&amp;lt;&lt;/span>&lt;span class="n">String&lt;/span>&lt;span class="o">,&lt;/span> &lt;span class="n">Employee&lt;/span>&lt;span class="o">&amp;gt;&lt;/span> &lt;span class="n">createEmployeeFromName&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="o">(&lt;/span>&lt;span class="n">name&lt;/span>&lt;span class="o">)&lt;/span> &lt;span class="o">-&amp;gt;&lt;/span> &lt;span class="o">{&lt;/span>
+&lt;span class="ln">29&lt;/span> &lt;span class="n">String&lt;/span> &lt;span class="n">firstName&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">name&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="na">split&lt;/span>&lt;span class="o">(&lt;/span>&lt;span class="s">&amp;#34; &amp;#34;&lt;/span>&lt;span class="o">)[&lt;/span>&lt;span class="n">0&lt;/span>&lt;span class="o">];&lt;/span>
+&lt;span class="ln">30&lt;/span> &lt;span class="n">String&lt;/span> &lt;span class="n">lastName&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">name&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="na">split&lt;/span>&lt;span class="o">(&lt;/span>&lt;span class="s">&amp;#34; &amp;#34;&lt;/span>&lt;span class="o">)[&lt;/span>&lt;span class="n">1&lt;/span>&lt;span class="o">];&lt;/span>
+&lt;span class="ln">31&lt;/span> &lt;span class="k">return&lt;/span> &lt;span class="k">new&lt;/span> &lt;span class="n">Employee&lt;/span>&lt;span class="o">(&lt;/span>&lt;span class="n">firstName&lt;/span>&lt;span class="o">,&lt;/span> &lt;span class="n">lastName&lt;/span>&lt;span class="o">);&lt;/span>
+&lt;span class="ln">32&lt;/span> &lt;span class="o">};&lt;/span>
+&lt;span class="ln">33&lt;/span>
+&lt;span class="ln">34&lt;/span> &lt;span class="n">List&lt;/span>&lt;span class="o">&amp;lt;&lt;/span>&lt;span class="n">Employee&lt;/span>&lt;span class="o">&amp;gt;&lt;/span> &lt;span class="n">listOfEmployeeObjects&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">listOfEmployeeNames&lt;/span>
+&lt;span class="ln">35&lt;/span> &lt;span class="o">.&lt;/span>&lt;span class="na">stream&lt;/span>&lt;span class="o">()&lt;/span>
+&lt;span class="ln">36&lt;/span> &lt;span class="o">.&lt;/span>&lt;span class="na">map&lt;/span>&lt;span class="o">(&lt;/span>&lt;span class="n">createEmployeeFromName&lt;/span>&lt;span class="o">)&lt;/span>
+&lt;span class="ln">37&lt;/span> &lt;span class="cm">/* more concise way of writing
+&lt;/span>&lt;span class="ln">38&lt;/span>&lt;span class="cm"> /*.map((name) -&amp;gt; {
+&lt;/span>&lt;span class="ln">39&lt;/span>&lt;span class="cm"> String firstName = name.split(&amp;#34; &amp;#34;)[0];
+&lt;/span>&lt;span class="ln">40&lt;/span>&lt;span class="cm"> String lastName = name.split(&amp;#34; &amp;#34;)[1];
+&lt;/span>&lt;span class="ln">41&lt;/span>&lt;span class="cm"> return new Employee(firstName, lastName);
+&lt;/span>&lt;span class="ln">42&lt;/span>&lt;span class="cm"> })*/&lt;/span>
+&lt;span class="ln">43&lt;/span> &lt;span class="o">.&lt;/span>&lt;span class="na">collect&lt;/span>&lt;span class="o">(&lt;/span>&lt;span class="n">Collectors&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="na">toList&lt;/span>&lt;span class="o">());&lt;/span>
+&lt;span class="ln">44&lt;/span>
+&lt;span class="ln">45&lt;/span> &lt;span class="n">System&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="na">out&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="na">println&lt;/span>&lt;span class="o">(&lt;/span>&lt;span class="n">listOfEmployeeObjects&lt;/span>&lt;span class="o">);&lt;/span>
+&lt;span class="ln">46&lt;/span> &lt;span class="o">}&lt;/span>
+&lt;span class="ln">47&lt;/span>&lt;span class="o">}&lt;/span>
+&lt;/code>&lt;/pre>&lt;/div>&lt;br/>
+&lt;h3 id="filter-operation">filter() Operation&lt;/h3>
+&lt;p>filter() operation is used to filter out elements from the streams. suppose you have streams of elements, and you want that certain element which does not match our criteria should be filtered out. and should not be sent ahead for further processing. in such cases, you can use filter() operation. filter operation accepts a Predicate function as an Input.&lt;/p>
+&lt;p>Syntax :&lt;/p>
+&lt;div class="highlight">&lt;pre class="chroma">&lt;code class="language-java" data-lang="java">&lt;span class="ln">1&lt;/span>&lt;span class="n">Stream&lt;/span>&lt;span class="o">&amp;lt;&lt;/span>&lt;span class="n">T&lt;/span>&lt;span class="o">&amp;gt;&lt;/span> &lt;span class="nf">filter&lt;/span>&lt;span class="o">(&lt;/span>&lt;span class="n">Predicate&lt;/span>&lt;span class="o">&amp;lt;?&lt;/span> &lt;span class="kd">super&lt;/span> &lt;span class="n">T&lt;/span>&lt;span class="o">&amp;gt;&lt;/span> &lt;span class="n">predicate&lt;/span>&lt;span class="o">);&lt;/span>
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>Example :&lt;/p>
+&lt;div class="highlight">&lt;pre class="chroma">&lt;code class="language-java" data-lang="java">&lt;span class="ln"> 1&lt;/span>&lt;span class="kn">package&lt;/span> &lt;span class="nn">org.java4ninja.exploringjava8.streams&lt;/span>&lt;span class="o">;&lt;/span>
+&lt;span class="ln"> 2&lt;/span>
+&lt;span class="ln"> 3&lt;/span>&lt;span class="kn">import&lt;/span> &lt;span class="nn">java.util.Arrays&lt;/span>&lt;span class="o">;&lt;/span>
+&lt;span class="ln"> 4&lt;/span>&lt;span class="kn">import&lt;/span> &lt;span class="nn">java.util.List&lt;/span>&lt;span class="o">;&lt;/span>
+&lt;span class="ln"> 5&lt;/span>&lt;span class="kn">import&lt;/span> &lt;span class="nn">java.util.function.Predicate&lt;/span>&lt;span class="o">;&lt;/span>
+&lt;span class="ln"> 6&lt;/span>&lt;span class="kn">import&lt;/span> &lt;span class="nn">java.util.stream.Collectors&lt;/span>&lt;span class="o">;&lt;/span>
+&lt;span class="ln"> 7&lt;/span>
+&lt;span class="ln"> 8&lt;/span>&lt;span class="kd">class&lt;/span> &lt;span class="nc">Student&lt;/span> &lt;span class="o">{&lt;/span>
+&lt;span class="ln"> 9&lt;/span> &lt;span class="kd">private&lt;/span> &lt;span class="n">String&lt;/span> &lt;span class="n">name&lt;/span>&lt;span class="o">;&lt;/span>
+&lt;span class="ln">10&lt;/span> &lt;span class="kd">private&lt;/span> &lt;span class="kt">double&lt;/span> &lt;span class="n">marksOutOf100&lt;/span>&lt;span class="o">;&lt;/span>
+&lt;span class="ln">11&lt;/span>
+&lt;span class="ln">12&lt;/span> &lt;span class="kd">public&lt;/span> &lt;span class="nf">Student&lt;/span>&lt;span class="o">(&lt;/span>&lt;span class="n">String&lt;/span> &lt;span class="n">name&lt;/span>&lt;span class="o">,&lt;/span> &lt;span class="kt">double&lt;/span> &lt;span class="n">marksOutOf100&lt;/span>&lt;span class="o">)&lt;/span> &lt;span class="o">{&lt;/span>
+&lt;span class="ln">13&lt;/span> &lt;span class="k">this&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="na">name&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">name&lt;/span>&lt;span class="o">;&lt;/span>
+&lt;span class="ln">14&lt;/span> &lt;span class="k">this&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="na">marksOutOf100&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">marksOutOf100&lt;/span>&lt;span class="o">;&lt;/span>
+&lt;span class="ln">15&lt;/span> &lt;span class="o">}&lt;/span>
+&lt;span class="ln">16&lt;/span>
+&lt;span class="ln">17&lt;/span> &lt;span class="kd">public&lt;/span> &lt;span class="n">String&lt;/span> &lt;span class="nf">getName&lt;/span>&lt;span class="o">()&lt;/span> &lt;span class="o">{&lt;/span>
+&lt;span class="ln">18&lt;/span> &lt;span class="k">return&lt;/span> &lt;span class="n">name&lt;/span>&lt;span class="o">;&lt;/span>
+&lt;span class="ln">19&lt;/span> &lt;span class="o">}&lt;/span>
+&lt;span class="ln">20&lt;/span>
+&lt;span class="ln">21&lt;/span> &lt;span class="kd">public&lt;/span> &lt;span class="kt">double&lt;/span> &lt;span class="nf">getMarksOutOf100&lt;/span>&lt;span class="o">()&lt;/span> &lt;span class="o">{&lt;/span>
+&lt;span class="ln">22&lt;/span> &lt;span class="k">return&lt;/span> &lt;span class="n">marksOutOf100&lt;/span>&lt;span class="o">;&lt;/span>
+&lt;span class="ln">23&lt;/span> &lt;span class="o">}&lt;/span>
+&lt;span class="ln">24&lt;/span>&lt;span class="o">}&lt;/span>
+&lt;span class="ln">25&lt;/span>
+&lt;span class="ln">26&lt;/span>&lt;span class="kd">public&lt;/span> &lt;span class="kd">class&lt;/span> &lt;span class="nc">FilterOperationOnStreams&lt;/span> &lt;span class="o">{&lt;/span>
+&lt;span class="ln">27&lt;/span> &lt;span class="kd">public&lt;/span> &lt;span class="kd">static&lt;/span> &lt;span class="kt">void&lt;/span> &lt;span class="nf">main&lt;/span>&lt;span class="o">(&lt;/span>&lt;span class="n">String&lt;/span> &lt;span class="n">args&lt;/span>&lt;span class="o">[])&lt;/span> &lt;span class="o">{&lt;/span>
+&lt;span class="ln">28&lt;/span>
+&lt;span class="ln">29&lt;/span> &lt;span class="n">List&lt;/span>&lt;span class="o">&amp;lt;&lt;/span>&lt;span class="n">Student&lt;/span>&lt;span class="o">&amp;gt;&lt;/span> &lt;span class="n">studentList&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">Arrays&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="na">asList&lt;/span>&lt;span class="o">(&lt;/span>
+&lt;span class="ln">30&lt;/span> &lt;span class="k">new&lt;/span> &lt;span class="n">Student&lt;/span>&lt;span class="o">(&lt;/span>&lt;span class="s">&amp;#34;Tim&amp;#34;&lt;/span>&lt;span class="o">,&lt;/span> &lt;span class="n">86&lt;/span>&lt;span class="o">),&lt;/span>
+&lt;span class="ln">31&lt;/span> &lt;span class="k">new&lt;/span> &lt;span class="n">Student&lt;/span>&lt;span class="o">(&lt;/span>&lt;span class="s">&amp;#34;Joe&amp;#34;&lt;/span>&lt;span class="o">,&lt;/span> &lt;span class="n">44&lt;/span>&lt;span class="o">),&lt;/span>
+&lt;span class="ln">32&lt;/span> &lt;span class="k">new&lt;/span> &lt;span class="n">Student&lt;/span>&lt;span class="o">(&lt;/span>&lt;span class="s">&amp;#34;Lisa&amp;#34;&lt;/span>&lt;span class="o">,&lt;/span> &lt;span class="n">91&lt;/span>&lt;span class="o">),&lt;/span>
+&lt;span class="ln">33&lt;/span> &lt;span class="k">new&lt;/span> &lt;span class="n">Student&lt;/span>&lt;span class="o">(&lt;/span>&lt;span class="s">&amp;#34;Tom&amp;#34;&lt;/span>&lt;span class="o">,&lt;/span> &lt;span class="n">52&lt;/span>&lt;span class="o">));&lt;/span>
+&lt;span class="ln">34&lt;/span>
+&lt;span class="ln">35&lt;/span> &lt;span class="n">Predicate&lt;/span>&lt;span class="o">&amp;lt;&lt;/span>&lt;span class="n">Student&lt;/span>&lt;span class="o">&amp;gt;&lt;/span> &lt;span class="n">passingCriteria&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">student&lt;/span> &lt;span class="o">-&amp;gt;&lt;/span> &lt;span class="n">student&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="na">getMarksOutOf100&lt;/span>&lt;span class="o">()&lt;/span> &lt;span class="o">&amp;gt;&lt;/span> &lt;span class="n">50&lt;/span>&lt;span class="o">;&lt;/span>
+&lt;span class="ln">36&lt;/span>
+&lt;span class="ln">37&lt;/span> &lt;span class="n">List&lt;/span>&lt;span class="o">&amp;lt;&lt;/span>&lt;span class="n">String&lt;/span>&lt;span class="o">&amp;gt;&lt;/span> &lt;span class="n">listOfStudentWhoPassTheExam&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">studentList&lt;/span>
+&lt;span class="ln">38&lt;/span> &lt;span class="o">.&lt;/span>&lt;span class="na">stream&lt;/span>&lt;span class="o">()&lt;/span>
+&lt;span class="ln">39&lt;/span> &lt;span class="o">.&lt;/span>&lt;span class="na">filter&lt;/span>&lt;span class="o">(&lt;/span>&lt;span class="n">passingCriteria&lt;/span>&lt;span class="o">)&lt;/span>
+&lt;span class="ln">40&lt;/span> &lt;span class="cm">/* more concise way inline predicate function */&lt;/span>
+&lt;span class="ln">41&lt;/span> &lt;span class="c1">//.filter(student -&amp;gt; student.getMarksOutOf100() &amp;gt; 50)
+&lt;/span>&lt;span class="ln">42&lt;/span>&lt;span class="c1">&lt;/span> &lt;span class="o">.&lt;/span>&lt;span class="na">map&lt;/span>&lt;span class="o">(&lt;/span>&lt;span class="n">student&lt;/span> &lt;span class="o">-&amp;gt;&lt;/span> &lt;span class="n">student&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="na">getName&lt;/span>&lt;span class="o">())&lt;/span>
+&lt;span class="ln">43&lt;/span> &lt;span class="cm">/* more concise way using method reference */&lt;/span>
+&lt;span class="ln">44&lt;/span> &lt;span class="c1">//.map(Student::getName)
+&lt;/span>&lt;span class="ln">45&lt;/span>&lt;span class="c1">&lt;/span> &lt;span class="o">.&lt;/span>&lt;span class="na">collect&lt;/span>&lt;span class="o">(&lt;/span>&lt;span class="n">Collectors&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="na">toList&lt;/span>&lt;span class="o">());&lt;/span>
+&lt;span class="ln">46&lt;/span>
+&lt;span class="ln">47&lt;/span> &lt;span class="n">System&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="na">out&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="na">println&lt;/span>&lt;span class="o">(&lt;/span>&lt;span class="n">listOfStudentWhoPassTheExam&lt;/span>&lt;span class="o">);&lt;/span>
+&lt;span class="ln">48&lt;/span> &lt;span class="o">}&lt;/span>
+&lt;span class="ln">49&lt;/span>&lt;span class="o">}&lt;/span>
+&lt;/code>&lt;/pre>&lt;/div>&lt;br/>
+&lt;h3 id="flatmap-operation">flatMap() Operation&lt;/h3>
+&lt;p>flatMap() is the most confusing operation of streams, Many people gets confuse between map() and flatMap(). It would be easy if you understood them correctly with the correct example. flatMap() operation is used to convert the Streams&amp;lt;Streams&lt;T>&amp;gt; to Streams&lt;T>. basically, if you have a List of elements X, and inside each element, you have another elements Y, in order to create a list of all elements of Y. you can use flatMap(), if you use map() you will end up getting List&amp;lt;List&lt;Y>&amp;gt;.&lt;/p>
+&lt;p>Syntax :&lt;/p>
+&lt;div class="highlight">&lt;pre class="chroma">&lt;code class="language-java" data-lang="java">&lt;span class="ln">1&lt;/span>&lt;span class="n">Stream&lt;/span>&lt;span class="o">&amp;lt;&lt;/span>&lt;span class="n">R&lt;/span>&lt;span class="o">&amp;gt;&lt;/span> &lt;span class="nf">flatMap&lt;/span>&lt;span class="o">(&lt;/span>&lt;span class="n">Function&lt;/span>&lt;span class="o">&amp;lt;?&lt;/span> &lt;span class="kd">super&lt;/span> &lt;span class="n">T&lt;/span>&lt;span class="o">,&lt;/span> &lt;span class="o">?&lt;/span> &lt;span class="kd">extends&lt;/span> &lt;span class="n">Stream&lt;/span>&lt;span class="o">&amp;lt;?&lt;/span> &lt;span class="kd">extends&lt;/span> &lt;span class="n">R&lt;/span>&lt;span class="o">&amp;gt;&amp;gt;&lt;/span> &lt;span class="n">mapper&lt;/span>&lt;span class="o">);&lt;/span>
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>Example :&lt;/p>
+&lt;div class="highlight">&lt;pre class="chroma">&lt;code class="language-java" data-lang="java">&lt;span class="ln"> 1&lt;/span>&lt;span class="kn">package&lt;/span> &lt;span class="nn">org.java4ninja.exploringjava8.streams&lt;/span>&lt;span class="o">;&lt;/span>
+&lt;span class="ln"> 2&lt;/span>
+&lt;span class="ln"> 3&lt;/span>&lt;span class="kn">import&lt;/span> &lt;span class="nn">java.util.List&lt;/span>&lt;span class="o">;&lt;/span>
+&lt;span class="ln"> 4&lt;/span>&lt;span class="kn">import&lt;/span> &lt;span class="nn">java.util.stream.Collectors&lt;/span>&lt;span class="o">;&lt;/span>
+&lt;span class="ln"> 5&lt;/span>&lt;span class="kn">import&lt;/span> &lt;span class="nn">lombok.AllArgsConstructor&lt;/span>&lt;span class="o">;&lt;/span>
+&lt;span class="ln"> 6&lt;/span>&lt;span class="kn">import&lt;/span> &lt;span class="nn">lombok.Data&lt;/span>&lt;span class="o">;&lt;/span>
+&lt;span class="ln"> 7&lt;/span>&lt;span class="kn">import static&lt;/span> &lt;span class="nn">java.util.Arrays.asList&lt;/span>&lt;span class="o">;&lt;/span>
+&lt;span class="ln"> 8&lt;/span>
+&lt;span class="ln"> 9&lt;/span>&lt;span class="cm">/* I have used lombok here in order to write minimal code,You can
+&lt;/span>&lt;span class="ln">10&lt;/span>&lt;span class="cm">always use lombok, or manually create constructor and getter setters*/&lt;/span>
+&lt;span class="ln">11&lt;/span>&lt;span class="nd">@Data&lt;/span> &lt;span class="nd">@AllArgsConstructor&lt;/span>
+&lt;span class="ln">12&lt;/span>&lt;span class="kd">class&lt;/span> &lt;span class="nc">Sales&lt;/span> &lt;span class="o">{&lt;/span>
+&lt;span class="ln">13&lt;/span> &lt;span class="kd">private&lt;/span> &lt;span class="n">String&lt;/span> &lt;span class="n">item&lt;/span>&lt;span class="o">;&lt;/span>
+&lt;span class="ln">14&lt;/span> &lt;span class="kd">private&lt;/span> &lt;span class="kt">double&lt;/span> &lt;span class="n">price&lt;/span>&lt;span class="o">;&lt;/span>
+&lt;span class="ln">15&lt;/span>&lt;span class="o">}&lt;/span>
+&lt;span class="ln">16&lt;/span>
+&lt;span class="ln">17&lt;/span>&lt;span class="nd">@Data&lt;/span> &lt;span class="nd">@AllArgsConstructor&lt;/span>
+&lt;span class="ln">18&lt;/span>&lt;span class="kd">class&lt;/span> &lt;span class="nc">SalesEmployee&lt;/span> &lt;span class="o">{&lt;/span>
+&lt;span class="ln">19&lt;/span> &lt;span class="kd">private&lt;/span> &lt;span class="n">String&lt;/span> &lt;span class="n">name&lt;/span>&lt;span class="o">;&lt;/span>
+&lt;span class="ln">20&lt;/span> &lt;span class="kd">private&lt;/span> &lt;span class="n">List&lt;/span>&lt;span class="o">&amp;lt;&lt;/span>&lt;span class="n">Sales&lt;/span>&lt;span class="o">&amp;gt;&lt;/span> &lt;span class="n">listOfSales&lt;/span>&lt;span class="o">;&lt;/span>
+&lt;span class="ln">21&lt;/span>&lt;span class="o">}&lt;/span>
+&lt;span class="ln">22&lt;/span>
+&lt;span class="ln">23&lt;/span>&lt;span class="kd">public&lt;/span> &lt;span class="kd">class&lt;/span> &lt;span class="nc">FlatMapOperationOnStreams&lt;/span> &lt;span class="o">{&lt;/span>
+&lt;span class="ln">24&lt;/span> &lt;span class="kd">public&lt;/span> &lt;span class="kd">static&lt;/span> &lt;span class="kt">void&lt;/span> &lt;span class="nf">main&lt;/span>&lt;span class="o">(&lt;/span>&lt;span class="n">String&lt;/span> &lt;span class="n">args&lt;/span>&lt;span class="o">[])&lt;/span> &lt;span class="o">{&lt;/span>
+&lt;span class="ln">25&lt;/span> &lt;span class="n">List&lt;/span>&lt;span class="o">&amp;lt;&lt;/span>&lt;span class="n">SalesEmployee&lt;/span>&lt;span class="o">&amp;gt;&lt;/span> &lt;span class="n">listOfEmployee&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">asList&lt;/span>&lt;span class="o">(&lt;/span>
+&lt;span class="ln">26&lt;/span> &lt;span class="k">new&lt;/span> &lt;span class="n">SalesEmployee&lt;/span>&lt;span class="o">(&lt;/span>&lt;span class="s">&amp;#34;Joe&amp;#34;&lt;/span>&lt;span class="o">,&lt;/span> &lt;span class="n">asList&lt;/span>&lt;span class="o">(&lt;/span>
+&lt;span class="ln">27&lt;/span> &lt;span class="k">new&lt;/span> &lt;span class="n">Sales&lt;/span>&lt;span class="o">(&lt;/span>&lt;span class="s">&amp;#34;Iron&amp;#34;&lt;/span>&lt;span class="o">,&lt;/span> &lt;span class="n">150&lt;/span>&lt;span class="o">),&lt;/span>
+&lt;span class="ln">28&lt;/span> &lt;span class="k">new&lt;/span> &lt;span class="n">Sales&lt;/span>&lt;span class="o">(&lt;/span>&lt;span class="s">&amp;#34;Washing Machine&amp;#34;&lt;/span>&lt;span class="o">,&lt;/span> &lt;span class="n">1500&lt;/span>&lt;span class="o">))),&lt;/span>
+&lt;span class="ln">29&lt;/span> &lt;span class="k">new&lt;/span> &lt;span class="n">SalesEmployee&lt;/span>&lt;span class="o">(&lt;/span>&lt;span class="s">&amp;#34;Honey&amp;#34;&lt;/span>&lt;span class="o">,&lt;/span> &lt;span class="n">asList&lt;/span>&lt;span class="o">(&lt;/span>
+&lt;span class="ln">30&lt;/span> &lt;span class="k">new&lt;/span> &lt;span class="n">Sales&lt;/span>&lt;span class="o">(&lt;/span>&lt;span class="s">&amp;#34;Mobile&amp;#34;&lt;/span>&lt;span class="o">,&lt;/span> &lt;span class="n">1400&lt;/span>&lt;span class="o">),&lt;/span>
+&lt;span class="ln">31&lt;/span> &lt;span class="k">new&lt;/span> &lt;span class="n">Sales&lt;/span>&lt;span class="o">(&lt;/span>&lt;span class="s">&amp;#34;TV&amp;#34;&lt;/span>&lt;span class="o">,&lt;/span> &lt;span class="n">13499&lt;/span>&lt;span class="o">))),&lt;/span>
+&lt;span class="ln">32&lt;/span> &lt;span class="k">new&lt;/span> &lt;span class="n">SalesEmployee&lt;/span>&lt;span class="o">(&lt;/span>&lt;span class="s">&amp;#34;Lisa&amp;#34;&lt;/span>&lt;span class="o">,&lt;/span> &lt;span class="n">asList&lt;/span>&lt;span class="o">(&lt;/span>
+&lt;span class="ln">33&lt;/span> &lt;span class="k">new&lt;/span> &lt;span class="n">Sales&lt;/span>&lt;span class="o">(&lt;/span>&lt;span class="s">&amp;#34;Bed&amp;#34;&lt;/span>&lt;span class="o">,&lt;/span> &lt;span class="n">150&lt;/span>&lt;span class="o">),&lt;/span>
+&lt;span class="ln">34&lt;/span> &lt;span class="k">new&lt;/span> &lt;span class="n">Sales&lt;/span>&lt;span class="o">(&lt;/span>&lt;span class="s">&amp;#34;Laptop&amp;#34;&lt;/span>&lt;span class="o">,&lt;/span> &lt;span class="n">12999&lt;/span>&lt;span class="o">))),&lt;/span>
+&lt;span class="ln">35&lt;/span> &lt;span class="k">new&lt;/span> &lt;span class="n">SalesEmployee&lt;/span>&lt;span class="o">(&lt;/span>&lt;span class="s">&amp;#34;Hayaat&amp;#34;&lt;/span>&lt;span class="o">,&lt;/span> &lt;span class="n">asList&lt;/span>&lt;span class="o">(&lt;/span>
+&lt;span class="ln">36&lt;/span> &lt;span class="k">new&lt;/span> &lt;span class="n">Sales&lt;/span>&lt;span class="o">(&lt;/span>&lt;span class="s">&amp;#34;Pen Drive&amp;#34;&lt;/span>&lt;span class="o">,&lt;/span> &lt;span class="n">399&lt;/span>&lt;span class="o">),&lt;/span>
+&lt;span class="ln">37&lt;/span> &lt;span class="k">new&lt;/span> &lt;span class="n">Sales&lt;/span>&lt;span class="o">(&lt;/span>&lt;span class="s">&amp;#34;Desktop Computer&amp;#34;&lt;/span>&lt;span class="o">,&lt;/span> &lt;span class="n">8999&lt;/span>&lt;span class="o">))));&lt;/span>
+&lt;span class="ln">38&lt;/span>
+&lt;span class="ln">39&lt;/span> &lt;span class="n">List&lt;/span>&lt;span class="o">&amp;lt;&lt;/span>&lt;span class="n">Sales&lt;/span>&lt;span class="o">&amp;gt;&lt;/span> &lt;span class="n">listOfSales&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">listOfEmployee&lt;/span>
+&lt;span class="ln">40&lt;/span> &lt;span class="o">.&lt;/span>&lt;span class="na">stream&lt;/span>&lt;span class="o">()&lt;/span>
+&lt;span class="ln">41&lt;/span> &lt;span class="o">.&lt;/span>&lt;span class="na">flatMap&lt;/span>&lt;span class="o">(&lt;/span>&lt;span class="n">employee&lt;/span> &lt;span class="o">-&amp;gt;&lt;/span> &lt;span class="n">employee&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="na">getListOfSales&lt;/span>&lt;span class="o">().&lt;/span>&lt;span class="na">stream&lt;/span>&lt;span class="o">())&lt;/span>
+&lt;span class="ln">42&lt;/span> &lt;span class="o">.&lt;/span>&lt;span class="na">collect&lt;/span>&lt;span class="o">(&lt;/span>&lt;span class="n">Collectors&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="na">toList&lt;/span>&lt;span class="o">());&lt;/span>
+&lt;span class="ln">43&lt;/span>
+&lt;span class="ln">44&lt;/span> &lt;span class="n">System&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="na">out&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="na">println&lt;/span>&lt;span class="o">(&lt;/span>&lt;span class="n">listOfSales&lt;/span>&lt;span class="o">);&lt;/span>
+&lt;span class="ln">45&lt;/span> &lt;span class="o">}&lt;/span>
+&lt;span class="ln">46&lt;/span>&lt;span class="o">}&lt;/span>
+&lt;/code>&lt;/pre>&lt;/div>&lt;br/>
+&lt;h3 id="distinct-and-sorted">distinct() and sorted()&lt;/h3>
+&lt;p>The name itself depicts its usage, distinct() method used to extract out all the distinct elements from the streams. and remove all duplicate elements. distinct does not take any argument as input.&lt;/p>
+&lt;p>sorted() method is useful to sort the elements in the streams. it sorts the element in its natural order. It expects that the class should be comparable. otherwise, you can pass a Comparator object to the sorted() method.&lt;/p>
+&lt;p>Syntax :&lt;/p>
+&lt;div class="highlight">&lt;pre class="chroma">&lt;code class="language-java" data-lang="java">&lt;span class="ln">1&lt;/span>&lt;span class="n">Stream&lt;/span>&lt;span class="o">&amp;lt;&lt;/span>&lt;span class="n">T&lt;/span>&lt;span class="o">&amp;gt;&lt;/span> &lt;span class="nf">distinct&lt;/span>&lt;span class="o">();&lt;/span>
+&lt;span class="ln">2&lt;/span>&lt;span class="n">Stream&lt;/span>&lt;span class="o">&amp;lt;&lt;/span>&lt;span class="n">T&lt;/span>&lt;span class="o">&amp;gt;&lt;/span> &lt;span class="nf">sorted&lt;/span>&lt;span class="o">();&lt;/span>
+&lt;span class="ln">3&lt;/span>&lt;span class="n">Stream&lt;/span>&lt;span class="o">&amp;lt;&lt;/span>&lt;span class="n">T&lt;/span>&lt;span class="o">&amp;gt;&lt;/span> &lt;span class="nf">sorted&lt;/span>&lt;span class="o">(&lt;/span>&lt;span class="n">Comparator&lt;/span>&lt;span class="o">&amp;lt;?&lt;/span> &lt;span class="kd">super&lt;/span> &lt;span class="n">T&lt;/span>&lt;span class="o">&amp;gt;&lt;/span> &lt;span class="n">comparator&lt;/span>&lt;span class="o">);&lt;/span>
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>Example :&lt;/p>
+&lt;div class="highlight">&lt;pre class="chroma">&lt;code class="language-java" data-lang="java">&lt;span class="ln"> 1&lt;/span>&lt;span class="kn">package&lt;/span> &lt;span class="nn">org.java4ninja.exploringjava8.streams&lt;/span>&lt;span class="o">;&lt;/span>
+&lt;span class="ln"> 2&lt;/span>
+&lt;span class="ln"> 3&lt;/span>&lt;span class="kn">import&lt;/span> &lt;span class="nn">java.util.Arrays&lt;/span>&lt;span class="o">;&lt;/span>
+&lt;span class="ln"> 4&lt;/span>&lt;span class="kn">import&lt;/span> &lt;span class="nn">java.util.Comparator&lt;/span>&lt;span class="o">;&lt;/span>
+&lt;span class="ln"> 5&lt;/span>&lt;span class="kn">import&lt;/span> &lt;span class="nn">java.util.List&lt;/span>&lt;span class="o">;&lt;/span>
+&lt;span class="ln"> 6&lt;/span>&lt;span class="kn">import&lt;/span> &lt;span class="nn">java.util.stream.Collectors&lt;/span>&lt;span class="o">;&lt;/span>
+&lt;span class="ln"> 7&lt;/span>
+&lt;span class="ln"> 8&lt;/span>&lt;span class="kd">public&lt;/span> &lt;span class="kd">class&lt;/span> &lt;span class="nc">DistinctAndSortedOnStreams&lt;/span> &lt;span class="o">{&lt;/span>
+&lt;span class="ln"> 9&lt;/span> &lt;span class="kd">public&lt;/span> &lt;span class="kd">static&lt;/span> &lt;span class="kt">void&lt;/span> &lt;span class="nf">main&lt;/span>&lt;span class="o">(&lt;/span>&lt;span class="n">String&lt;/span> &lt;span class="n">args&lt;/span>&lt;span class="o">[])&lt;/span> &lt;span class="o">{&lt;/span>
+&lt;span class="ln">10&lt;/span>
+&lt;span class="ln">11&lt;/span> &lt;span class="n">List&lt;/span>&lt;span class="o">&amp;lt;&lt;/span>&lt;span class="n">Integer&lt;/span>&lt;span class="o">&amp;gt;&lt;/span> &lt;span class="n">listOfIntegers&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">Arrays&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="na">asList&lt;/span>&lt;span class="o">(&lt;/span>&lt;span class="n">1&lt;/span>&lt;span class="o">,&lt;/span> &lt;span class="n">2&lt;/span>&lt;span class="o">,&lt;/span> &lt;span class="n">5&lt;/span>&lt;span class="o">,&lt;/span> &lt;span class="n">33&lt;/span>&lt;span class="o">,&lt;/span> &lt;span class="n">22&lt;/span>&lt;span class="o">,&lt;/span> &lt;span class="n">2&lt;/span>&lt;span class="o">,&lt;/span>
+&lt;span class="ln">12&lt;/span> &lt;span class="n">33&lt;/span>&lt;span class="o">,&lt;/span> &lt;span class="n">90&lt;/span>&lt;span class="o">,&lt;/span> &lt;span class="n">11&lt;/span>&lt;span class="o">,&lt;/span> &lt;span class="n">15&lt;/span>&lt;span class="o">,&lt;/span> &lt;span class="n">19&lt;/span>&lt;span class="o">,&lt;/span> &lt;span class="n">8&lt;/span>&lt;span class="o">,&lt;/span> &lt;span class="n">90&lt;/span>&lt;span class="o">,&lt;/span> &lt;span class="n">155&lt;/span>&lt;span class="o">,&lt;/span> &lt;span class="n">65&lt;/span>&lt;span class="o">,&lt;/span> &lt;span class="n">22&lt;/span>&lt;span class="o">);&lt;/span>
+&lt;span class="ln">13&lt;/span>
+&lt;span class="ln">14&lt;/span> &lt;span class="n">List&lt;/span>&lt;span class="o">&amp;lt;&lt;/span>&lt;span class="n">Integer&lt;/span>&lt;span class="o">&amp;gt;&lt;/span> &lt;span class="n">listOfDistinctAndSortedIntegers&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">listOfIntegers&lt;/span>
+&lt;span class="ln">15&lt;/span> &lt;span class="o">.&lt;/span>&lt;span class="na">stream&lt;/span>&lt;span class="o">()&lt;/span>
+&lt;span class="ln">16&lt;/span> &lt;span class="o">.&lt;/span>&lt;span class="na">distinct&lt;/span>&lt;span class="o">()&lt;/span>
+&lt;span class="ln">17&lt;/span> &lt;span class="o">.&lt;/span>&lt;span class="na">sorted&lt;/span>&lt;span class="o">()&lt;/span>
+&lt;span class="ln">18&lt;/span> &lt;span class="o">.&lt;/span>&lt;span class="na">collect&lt;/span>&lt;span class="o">(&lt;/span>&lt;span class="n">Collectors&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="na">toList&lt;/span>&lt;span class="o">());&lt;/span>
+&lt;span class="ln">19&lt;/span> &lt;span class="n">System&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="na">out&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="na">println&lt;/span>&lt;span class="o">(&lt;/span>&lt;span class="n">listOfDistinctAndSortedIntegers&lt;/span>&lt;span class="o">);&lt;/span>
+&lt;span class="ln">20&lt;/span>
+&lt;span class="ln">21&lt;/span> &lt;span class="n">List&lt;/span>&lt;span class="o">&amp;lt;&lt;/span>&lt;span class="n">Integer&lt;/span>&lt;span class="o">&amp;gt;&lt;/span> &lt;span class="n">listOfDistinctAndSortedInReverseOrderIntegers&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">listOfIntegers&lt;/span>
+&lt;span class="ln">22&lt;/span> &lt;span class="o">.&lt;/span>&lt;span class="na">stream&lt;/span>&lt;span class="o">()&lt;/span>
+&lt;span class="ln">23&lt;/span> &lt;span class="o">.&lt;/span>&lt;span class="na">distinct&lt;/span>&lt;span class="o">()&lt;/span>
+&lt;span class="ln">24&lt;/span> &lt;span class="o">.&lt;/span>&lt;span class="na">sorted&lt;/span>&lt;span class="o">(&lt;/span>&lt;span class="n">Comparator&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="na">reverseOrder&lt;/span>&lt;span class="o">())&lt;/span>
+&lt;span class="ln">25&lt;/span> &lt;span class="o">.&lt;/span>&lt;span class="na">collect&lt;/span>&lt;span class="o">(&lt;/span>&lt;span class="n">Collectors&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="na">toList&lt;/span>&lt;span class="o">());&lt;/span>
+&lt;span class="ln">26&lt;/span> &lt;span class="n">System&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="na">out&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="na">println&lt;/span>&lt;span class="o">(&lt;/span>&lt;span class="n">listOfDistinctAndSortedInReverseOrderIntegers&lt;/span>&lt;span class="o">);&lt;/span>
+&lt;span class="ln">27&lt;/span> &lt;span class="o">}&lt;/span>
+&lt;span class="ln">28&lt;/span>&lt;span class="o">}&lt;/span>
+&lt;/code>&lt;/pre>&lt;/div>&lt;br/>
+&lt;h3 id="peek-limit-and-skip">peek() limit() and skip()&lt;/h3>
+&lt;p>peek() operation is more of debugging method in the streams, it accepts a consumer function and generally, we use it for printing things out so that on each step of streams you will come to know which elements are going to pass to the next intermediate operation&lt;/p>
+&lt;p>limit() operation is used to limit the number of the element which can be pass through the streams. it accepts a Long integer, which used to denote the number of the element should be pass to the next intermediate operations&lt;/p>
+&lt;p>skip() operation again is used to skip first n elements from the streams. it accepts Long integer which is used to skip the first n elements from the beginning of the streams&lt;/p>
+&lt;p>Syntax :&lt;/p>
+&lt;div class="highlight">&lt;pre class="chroma">&lt;code class="language-java" data-lang="java">&lt;span class="ln">1&lt;/span>&lt;span class="n">Stream&lt;/span>&lt;span class="o">&amp;lt;&lt;/span>&lt;span class="n">T&lt;/span>&lt;span class="o">&amp;gt;&lt;/span> &lt;span class="nf">peek&lt;/span>&lt;span class="o">(&lt;/span>&lt;span class="n">Consumer&lt;/span>&lt;span class="o">&amp;lt;?&lt;/span> &lt;span class="kd">super&lt;/span> &lt;span class="n">T&lt;/span>&lt;span class="o">&amp;gt;&lt;/span> &lt;span class="n">action&lt;/span>&lt;span class="o">);&lt;/span>
+&lt;span class="ln">2&lt;/span>&lt;span class="n">Stream&lt;/span>&lt;span class="o">&amp;lt;&lt;/span>&lt;span class="n">T&lt;/span>&lt;span class="o">&amp;gt;&lt;/span> &lt;span class="nf">limit&lt;/span>&lt;span class="o">(&lt;/span>&lt;span class="kt">long&lt;/span> &lt;span class="n">maxSize&lt;/span>&lt;span class="o">);&lt;/span>
+&lt;span class="ln">3&lt;/span>&lt;span class="n">Stream&lt;/span>&lt;span class="o">&amp;lt;&lt;/span>&lt;span class="n">T&lt;/span>&lt;span class="o">&amp;gt;&lt;/span> &lt;span class="nf">skip&lt;/span>&lt;span class="o">(&lt;/span>&lt;span class="kt">long&lt;/span> &lt;span class="n">n&lt;/span>&lt;span class="o">);&lt;/span>
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>Example :&lt;/p>
+&lt;div class="highlight">&lt;pre class="chroma">&lt;code class="language-java" data-lang="java">&lt;span class="ln"> 1&lt;/span>&lt;span class="kn">package&lt;/span> &lt;span class="nn">org.java4ninja.exploringjava8.streams&lt;/span>&lt;span class="o">;&lt;/span>
+&lt;span class="ln"> 2&lt;/span>
+&lt;span class="ln"> 3&lt;/span>&lt;span class="kn">import&lt;/span> &lt;span class="nn">java.util.Arrays&lt;/span>&lt;span class="o">;&lt;/span>
+&lt;span class="ln"> 4&lt;/span>&lt;span class="kn">import&lt;/span> &lt;span class="nn">java.util.stream.Collectors&lt;/span>&lt;span class="o">;&lt;/span>
+&lt;span class="ln"> 5&lt;/span>
+&lt;span class="ln"> 6&lt;/span>&lt;span class="kd">public&lt;/span> &lt;span class="kd">class&lt;/span> &lt;span class="nc">PeekLimitAndSkipOperation&lt;/span> &lt;span class="o">{&lt;/span>
+&lt;span class="ln"> 7&lt;/span> &lt;span class="kd">public&lt;/span> &lt;span class="kd">static&lt;/span> &lt;span class="kt">void&lt;/span> &lt;span class="nf">main&lt;/span>&lt;span class="o">(&lt;/span>&lt;span class="n">String&lt;/span> &lt;span class="n">args&lt;/span>&lt;span class="o">[])&lt;/span> &lt;span class="o">{&lt;/span>
+&lt;span class="ln"> 8&lt;/span> &lt;span class="n">Arrays&lt;/span>
+&lt;span class="ln"> 9&lt;/span> &lt;span class="o">.&lt;/span>&lt;span class="na">asList&lt;/span>&lt;span class="o">(&lt;/span>&lt;span class="n">1&lt;/span>&lt;span class="o">,&lt;/span> &lt;span class="n">2&lt;/span>&lt;span class="o">,&lt;/span> &lt;span class="n">3&lt;/span>&lt;span class="o">,&lt;/span> &lt;span class="n">4&lt;/span>&lt;span class="o">,&lt;/span> &lt;span class="n">5&lt;/span>&lt;span class="o">,&lt;/span> &lt;span class="n">6&lt;/span>&lt;span class="o">,&lt;/span> &lt;span class="n">7&lt;/span>&lt;span class="o">,&lt;/span> &lt;span class="n">8&lt;/span>&lt;span class="o">,&lt;/span> &lt;span class="n">9&lt;/span>&lt;span class="o">,&lt;/span> &lt;span class="n">10&lt;/span>&lt;span class="o">)&lt;/span>
+&lt;span class="ln">10&lt;/span> &lt;span class="o">.&lt;/span>&lt;span class="na">stream&lt;/span>&lt;span class="o">()&lt;/span>
+&lt;span class="ln">11&lt;/span> &lt;span class="c1">// skip first 2 element
+&lt;/span>&lt;span class="ln">12&lt;/span>&lt;span class="c1">&lt;/span> &lt;span class="o">.&lt;/span>&lt;span class="na">skip&lt;/span>&lt;span class="o">(&lt;/span>&lt;span class="n">2&lt;/span>&lt;span class="o">)&lt;/span>
+&lt;span class="ln">13&lt;/span> &lt;span class="c1">// limit the result for next 5 elements only
+&lt;/span>&lt;span class="ln">14&lt;/span>&lt;span class="c1">&lt;/span> &lt;span class="o">.&lt;/span>&lt;span class="na">limit&lt;/span>&lt;span class="o">(&lt;/span>&lt;span class="n">5&lt;/span>&lt;span class="o">)&lt;/span>
+&lt;span class="ln">15&lt;/span> &lt;span class="c1">// do a peek a boo on the current elements of streams
+&lt;/span>&lt;span class="ln">16&lt;/span>&lt;span class="c1">&lt;/span> &lt;span class="o">.&lt;/span>&lt;span class="na">peek&lt;/span>&lt;span class="o">((&lt;/span>&lt;span class="n">element&lt;/span>&lt;span class="o">)&lt;/span> &lt;span class="o">-&amp;gt;&lt;/span> &lt;span class="n">System&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="na">out&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="na">println&lt;/span>&lt;span class="o">(&lt;/span>&lt;span class="n">element&lt;/span>&lt;span class="o">))&lt;/span>
+&lt;span class="ln">17&lt;/span> &lt;span class="o">.&lt;/span>&lt;span class="na">peek&lt;/span>&lt;span class="o">(&lt;/span>&lt;span class="n">System&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="na">out&lt;/span>&lt;span class="o">::&lt;/span>&lt;span class="n">println&lt;/span>&lt;span class="o">)&lt;/span>
+&lt;span class="ln">18&lt;/span> &lt;span class="o">.&lt;/span>&lt;span class="na">collect&lt;/span>&lt;span class="o">(&lt;/span>&lt;span class="n">Collectors&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="na">toList&lt;/span>&lt;span class="o">());&lt;/span>
+&lt;span class="ln">19&lt;/span> &lt;span class="o">}&lt;/span>
+&lt;span class="ln">20&lt;/span>&lt;span class="o">}&lt;/span>
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>I hope you learned all the operations we have discussed in this blog, Let me know your comment, suggestion for this blog. it would be helpful for me to improve myself and my blogs.&lt;/p>
+&lt;p>Till then,
+Thank You
+Good-Bye
+Happy Coding&lt;/p>
+&lt;p>&lt;a href="https://programming4ninja.github.io/exploringjava8/chapter5/">&amp;lt;&amp;lt; Chapter 5 : Introduction to Streams API &lt;/a> | &lt;a href="https://programming4ninja.github.io/exploringjava8/chapter7/">Chapter 7 : Internal working of Streams &amp;gt;&amp;gt; &lt;/a>&lt;/p></description></item><item><title>Chapter 7 : Internal working of Streams</title><link>https://programming4ninja.github.io/exploringjava8/chapter7/</link><pubDate>Thu, 01 Apr 2021 00:06:45 +0530</pubDate><guid>https://programming4ninja.github.io/exploringjava8/chapter7/</guid><description>
+&lt;p>Hello there techies, Hope you are doing good. Welcome to Programming4ninja and Exploring Java 8 Series.
+Today in this blog we would be talking about the Java 8 streams.
+it is very essential to understand the way streams work. In order to get the benefit of parallel processing,
+one should be able to understand how element flows in the streams.&lt;/p>
+&lt;p>Since by now you must have basic knowledge of Streams, I am assuming that you have completed the previous 2 lessons;
+Introduction to Streams and Intermediate operations in Streams&lt;/p>
+&lt;h3 id="can-you-tell-me-what-is-the-output-of-the-below-code-snippet">Can you tell me what is the output of the below code snippet?&lt;/h3>
+&lt;div class="highlight">&lt;pre class="chroma">&lt;code class="language-java" data-lang="java">&lt;span class="ln"> 1&lt;/span>&lt;span class="kd">public&lt;/span> &lt;span class="kd">class&lt;/span> &lt;span class="nc">StreamApiElementOrder&lt;/span> &lt;span class="o">{&lt;/span>
+&lt;span class="ln"> 2&lt;/span> &lt;span class="kd">public&lt;/span> &lt;span class="kd">static&lt;/span> &lt;span class="kt">void&lt;/span> &lt;span class="nf">main&lt;/span>&lt;span class="o">(&lt;/span>&lt;span class="n">String&lt;/span> &lt;span class="n">args&lt;/span>&lt;span class="o">[])&lt;/span> &lt;span class="o">{&lt;/span>
+&lt;span class="ln"> 3&lt;/span>
+&lt;span class="ln"> 4&lt;/span> &lt;span class="n">Arrays&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="na">asList&lt;/span>&lt;span class="o">(&lt;/span>&lt;span class="n">1&lt;/span>&lt;span class="o">,&lt;/span> &lt;span class="n">2&lt;/span>&lt;span class="o">,&lt;/span> &lt;span class="n">3&lt;/span>&lt;span class="o">,&lt;/span> &lt;span class="n">4&lt;/span>&lt;span class="o">,&lt;/span> &lt;span class="n">5&lt;/span>&lt;span class="o">,&lt;/span> &lt;span class="n">6&lt;/span>&lt;span class="o">,&lt;/span> &lt;span class="n">7&lt;/span>&lt;span class="o">,&lt;/span> &lt;span class="n">8&lt;/span>&lt;span class="o">,&lt;/span> &lt;span class="n">9&lt;/span>&lt;span class="o">,&lt;/span> &lt;span class="n">10&lt;/span>&lt;span class="o">)&lt;/span>
+&lt;span class="ln"> 5&lt;/span> &lt;span class="o">.&lt;/span>&lt;span class="na">stream&lt;/span>&lt;span class="o">()&lt;/span>
+&lt;span class="ln"> 6&lt;/span> &lt;span class="o">.&lt;/span>&lt;span class="na">peek&lt;/span>&lt;span class="o">(&lt;/span>&lt;span class="n">i&lt;/span> &lt;span class="o">-&amp;gt;&lt;/span> &lt;span class="n">System&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="na">out&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="na">println&lt;/span>&lt;span class="o">(&lt;/span>&lt;span class="s">&amp;#34;before any operation: &amp;#34;&lt;/span> &lt;span class="o">+&lt;/span> &lt;span class="n">i&lt;/span>&lt;span class="o">))&lt;/span>
+&lt;span class="ln"> 7&lt;/span> &lt;span class="o">.&lt;/span>&lt;span class="na">filter&lt;/span>&lt;span class="o">(&lt;/span>&lt;span class="n">i&lt;/span> &lt;span class="o">-&amp;gt;&lt;/span> &lt;span class="n">i&lt;/span> &lt;span class="o">%&lt;/span> &lt;span class="n">2&lt;/span> &lt;span class="o">==&lt;/span> &lt;span class="n">0&lt;/span>&lt;span class="o">)&lt;/span>
+&lt;span class="ln"> 8&lt;/span> &lt;span class="o">.&lt;/span>&lt;span class="na">map&lt;/span>&lt;span class="o">(&lt;/span>&lt;span class="n">i&lt;/span> &lt;span class="o">-&amp;gt;&lt;/span> &lt;span class="n">i&lt;/span> &lt;span class="o">*&lt;/span> &lt;span class="n">2&lt;/span>&lt;span class="o">)&lt;/span>
+&lt;span class="ln"> 9&lt;/span> &lt;span class="o">.&lt;/span>&lt;span class="na">limit&lt;/span>&lt;span class="o">(&lt;/span>&lt;span class="n">3&lt;/span>&lt;span class="o">)&lt;/span>
+&lt;span class="ln">10&lt;/span> &lt;span class="o">.&lt;/span>&lt;span class="na">collect&lt;/span>&lt;span class="o">(&lt;/span>&lt;span class="n">Collectors&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="na">toList&lt;/span>&lt;span class="o">());&lt;/span>
+&lt;span class="ln">11&lt;/span> &lt;span class="o">}&lt;/span>
+&lt;span class="ln">12&lt;/span>&lt;span class="o">}&lt;/span>
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>Output :&lt;/p>
+&lt;div class="highlight">&lt;pre class="chroma">&lt;code class="language-text" data-lang="text">&lt;span class="ln">1&lt;/span>before any operation: 1
+&lt;span class="ln">2&lt;/span>before any operation: 2
+&lt;span class="ln">3&lt;/span>before any operation: 3
+&lt;span class="ln">4&lt;/span>before any operation: 4
+&lt;span class="ln">5&lt;/span>before any operation: 5
+&lt;span class="ln">6&lt;/span>before any operation: 6
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>&lt;em>Shocked !! What happened with 7, 8, 9, and 10? Why they did not get printed?&lt;/em>&lt;/p>
+&lt;p>Most of you who are familiar with the Streams would know the reason, but others who are learning Streams for the first time
+would not get this. that is why this lesson is important for them.&lt;/p>
+&lt;p>Stream uses a pull-based approach for processing any stream.
+if you did not write any termination operation in the above example like collect(), you won't get any result in the console.
+Why is it so? because terminal operations are the ones that are requesting elements from streams via pipeline.
+Now You must be questioning what is the pipeline? the pipeline is nothing but the arrangement of all the intermediate operations
+before any terminal operation. every single element would get fetch from the stream, by the terminal operators using the pipeline.&lt;/p>
+&lt;p>So in the above example, terminal operation collect() requested elements from the stream,
+so the first element gets served. While serving you saw the message &amp;quot;before any operation: 1&amp;quot;. now on element 1, it applies the filter, since our
+filter is expecting an even number, this element was filtered out from the result. and collector gets no element.
+it requests for the next element, so the 2nd element gets served, and you saw the message &amp;quot;before any operation: 2&amp;quot;.
+since 2 is an even number, it gets passed to the next step in the pipeline, i.e. double the number. now the number becomes 4 and it gets passed
+to further intermediate operation i.e. limit(). the limit is tracking the number of elements needed to be passed through it.
+once it found that 3 elements have been pass through it. it will give the end signal to the collector, and the collector will not request more elements.&lt;/p>
+&lt;p>I believe now you must have understood why 7, 8, 9, and 10 did not get printed. By the time collector requested the 6th data,
+the limit intermediate operation found that they have got the 3 even numbers. and it sends a terminal request to the collector.
+and collector did not request any further elements from the stream.&lt;/p>
+&lt;p>Attaching here a jpeg representation of the streams pipeline for the above example&lt;/p>
+&lt;p>&lt;img src="https://programming4ninja.github.io/blog-images/stream-pipeline-flow.png" />&lt;/p>
+&lt;p>Please let me know your suggestion, thoughts, and question.
+This would help me to improve myself and my blog. Till then,
+Thank you Good Bye and Happy Coding&lt;/p>
+&lt;p>&lt;a href="https://programming4ninja.github.io/exploringjava8/chapter6/">&amp;lt;&amp;lt; Chapter 6 : Intermediate Streams Operations&lt;/a> | &lt;a href="https://programming4ninja.github.io/exploringjava8/chapter8/">Chapter 8 : Streams terminal functions &amp;gt;&amp;gt; &lt;/a>&lt;/p></description></item><item><title>Chapter 8 : Streams terminal functions</title><link>https://programming4ninja.github.io/exploringjava8/chapter8/</link><pubDate>Fri, 02 Apr 2021 17:54:51 +0530</pubDate><guid>https://programming4ninja.github.io/exploringjava8/chapter8/</guid><description>
+&lt;p>Hello there techie Ninja's, Hope you are doing well. Today, in this blog we would be learning about the
+terminal operations in java 8 streams. You might have seen in previous blogs that intermediate operation
+flows the data, transform it but it again produces new streams. If you want to collect the data from streams
+to normal collection class or another format, you need to use the terminal operation. One of the terminal
+functions we have seen till now is Collectors.collect(). Yes, it is a terminal function. Apart from this one,
+java streams have a few more terminal functions, which you can use as per need. Let's check this out.&lt;/p>
+&lt;h2 id="terminal-functionsoperations-in-java-8-streaming-api">Terminal Functions/Operations in Java 8 Streaming API&lt;/h2>
+&lt;ul>
+&lt;li>allMatch&lt;/li>
+&lt;li>anyMatch&lt;/li>
+&lt;li>noneMatch&lt;/li>
+&lt;li>count&lt;/li>
+&lt;li>forEach&lt;/li>
+&lt;li>min&lt;/li>
+&lt;li>max&lt;/li>
+&lt;li>reduce&lt;/li>
+&lt;li>collect&lt;/li>
+&lt;/ul>
+&lt;h3 id="allmatch-anymatch-nonematch">allMatch(), anyMatch(), noneMatch()&lt;/h3>
+&lt;p>These 3 termination functions accept a predicate and return a boolean value.
+These functions mainly used to evaluate a condition on the elements of a stream and return true or
+false based on the condition. The point to note here is that it is a termination function.
+once you invoke it on stream, the stream will no longer be opened. it would be terminated once you call the
+termination function. let's have a look at the below example&lt;/p>
+&lt;p>Signature :&lt;/p>
+&lt;div class="highlight">&lt;pre class="chroma">&lt;code class="language-java" data-lang="java">&lt;span class="ln">1&lt;/span>&lt;span class="kt">boolean&lt;/span> &lt;span class="nf">anyMatch&lt;/span>&lt;span class="o">(&lt;/span>&lt;span class="n">Predicate&lt;/span>&lt;span class="o">&amp;lt;?&lt;/span> &lt;span class="kd">super&lt;/span> &lt;span class="n">T&lt;/span>&lt;span class="o">&amp;gt;&lt;/span> &lt;span class="n">predicate&lt;/span>&lt;span class="o">);&lt;/span>
+&lt;span class="ln">2&lt;/span>&lt;span class="kt">boolean&lt;/span> &lt;span class="nf">allMatch&lt;/span>&lt;span class="o">(&lt;/span>&lt;span class="n">Predicate&lt;/span>&lt;span class="o">&amp;lt;?&lt;/span> &lt;span class="kd">super&lt;/span> &lt;span class="n">T&lt;/span>&lt;span class="o">&amp;gt;&lt;/span> &lt;span class="n">predicate&lt;/span>&lt;span class="o">);&lt;/span>
+&lt;span class="ln">3&lt;/span>&lt;span class="kt">boolean&lt;/span> &lt;span class="nf">noneMatch&lt;/span>&lt;span class="o">(&lt;/span>&lt;span class="n">Predicate&lt;/span>&lt;span class="o">&amp;lt;?&lt;/span> &lt;span class="kd">super&lt;/span> &lt;span class="n">T&lt;/span>&lt;span class="o">&amp;gt;&lt;/span> &lt;span class="n">predicate&lt;/span>&lt;span class="o">);&lt;/span>
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>Example :&lt;/p>
+&lt;div class="highlight">&lt;pre class="chroma">&lt;code class="language-java" data-lang="java">&lt;span class="ln"> 1&lt;/span>&lt;span class="kn">package&lt;/span> &lt;span class="nn">org.java4ninja.exploringjava8.streams&lt;/span>&lt;span class="o">;&lt;/span>
+&lt;span class="ln"> 2&lt;/span>
+&lt;span class="ln"> 3&lt;/span>&lt;span class="kn">import&lt;/span> &lt;span class="nn">java.util.Arrays&lt;/span>&lt;span class="o">;&lt;/span>
+&lt;span class="ln"> 4&lt;/span>
+&lt;span class="ln"> 5&lt;/span>&lt;span class="kd">public&lt;/span> &lt;span class="kd">class&lt;/span> &lt;span class="nc">TerminalOperations&lt;/span> &lt;span class="o">{&lt;/span>
+&lt;span class="ln"> 6&lt;/span> &lt;span class="kd">public&lt;/span> &lt;span class="kd">static&lt;/span> &lt;span class="kt">void&lt;/span> &lt;span class="nf">main&lt;/span>&lt;span class="o">(&lt;/span>&lt;span class="n">String&lt;/span> &lt;span class="n">args&lt;/span>&lt;span class="o">[])&lt;/span> &lt;span class="o">{&lt;/span>
+&lt;span class="ln"> 7&lt;/span> &lt;span class="c1">// return true if all words have minimum 2 or more characters
+&lt;/span>&lt;span class="ln"> 8&lt;/span>&lt;span class="c1">&lt;/span> &lt;span class="c1">// expected to match the condition by all elements of streams
+&lt;/span>&lt;span class="ln"> 9&lt;/span>&lt;span class="c1">&lt;/span> &lt;span class="kt">boolean&lt;/span> &lt;span class="n">doesAllWordsHas3Letters&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">Arrays&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="na">asList&lt;/span>&lt;span class="o">(&lt;/span>
+&lt;span class="ln">10&lt;/span> &lt;span class="s">&amp;#34;ANT&amp;#34;&lt;/span>&lt;span class="o">,&lt;/span>
+&lt;span class="ln">11&lt;/span> &lt;span class="s">&amp;#34;BAT&amp;#34;&lt;/span>&lt;span class="o">,&lt;/span>
+&lt;span class="ln">12&lt;/span> &lt;span class="s">&amp;#34;CAT&amp;#34;&lt;/span>&lt;span class="o">,&lt;/span>
+&lt;span class="ln">13&lt;/span> &lt;span class="s">&amp;#34;DOG&amp;#34;&lt;/span>&lt;span class="o">,&lt;/span>
+&lt;span class="ln">14&lt;/span> &lt;span class="s">&amp;#34;EAT&amp;#34;&lt;/span>&lt;span class="o">,&lt;/span>
+&lt;span class="ln">15&lt;/span> &lt;span class="s">&amp;#34;FAT&amp;#34;&lt;/span>&lt;span class="o">).&lt;/span>&lt;span class="na">stream&lt;/span>&lt;span class="o">().&lt;/span>&lt;span class="na">allMatch&lt;/span>&lt;span class="o">((&lt;/span>&lt;span class="n">s&lt;/span>&lt;span class="o">)&lt;/span> &lt;span class="o">-&amp;gt;&lt;/span> &lt;span class="n">s&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="na">length&lt;/span>&lt;span class="o">()&lt;/span> &lt;span class="o">&amp;gt;=&lt;/span> &lt;span class="n">2&lt;/span>&lt;span class="o">);&lt;/span>
+&lt;span class="ln">16&lt;/span>
+&lt;span class="ln">17&lt;/span> &lt;span class="c1">// return true if at least one cat exist
+&lt;/span>&lt;span class="ln">18&lt;/span>&lt;span class="c1">&lt;/span> &lt;span class="c1">// expected to match the condition by at least by one element
+&lt;/span>&lt;span class="ln">19&lt;/span>&lt;span class="c1">&lt;/span> &lt;span class="kt">boolean&lt;/span> &lt;span class="n">isCatPresentInStream&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">Arrays&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="na">asList&lt;/span>&lt;span class="o">(&lt;/span>
+&lt;span class="ln">20&lt;/span> &lt;span class="s">&amp;#34;ANT&amp;#34;&lt;/span>&lt;span class="o">,&lt;/span>
+&lt;span class="ln">21&lt;/span> &lt;span class="s">&amp;#34;BAT&amp;#34;&lt;/span>&lt;span class="o">,&lt;/span>
+&lt;span class="ln">22&lt;/span> &lt;span class="s">&amp;#34;CAT&amp;#34;&lt;/span>&lt;span class="o">,&lt;/span>
+&lt;span class="ln">23&lt;/span> &lt;span class="s">&amp;#34;DOG&amp;#34;&lt;/span>&lt;span class="o">,&lt;/span>
+&lt;span class="ln">24&lt;/span> &lt;span class="s">&amp;#34;EAT&amp;#34;&lt;/span>&lt;span class="o">,&lt;/span>
+&lt;span class="ln">25&lt;/span> &lt;span class="s">&amp;#34;FAT&amp;#34;&lt;/span>&lt;span class="o">).&lt;/span>&lt;span class="na">stream&lt;/span>&lt;span class="o">().&lt;/span>&lt;span class="na">anyMatch&lt;/span>&lt;span class="o">((&lt;/span>&lt;span class="n">s&lt;/span>&lt;span class="o">)&lt;/span> &lt;span class="o">-&amp;gt;&lt;/span> &lt;span class="n">s&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="na">equalsIgnoreCase&lt;/span>&lt;span class="o">(&lt;/span>&lt;span class="s">&amp;#34;cat&amp;#34;&lt;/span>&lt;span class="o">));&lt;/span>
+&lt;span class="ln">26&lt;/span>
+&lt;span class="ln">27&lt;/span> &lt;span class="c1">// return true if none of the element matches the condition
+&lt;/span>&lt;span class="ln">28&lt;/span>&lt;span class="c1">&lt;/span> &lt;span class="c1">// expected to not to match
+&lt;/span>&lt;span class="ln">29&lt;/span>&lt;span class="c1">&lt;/span> &lt;span class="kt">boolean&lt;/span> &lt;span class="n">noneOfTheElementMatchCondition&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">Arrays&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="na">asList&lt;/span>&lt;span class="o">(&lt;/span>
+&lt;span class="ln">30&lt;/span> &lt;span class="s">&amp;#34;ANT&amp;#34;&lt;/span>&lt;span class="o">,&lt;/span>
+&lt;span class="ln">31&lt;/span> &lt;span class="s">&amp;#34;BAT&amp;#34;&lt;/span>&lt;span class="o">,&lt;/span>
+&lt;span class="ln">32&lt;/span> &lt;span class="s">&amp;#34;CAT&amp;#34;&lt;/span>&lt;span class="o">,&lt;/span>
+&lt;span class="ln">33&lt;/span> &lt;span class="s">&amp;#34;DOG&amp;#34;&lt;/span>&lt;span class="o">,&lt;/span>
+&lt;span class="ln">34&lt;/span> &lt;span class="s">&amp;#34;EAT&amp;#34;&lt;/span>&lt;span class="o">,&lt;/span>
+&lt;span class="ln">35&lt;/span> &lt;span class="s">&amp;#34;FAT&amp;#34;&lt;/span>&lt;span class="o">).&lt;/span>&lt;span class="na">stream&lt;/span>&lt;span class="o">().&lt;/span>&lt;span class="na">noneMatch&lt;/span>&lt;span class="o">((&lt;/span>&lt;span class="n">s&lt;/span>&lt;span class="o">)&lt;/span> &lt;span class="o">-&amp;gt;&lt;/span> &lt;span class="n">s&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="na">length&lt;/span>&lt;span class="o">()&lt;/span> &lt;span class="o">&amp;gt;&lt;/span> &lt;span class="n">3&lt;/span>&lt;span class="o">);&lt;/span>
+&lt;span class="ln">36&lt;/span> &lt;span class="n">System&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="na">out&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="na">println&lt;/span>&lt;span class="o">(&lt;/span>&lt;span class="n">noneOfTheElementMatchCondition&lt;/span>&lt;span class="o">);&lt;/span>
+&lt;span class="ln">37&lt;/span> &lt;span class="o">}&lt;/span>
+&lt;span class="ln">38&lt;/span>&lt;span class="o">}&lt;/span>
+&lt;/code>&lt;/pre>&lt;/div>&lt;h3 id="min-and-max">min() and max()&lt;/h3>
+&lt;p>This terminal operation returns the smallest and biggest element in the stream. min() function return the smallest element whereas max()
+function return the biggest element. Both of them take the comparator as an input and return the Optional of the type. When Stream is empty this
+function will return Optional empty().&lt;/p>
+&lt;p>Signature:&lt;/p>
+&lt;div class="highlight">&lt;pre class="chroma">&lt;code class="language-java" data-lang="java">&lt;span class="ln">1&lt;/span>&lt;span class="n">Optional&lt;/span>&lt;span class="o">&amp;lt;&lt;/span>&lt;span class="n">T&lt;/span>&lt;span class="o">&amp;gt;&lt;/span> &lt;span class="nf">min&lt;/span>&lt;span class="o">(&lt;/span>&lt;span class="n">Comparator&lt;/span>&lt;span class="o">&amp;lt;?&lt;/span> &lt;span class="kd">super&lt;/span> &lt;span class="n">T&lt;/span>&lt;span class="o">&amp;gt;&lt;/span> &lt;span class="n">comparator&lt;/span>&lt;span class="o">);&lt;/span>
+&lt;span class="ln">2&lt;/span>&lt;span class="n">Optional&lt;/span>&lt;span class="o">&amp;lt;&lt;/span>&lt;span class="n">T&lt;/span>&lt;span class="o">&amp;gt;&lt;/span> &lt;span class="nf">max&lt;/span>&lt;span class="o">(&lt;/span>&lt;span class="n">Comparator&lt;/span>&lt;span class="o">&amp;lt;?&lt;/span> &lt;span class="kd">super&lt;/span> &lt;span class="n">T&lt;/span>&lt;span class="o">&amp;gt;&lt;/span> &lt;span class="n">comparator&lt;/span>&lt;span class="o">);&lt;/span>
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>Example :&lt;/p>
+&lt;div class="highlight">&lt;pre class="chroma">&lt;code class="language-java" data-lang="java">&lt;span class="ln"> 1&lt;/span>&lt;span class="kn">package&lt;/span> &lt;span class="nn">org.java4ninja.exploringjava8.streams&lt;/span>&lt;span class="o">;&lt;/span>
+&lt;span class="ln"> 2&lt;/span>
+&lt;span class="ln"> 3&lt;/span>&lt;span class="kn">import&lt;/span> &lt;span class="nn">java.util.Arrays&lt;/span>&lt;span class="o">;&lt;/span>
+&lt;span class="ln"> 4&lt;/span>&lt;span class="kn">import&lt;/span> &lt;span class="nn">java.util.Comparator&lt;/span>&lt;span class="o">;&lt;/span>
+&lt;span class="ln"> 5&lt;/span>&lt;span class="kn">import&lt;/span> &lt;span class="nn">java.util.List&lt;/span>&lt;span class="o">;&lt;/span>
+&lt;span class="ln"> 6&lt;/span>&lt;span class="kn">import&lt;/span> &lt;span class="nn">lombok.AllArgsConstructor&lt;/span>&lt;span class="o">;&lt;/span>
+&lt;span class="ln"> 7&lt;/span>&lt;span class="kn">import&lt;/span> &lt;span class="nn">lombok.Getter&lt;/span>&lt;span class="o">;&lt;/span>
+&lt;span class="ln"> 8&lt;/span>&lt;span class="kn">import&lt;/span> &lt;span class="nn">lombok.ToString&lt;/span>&lt;span class="o">;&lt;/span>
+&lt;span class="ln"> 9&lt;/span>
+&lt;span class="ln">10&lt;/span>&lt;span class="kd">public&lt;/span> &lt;span class="kd">class&lt;/span> &lt;span class="nc">TerminalOperationMinMax&lt;/span> &lt;span class="o">{&lt;/span>
+&lt;span class="ln">11&lt;/span>
+&lt;span class="ln">12&lt;/span> &lt;span class="nd">@AllArgsConstructor&lt;/span>
+&lt;span class="ln">13&lt;/span> &lt;span class="nd">@ToString&lt;/span>
+&lt;span class="ln">14&lt;/span> &lt;span class="nd">@Getter&lt;/span>
+&lt;span class="ln">15&lt;/span> &lt;span class="kd">private&lt;/span> &lt;span class="kd">static&lt;/span> &lt;span class="kd">class&lt;/span> &lt;span class="nc">Employee&lt;/span> &lt;span class="o">{&lt;/span>
+&lt;span class="ln">16&lt;/span> &lt;span class="kd">private&lt;/span> &lt;span class="kt">int&lt;/span> &lt;span class="n">id&lt;/span>&lt;span class="o">;&lt;/span>
+&lt;span class="ln">17&lt;/span> &lt;span class="kd">private&lt;/span> &lt;span class="n">String&lt;/span> &lt;span class="n">name&lt;/span>&lt;span class="o">;&lt;/span>
+&lt;span class="ln">18&lt;/span> &lt;span class="kd">private&lt;/span> &lt;span class="kt">int&lt;/span> &lt;span class="n">age&lt;/span>&lt;span class="o">;&lt;/span>
+&lt;span class="ln">19&lt;/span> &lt;span class="o">}&lt;/span>
+&lt;span class="ln">20&lt;/span>
+&lt;span class="ln">21&lt;/span> &lt;span class="kd">public&lt;/span> &lt;span class="kd">static&lt;/span> &lt;span class="kt">void&lt;/span> &lt;span class="nf">main&lt;/span>&lt;span class="o">(&lt;/span>&lt;span class="n">String&lt;/span> &lt;span class="n">args&lt;/span>&lt;span class="o">[])&lt;/span> &lt;span class="o">{&lt;/span>
+&lt;span class="ln">22&lt;/span>
+&lt;span class="ln">23&lt;/span> &lt;span class="n">List&lt;/span>&lt;span class="o">&amp;lt;&lt;/span>&lt;span class="n">Employee&lt;/span>&lt;span class="o">&amp;gt;&lt;/span> &lt;span class="n">listOfEmployees&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">Arrays&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="na">asList&lt;/span>&lt;span class="o">(&lt;/span>
+&lt;span class="ln">24&lt;/span> &lt;span class="k">new&lt;/span> &lt;span class="n">Employee&lt;/span>&lt;span class="o">(&lt;/span>&lt;span class="n">1&lt;/span>&lt;span class="o">,&lt;/span> &lt;span class="s">&amp;#34;Anil&amp;#34;&lt;/span>&lt;span class="o">,&lt;/span> &lt;span class="n">29&lt;/span>&lt;span class="o">),&lt;/span>
+&lt;span class="ln">25&lt;/span> &lt;span class="k">new&lt;/span> &lt;span class="n">Employee&lt;/span>&lt;span class="o">(&lt;/span>&lt;span class="n">2&lt;/span>&lt;span class="o">,&lt;/span> &lt;span class="s">&amp;#34;Joe&amp;#34;&lt;/span>&lt;span class="o">,&lt;/span> &lt;span class="n">21&lt;/span>&lt;span class="o">),&lt;/span>
+&lt;span class="ln">26&lt;/span> &lt;span class="k">new&lt;/span> &lt;span class="n">Employee&lt;/span>&lt;span class="o">(&lt;/span>&lt;span class="n">3&lt;/span>&lt;span class="o">,&lt;/span> &lt;span class="s">&amp;#34;Jane&amp;#34;&lt;/span>&lt;span class="o">,&lt;/span> &lt;span class="n">35&lt;/span>&lt;span class="o">),&lt;/span>
+&lt;span class="ln">27&lt;/span> &lt;span class="k">new&lt;/span> &lt;span class="n">Employee&lt;/span>&lt;span class="o">(&lt;/span>&lt;span class="n">4&lt;/span>&lt;span class="o">,&lt;/span> &lt;span class="s">&amp;#34;Bob&amp;#34;&lt;/span>&lt;span class="o">,&lt;/span> &lt;span class="n">26&lt;/span>&lt;span class="o">)&lt;/span>
+&lt;span class="ln">28&lt;/span> &lt;span class="o">);&lt;/span>
+&lt;span class="ln">29&lt;/span>
+&lt;span class="ln">30&lt;/span> &lt;span class="n">Employee&lt;/span> &lt;span class="n">youngestEmployee&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">listOfEmployees&lt;/span>
+&lt;span class="ln">31&lt;/span> &lt;span class="o">.&lt;/span>&lt;span class="na">stream&lt;/span>&lt;span class="o">()&lt;/span>
+&lt;span class="ln">32&lt;/span> &lt;span class="o">.&lt;/span>&lt;span class="na">min&lt;/span>&lt;span class="o">(&lt;/span>&lt;span class="n">Comparator&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="na">comparing&lt;/span>&lt;span class="o">(&lt;/span>&lt;span class="n">Employee&lt;/span>&lt;span class="o">::&lt;/span>&lt;span class="n">getAge&lt;/span>&lt;span class="o">))&lt;/span>
+&lt;span class="ln">33&lt;/span> &lt;span class="o">.&lt;/span>&lt;span class="na">get&lt;/span>&lt;span class="o">();&lt;/span>
+&lt;span class="ln">34&lt;/span>
+&lt;span class="ln">35&lt;/span> &lt;span class="n">System&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="na">out&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="na">println&lt;/span>&lt;span class="o">(&lt;/span>&lt;span class="s">&amp;#34;Youngest Employee : &amp;#34;&lt;/span> &lt;span class="o">+&lt;/span> &lt;span class="n">youngestEmployee&lt;/span>&lt;span class="o">);&lt;/span>
+&lt;span class="ln">36&lt;/span>
+&lt;span class="ln">37&lt;/span> &lt;span class="n">Employee&lt;/span> &lt;span class="n">eldestEmployee&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">listOfEmployees&lt;/span>
+&lt;span class="ln">38&lt;/span> &lt;span class="o">.&lt;/span>&lt;span class="na">stream&lt;/span>&lt;span class="o">()&lt;/span>
+&lt;span class="ln">39&lt;/span> &lt;span class="o">.&lt;/span>&lt;span class="na">max&lt;/span>&lt;span class="o">(&lt;/span>&lt;span class="n">Comparator&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="na">comparing&lt;/span>&lt;span class="o">(&lt;/span>&lt;span class="n">Employee&lt;/span>&lt;span class="o">::&lt;/span>&lt;span class="n">getAge&lt;/span>&lt;span class="o">))&lt;/span>
+&lt;span class="ln">40&lt;/span> &lt;span class="o">.&lt;/span>&lt;span class="na">get&lt;/span>&lt;span class="o">();&lt;/span>
+&lt;span class="ln">41&lt;/span>
+&lt;span class="ln">42&lt;/span> &lt;span class="n">System&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="na">out&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="na">println&lt;/span>&lt;span class="o">(&lt;/span>&lt;span class="s">&amp;#34;Eldest Employee : &amp;#34;&lt;/span> &lt;span class="o">+&lt;/span> &lt;span class="n">eldestEmployee&lt;/span>&lt;span class="o">);&lt;/span>
+&lt;span class="ln">43&lt;/span> &lt;span class="o">}&lt;/span>
+&lt;span class="ln">44&lt;/span>&lt;span class="o">}&lt;/span>
+&lt;/code>&lt;/pre>&lt;/div>&lt;h3 id="count--foreach-and-reduce">count(), forEach() and reduce()&lt;/h3>
+&lt;p>count terminal function counts the number of elements in the stream and returns the long value.&lt;/p>
+&lt;p>forEach terminal function iterate over the element of the streams. forEach is a terminal function don't expect you will get the stream back from forEach function.&lt;/p>
+&lt;p>reduce is a reducer function that returns a single value representing the collection. if you have seen the map-reduce program, where map operation transforms the data and reduces operation reduce it to a single figure. reduce() function is the reducer part of a map-reduce program in the stream.&lt;/p>
+&lt;p>Signature&lt;/p>
+&lt;div class="highlight">&lt;pre class="chroma">&lt;code class="language-java" data-lang="java">&lt;span class="ln">1&lt;/span>&lt;span class="kt">long&lt;/span> &lt;span class="nf">count&lt;/span>&lt;span class="o">();&lt;/span>
+&lt;span class="ln">2&lt;/span>&lt;span class="kt">void&lt;/span> &lt;span class="nf">forEach&lt;/span>&lt;span class="o">(&lt;/span>&lt;span class="n">Consumer&lt;/span>&lt;span class="o">&amp;lt;?&lt;/span> &lt;span class="kd">super&lt;/span> &lt;span class="n">T&lt;/span>&lt;span class="o">&amp;gt;&lt;/span> &lt;span class="n">action&lt;/span>&lt;span class="o">);&lt;/span>
+&lt;span class="ln">3&lt;/span>&lt;span class="n">T&lt;/span> &lt;span class="nf">reduce&lt;/span>&lt;span class="o">(&lt;/span>&lt;span class="n">T&lt;/span> &lt;span class="n">identity&lt;/span>&lt;span class="o">,&lt;/span> &lt;span class="n">BinaryOperator&lt;/span>&lt;span class="o">&amp;lt;&lt;/span>&lt;span class="n">T&lt;/span>&lt;span class="o">&amp;gt;&lt;/span> &lt;span class="n">accumulator&lt;/span>&lt;span class="o">);&lt;/span>
+&lt;span class="ln">4&lt;/span>&lt;span class="n">Optional&lt;/span>&lt;span class="o">&amp;lt;&lt;/span>&lt;span class="n">T&lt;/span>&lt;span class="o">&amp;gt;&lt;/span> &lt;span class="nf">reduce&lt;/span>&lt;span class="o">(&lt;/span>&lt;span class="n">BinaryOperator&lt;/span>&lt;span class="o">&amp;lt;&lt;/span>&lt;span class="n">T&lt;/span>&lt;span class="o">&amp;gt;&lt;/span> &lt;span class="n">accumulator&lt;/span>&lt;span class="o">);&lt;/span>
+&lt;span class="ln">5&lt;/span>&lt;span class="o">&amp;lt;&lt;/span>&lt;span class="n">U&lt;/span>&lt;span class="o">&amp;gt;&lt;/span> &lt;span class="n">U&lt;/span> &lt;span class="nf">reduce&lt;/span>&lt;span class="o">(&lt;/span>&lt;span class="n">U&lt;/span> &lt;span class="n">identity&lt;/span>&lt;span class="o">,&lt;/span> &lt;span class="n">BiFunction&lt;/span>&lt;span class="o">&amp;lt;&lt;/span>&lt;span class="n">U&lt;/span>&lt;span class="o">,&lt;/span> &lt;span class="o">?&lt;/span> &lt;span class="kd">super&lt;/span> &lt;span class="n">T&lt;/span>&lt;span class="o">,&lt;/span> &lt;span class="n">U&lt;/span>&lt;span class="o">&amp;gt;&lt;/span> &lt;span class="n">accumulator&lt;/span>&lt;span class="o">,&lt;/span> &lt;span class="n">BinaryOperator&lt;/span>&lt;span class="o">&amp;lt;&lt;/span>&lt;span class="n">U&lt;/span>&lt;span class="o">&amp;gt;&lt;/span> &lt;span class="n">combiner&lt;/span>&lt;span class="o">);&lt;/span>
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>Example&lt;/p>
+&lt;div class="highlight">&lt;pre class="chroma">&lt;code class="language-java" data-lang="java">&lt;span class="ln"> 1&lt;/span>&lt;span class="kn">package&lt;/span> &lt;span class="nn">org.java4ninja.exploringjava8.streams&lt;/span>&lt;span class="o">;&lt;/span>
+&lt;span class="ln"> 2&lt;/span>
+&lt;span class="ln"> 3&lt;/span>&lt;span class="kn">import&lt;/span> &lt;span class="nn">java.util.Arrays&lt;/span>&lt;span class="o">;&lt;/span>
+&lt;span class="ln"> 4&lt;/span>&lt;span class="kn">import&lt;/span> &lt;span class="nn">java.util.List&lt;/span>&lt;span class="o">;&lt;/span>
+&lt;span class="ln"> 5&lt;/span>&lt;span class="kn">import&lt;/span> &lt;span class="nn">lombok.AllArgsConstructor&lt;/span>&lt;span class="o">;&lt;/span>
+&lt;span class="ln"> 6&lt;/span>&lt;span class="kn">import&lt;/span> &lt;span class="nn">lombok.Getter&lt;/span>&lt;span class="o">;&lt;/span>
+&lt;span class="ln"> 7&lt;/span>&lt;span class="kn">import&lt;/span> &lt;span class="nn">lombok.ToString&lt;/span>&lt;span class="o">;&lt;/span>
+&lt;span class="ln"> 8&lt;/span>
+&lt;span class="ln"> 9&lt;/span>&lt;span class="kd">public&lt;/span> &lt;span class="kd">class&lt;/span> &lt;span class="nc">TerminalOperationCountForEachReduce&lt;/span> &lt;span class="o">{&lt;/span>
+&lt;span class="ln">10&lt;/span>
+&lt;span class="ln">11&lt;/span> &lt;span class="nd">@AllArgsConstructor&lt;/span>
+&lt;span class="ln">12&lt;/span> &lt;span class="nd">@ToString&lt;/span>
+&lt;span class="ln">13&lt;/span> &lt;span class="nd">@Getter&lt;/span>
+&lt;span class="ln">14&lt;/span> &lt;span class="kd">private&lt;/span> &lt;span class="kd">static&lt;/span> &lt;span class="kd">class&lt;/span> &lt;span class="nc">Employee&lt;/span> &lt;span class="o">{&lt;/span>
+&lt;span class="ln">15&lt;/span> &lt;span class="kd">private&lt;/span> &lt;span class="kt">int&lt;/span> &lt;span class="n">id&lt;/span>&lt;span class="o">;&lt;/span>
+&lt;span class="ln">16&lt;/span> &lt;span class="kd">private&lt;/span> &lt;span class="n">String&lt;/span> &lt;span class="n">name&lt;/span>&lt;span class="o">;&lt;/span>
+&lt;span class="ln">17&lt;/span> &lt;span class="kd">private&lt;/span> &lt;span class="kt">int&lt;/span> &lt;span class="n">age&lt;/span>&lt;span class="o">;&lt;/span>
+&lt;span class="ln">18&lt;/span> &lt;span class="o">}&lt;/span>
+&lt;span class="ln">19&lt;/span>
+&lt;span class="ln">20&lt;/span> &lt;span class="kd">public&lt;/span> &lt;span class="kd">static&lt;/span> &lt;span class="kt">void&lt;/span> &lt;span class="nf">main&lt;/span>&lt;span class="o">(&lt;/span>&lt;span class="n">String&lt;/span> &lt;span class="n">args&lt;/span>&lt;span class="o">[])&lt;/span> &lt;span class="o">{&lt;/span>
+&lt;span class="ln">21&lt;/span>
+&lt;span class="ln">22&lt;/span> &lt;span class="n">List&lt;/span>&lt;span class="o">&amp;lt;&lt;/span>&lt;span class="n">Employee&lt;/span>&lt;span class="o">&amp;gt;&lt;/span> &lt;span class="n">listOfEmployees&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">Arrays&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="na">asList&lt;/span>&lt;span class="o">(&lt;/span>
+&lt;span class="ln">23&lt;/span> &lt;span class="k">new&lt;/span> &lt;span class="n">Employee&lt;/span>&lt;span class="o">(&lt;/span>&lt;span class="n">1&lt;/span>&lt;span class="o">,&lt;/span> &lt;span class="s">&amp;#34;Anil&amp;#34;&lt;/span>&lt;span class="o">,&lt;/span> &lt;span class="n">29&lt;/span>&lt;span class="o">),&lt;/span>
+&lt;span class="ln">24&lt;/span> &lt;span class="k">new&lt;/span> &lt;span class="n">Employee&lt;/span>&lt;span class="o">(&lt;/span>&lt;span class="n">2&lt;/span>&lt;span class="o">,&lt;/span> &lt;span class="s">&amp;#34;Joe&amp;#34;&lt;/span>&lt;span class="o">,&lt;/span> &lt;span class="n">21&lt;/span>&lt;span class="o">),&lt;/span>
+&lt;span class="ln">25&lt;/span> &lt;span class="k">new&lt;/span> &lt;span class="n">Employee&lt;/span>&lt;span class="o">(&lt;/span>&lt;span class="n">3&lt;/span>&lt;span class="o">,&lt;/span> &lt;span class="s">&amp;#34;Jane&amp;#34;&lt;/span>&lt;span class="o">,&lt;/span> &lt;span class="n">35&lt;/span>&lt;span class="o">),&lt;/span>
+&lt;span class="ln">26&lt;/span> &lt;span class="k">new&lt;/span> &lt;span class="n">Employee&lt;/span>&lt;span class="o">(&lt;/span>&lt;span class="n">4&lt;/span>&lt;span class="o">,&lt;/span> &lt;span class="s">&amp;#34;Bob&amp;#34;&lt;/span>&lt;span class="o">,&lt;/span> &lt;span class="n">26&lt;/span>&lt;span class="o">)&lt;/span>
+&lt;span class="ln">27&lt;/span> &lt;span class="o">);&lt;/span>
+&lt;span class="ln">28&lt;/span>
+&lt;span class="ln">29&lt;/span> &lt;span class="kt">long&lt;/span> &lt;span class="n">count&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">listOfEmployees&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="na">stream&lt;/span>&lt;span class="o">().&lt;/span>&lt;span class="na">count&lt;/span>&lt;span class="o">();&lt;/span>
+&lt;span class="ln">30&lt;/span> &lt;span class="n">System&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="na">out&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="na">println&lt;/span>&lt;span class="o">(&lt;/span>&lt;span class="s">&amp;#34;There are &amp;#34;&lt;/span> &lt;span class="o">+&lt;/span> &lt;span class="n">count&lt;/span> &lt;span class="o">+&lt;/span> &lt;span class="s">&amp;#34; employees in office&amp;#34;&lt;/span>&lt;span class="o">);&lt;/span>
+&lt;span class="ln">31&lt;/span>
+&lt;span class="ln">32&lt;/span> &lt;span class="n">System&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="na">out&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="na">println&lt;/span>&lt;span class="o">(&lt;/span>&lt;span class="s">&amp;#34;========= Employee Detaills =======&amp;#34;&lt;/span>&lt;span class="o">);&lt;/span>
+&lt;span class="ln">33&lt;/span> &lt;span class="n">listOfEmployees&lt;/span>
+&lt;span class="ln">34&lt;/span> &lt;span class="o">.&lt;/span>&lt;span class="na">stream&lt;/span>&lt;span class="o">()&lt;/span>
+&lt;span class="ln">35&lt;/span> &lt;span class="o">.&lt;/span>&lt;span class="na">forEach&lt;/span>&lt;span class="o">(&lt;/span>&lt;span class="n">eachEmployee&lt;/span> &lt;span class="o">-&amp;gt;&lt;/span> &lt;span class="o">{&lt;/span>
+&lt;span class="ln">36&lt;/span> &lt;span class="n">System&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="na">out&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="na">println&lt;/span>&lt;span class="o">(&lt;/span>&lt;span class="n">eachEmployee&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="na">toString&lt;/span>&lt;span class="o">());&lt;/span>
+&lt;span class="ln">37&lt;/span> &lt;span class="o">});&lt;/span>
+&lt;span class="ln">38&lt;/span>
+&lt;span class="ln">39&lt;/span> &lt;span class="n">Integer&lt;/span> &lt;span class="n">combinedAgeOfCompany&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">listOfEmployees&lt;/span>
+&lt;span class="ln">40&lt;/span> &lt;span class="o">.&lt;/span>&lt;span class="na">stream&lt;/span>&lt;span class="o">()&lt;/span>
+&lt;span class="ln">41&lt;/span> &lt;span class="o">.&lt;/span>&lt;span class="na">map&lt;/span>&lt;span class="o">(&lt;/span>&lt;span class="n">Employee&lt;/span>&lt;span class="o">::&lt;/span>&lt;span class="n">getAge&lt;/span>&lt;span class="o">)&lt;/span>
+&lt;span class="ln">42&lt;/span> &lt;span class="o">.&lt;/span>&lt;span class="na">reduce&lt;/span>&lt;span class="o">((&lt;/span>&lt;span class="n">firstAge&lt;/span>&lt;span class="o">,&lt;/span> &lt;span class="n">secondAge&lt;/span>&lt;span class="o">)&lt;/span> &lt;span class="o">-&amp;gt;&lt;/span> &lt;span class="n">firstAge&lt;/span> &lt;span class="o">+&lt;/span> &lt;span class="n">secondAge&lt;/span>&lt;span class="o">)&lt;/span>
+&lt;span class="ln">43&lt;/span> &lt;span class="o">.&lt;/span>&lt;span class="na">get&lt;/span>&lt;span class="o">();&lt;/span>
+&lt;span class="ln">44&lt;/span>
+&lt;span class="ln">45&lt;/span> &lt;span class="n">System&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="na">out&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="na">println&lt;/span>&lt;span class="o">(&lt;/span>&lt;span class="s">&amp;#34;Combined Age of Company is &amp;#34;&lt;/span> &lt;span class="o">+&lt;/span> &lt;span class="n">combinedAgeOfCompany&lt;/span>&lt;span class="o">);&lt;/span>
+&lt;span class="ln">46&lt;/span> &lt;span class="o">}&lt;/span>
+&lt;span class="ln">47&lt;/span>&lt;span class="o">}&lt;/span>
+&lt;/code>&lt;/pre>&lt;/div>&lt;h3 id="collect">collect()&lt;/h3>
+&lt;p>It is the most widely used terminal operation on stream. It takes Collector as an input and returns collection in various formats.
+We would be going to see the collection with most of the use cases in the next another series with the name &lt;a href="https://programming4ninja.github.io/java8streamingapiexample">&amp;quot;Java 8 Streaming API Examples&amp;quot;&lt;/a>. So we keep this topic for the new blog series&lt;/p>
+&lt;p>I hope you have enjoyed this tutorial. Please let me know your comments, suggestion, and improvements I will try to improve my blog.&lt;/p>
+&lt;p>Till then, Good Bye Happy Coding !!!&lt;/p>
+&lt;p>&lt;a href="https://programming4ninja.github.io/exploringjava8/chapter7/">&amp;lt;&amp;lt; Chapter 7 : Internal working of Streams&lt;/a>&lt;/p></description></item></channel></rss>
