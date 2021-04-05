@@ -6,11 +6,11 @@ It is the way you write code.&lt;/p>
 &lt;h3 id="so-what-you-are-going-to-learn-in-this-series-">So what you are going to learn in this series ?&lt;/h3>
 &lt;ul>
 &lt;li>&lt;a href="https://programming4ninja.github.io/exploringjava8/chapter2/">Lambda in Java&lt;/a>&lt;/li>
-&lt;li>Functional Interfaces&lt;/li>
-&lt;li>Method and Constructor Reference&lt;/li>
-&lt;li>Streams API&lt;/li>
-&lt;li>Optionals&lt;/li>
-&lt;li>New Date/Time API&lt;/li>
+&lt;li>&lt;a href="https://programming4ninja.github.io/exploringjava8/chapter3/">Functional Interfaces&lt;/a>&lt;/li>
+&lt;li>&lt;a href="https://programming4ninja.github.io/exploringjava8/chapter4/">Method and Constructor Reference&lt;/a>&lt;/li>
+&lt;li>&lt;a href="https://programming4ninja.github.io/exploringjava8/chapter5/">Streams API&lt;/a>&lt;/li>
+&lt;li>&lt;a href="https://programming4ninja.github.io/exploringjava8/chapter9/">Optionals&lt;/a>&lt;/li>
+&lt;li>&lt;a href="https://programming4ninja.github.io/exploringjava8/chapter10/">New Date/Time API&lt;/a>&lt;/li>
 &lt;/ul>
 &lt;h3 id="few-words-about-imperative-vs-declarative-programming">Few words about Imperative vs Declarative Programming&lt;/h3>
 &lt;ul>
