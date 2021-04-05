@@ -8,6 +8,6 @@ copyright = "Copyright © 2008–2018, Programming 4 Ninja; all rights reserved.
 paginate = 10
 theme = "hugo-clarity"
 
-disqusShortname = ""
+disqusShortname = "Programming4Ninja"
 
 DefaultContentLanguage = "en"
