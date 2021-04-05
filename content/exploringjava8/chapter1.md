@@ -13,11 +13,11 @@ It is the way you write code.
 
 ### So what you are going to learn in this series ?
 * [Lambda in Java](/exploringjava8/chapter2/)
-* Functional Interfaces
-* Method and Constructor Reference
-* Streams API
-* Optionals
-* New Date/Time API
+* [Functional Interfaces](/exploringjava8/chapter3/)
+* [Method and Constructor Reference](/exploringjava8/chapter4/)
+* [Streams API](/exploringjava8/chapter5/)
+* [Optionals](/exploringjava8/chapter9/)
+* [New Date/Time API](/exploringjava8/chapter10/)
 
 ### Few words about Imperative vs Declarative Programming
 
