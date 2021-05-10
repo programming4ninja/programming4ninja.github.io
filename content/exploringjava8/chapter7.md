@@ -1,5 +1,5 @@
 ---
-title: "Chapter 7 : Internal working of Streams"
+title: "Exploring Java 8/7 : Internal working of Streams"
 description: "java 8 streams api; java 8 streams api internal working with graphical representation; step by step working of java 8 streams"
 date: 2021-04-01T00:06:45+05:30
 weight: 7

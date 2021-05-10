@@ -1,5 +1,5 @@
 ---
-title: "Chapter 5 : Introduction to Streams API"
+title: "Exploring Java 8/5 : Introduction to Streams API"
 description: "introduction to java 8 streams api with example"
 date: 2021-04-01T00:06:39+05:30
 weight: 5

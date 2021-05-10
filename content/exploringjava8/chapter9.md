@@ -1,5 +1,5 @@
 ---
-title: "Chapter 9 : Optionals in Java"
+title: "Exploring Java 8/9 : Optionals in Java"
 description: "Java 8 Optional class example; java how to avoid null pointer exception"
 date: 2021-04-03T23:55:13+05:30
 draft: true

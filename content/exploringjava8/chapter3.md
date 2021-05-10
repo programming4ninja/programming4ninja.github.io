@@ -1,5 +1,5 @@
 ---
-title: "Chapter 3 : Functional Interface"
+title: "Exploring Java 8/3 : Functional Interface"
 description: "functional interface in java 8; need for a functional interface; declaring our own functional interface; usage of consumer, predicate, supplier and function a functional interface in java 8 with example"
 date: 2021-04-01T00:06:33+05:30
 weight: 3

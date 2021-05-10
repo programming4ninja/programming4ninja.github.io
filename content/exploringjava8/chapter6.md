@@ -1,5 +1,5 @@
 ---
-title: "Chapter 6 : Intermediate Streams Operations"
+title: "Exploring Java 8/6 : Intermediate Streams Operations"
 description: "Java 8 Streams API; Java 8 Streams API intermediate Operation; Java 8 Streams map, filter, flatMap, distinct, sorted, peek, limit, skip function with example "
 date: 2021-04-01T00:06:41+05:30
 weight: 6

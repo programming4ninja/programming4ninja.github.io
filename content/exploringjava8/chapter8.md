@@ -1,5 +1,5 @@
 ---
-title: "Chapter 8 : Streams terminal functions"
+title: "Exploring Java 8/8 : Streams terminal functions"
 description: "java 8 stream api terminal operation with example; java 8 streaming api terminal function allMatch, anyMatch, noneMatch, count, forEach, min, max, reduce, collect"
 date: 2021-04-02T17:54:51+05:30
 weight: 8

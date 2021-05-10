@@ -1,5 +1,5 @@
 ---
-title: "Chapter 4 : Method & Constructor Reference in Java 8"
+title: "Exploring Java 8/4 : Method & Constructor Reference in Java 8"
 date: 2021-04-01T00:06:36+05:30
 description: "java 8 method reference operator; java 8 constructor reference operator; double colan operator in java 8; :: operator in java 8"
 weight: 4

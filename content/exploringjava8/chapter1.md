@@ -1,5 +1,5 @@
 ---
-title: "Chapter 1 : What's New in Java 8"
+title: "Exploring Java 8/1 : What's New in Java 8"
 date: 2021-03-31T00:53:43+05:30
 weight: 1
 description: "What's new in java 8, list of features available in java 8, java 8 tutorial, java 8 guide with example"
